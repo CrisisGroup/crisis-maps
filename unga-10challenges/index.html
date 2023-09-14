@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<meta charset="utf-8">
+	<title>Global U.S. Sanctions</title>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+	<link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+	<script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/mapbox-gl-animated-popup@v0.3.0/dist/mapbox-gl-animated-popup.min.js"></script>
+	<link rel="stylesheet" href="https://use.typekit.net/zsy2ynr.css">
+	<link href='style.css' rel='stylesheet' />
+
+	<script>
+$(document).ready(function(){
+  $("#mobilemenubtn").click(function(){
+    $(".box").slideToggle("slow");
+  });
+});
+</script>
+
+</head>
+<body>
+<!-- Load the `mapbox-gl-geocoder` plugin. -->
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+<div id="mobilemenubtn"> MENU </div>
+<div class="box">
+
+<h1>The Reach of U.S. Sanctions</h1>
+<p id="tagline">This map shows the locations of individuals and entities who are on the U.S. Treasury’s Specially Designated Nationals List. The darker the country, the higher the number of sanctions targets in that country.</p>
+<hr />
+<p id="legend-tagline"><strong>LEGEND</strong></p>
+
+<div class="color-line">
+    <div class="color-part">LOW</div>
+    <div class="color-part">MEDIUM</div>
+    <div class="color-part">HIGH</div>
+</div>
+
+  <button id="toggleButton">Toggle Country Names</button>
+<!-- <ul id="legend">
+<li><div><span style='background-color: hsla(38, 66%, 83%, 0.4); border: solid 1px #fff; border-radius: 100px; width: 15px; height: 15px;'></span>Less than 10</div></li>
+<li><div><span style='background-color: #d6a44c; border: solid 1px #fff; border-radius: 100px; width: 15px; height: 15px;'></span>More than 100</div></li>
+<li><div><span style='background-color: #d6a44c; border: solid 1px #fff; border-radius: 100px; width: 15px; height: 15px;'></span>More than 2,000</div></li>
+</ul> -->
+<nav id="menu"></nav>
+</div>
+<div id="map"></div>
+<div id="mobilemenu"></div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/daltonwb/clmhsm963005u01pd6wrfdrsn',
+    center: [-12.10634, 40.71023],
+    zoom: 3,
+    bearing: 0,
+    projection: 'globe',
+    pitch: 0,
+	maxZoom: 5, 
+    minZoom: 3, 
+    attributionControl: false
+});
+
+map.addControl(
+    new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+    })
+);
+
+map.scrollZoom.disable();
+map.addControl(new mapboxgl.FullscreenControl());
+map.addControl(new mapboxgl.NavigationControl({
+    visualizePitch: true
+}));
+map.addControl(new mapboxgl.AttributionControl({
+    customAttribution: 'International Crisis Group | Data: <a href="https://ofac.treasury.gov/specially-designated-nationals-list-data-formats-data-schemas" target="_blank">U.S. Treasury Department</a>'
+}));
+
+// PASSIVE ROTATION
+map.on('load', () => {
+
+    const center = map.getCenter();
+    const newCenter = [center.lng + 360, center.lat];
+    map.easeTo({
+        center: newCenter,
+        duration: 100000,
+        easing: n => n
+    });
+
+	map.addLayer({
+		id: 'country-label-custom', // Layer ID
+		type: 'symbol',
+		source: 'composite',
+		'source-layer': 'place_label', // Source layer from the "composite" source
+		layout: {
+			'text-field': [
+				"coalesce",
+				["get", "name_en"],
+				["get", "name"]
+			],
+			'visibility': 'none',
+			'text-anchor': 'center',
+			'text-radial-offset': ["step", ["zoom"], 0.6, 8, 0],
+			'text-justify': [
+				"step",
+				["zoom"],
+				[
+					"match",
+					["get", "text_anchor"],
+					[
+						"left",
+						"bottom-left",
+						"top-left"
+					],
+					"left",
+					[
+						"right",
+						"bottom-right",
+						"top-right"
+					],
+					"right",
+					"center"
+				],
+				7,
+				"auto"
+			],
+			'text-max-width': 8,
+			'text-line-height': 1.1,
+			'text-letter-spacing': 0.15,
+			'text-size': [
+				"interpolate",
+				[
+					"cubic-bezier",
+					0.2,
+					0,
+					0.7,
+					1
+				],
+				["zoom"],
+				1,
+				[
+					"step",
+					["get", "symbolrank"],
+					11,
+					4,
+					9,
+					5,
+					8
+				],
+				9,
+				[
+					"step",
+					["get", "symbolrank"],
+					22,
+					4,
+					19,
+					5,
+					17
+				]
+			],
+			'text-font': [
+				"Helvetica Neue LT Pro 750 Italic",
+				"Arial Unicode MS Regular"
+			],
+			'text-transform': 'uppercase',
+		},
+		paint: {
+			'text-color': [
+				"match",
+				["get", "iso_3166_1"],
+				["RU", "IR", "MX"],
+				"#f3bb91",
+				[
+					"GB",
+					"TR",
+					"DE",
+					"SY",
+					"AF",
+					"YE",
+					"CN",
+					"MM",
+					"PK",
+					"VE",
+					"PE",
+					"PA",
+					"BY",
+					"IQ",
+					"UA",
+					"AE",
+					"CO",
+					"TH",
+					"LB",
+					"CY"
+				],
+				"#ffffff",
+				"#be4500"
+			],
+			'text-halo-color': [
+				"match",
+				["get", "iso_3166_1"],
+				["RU", "IR", "MX"],
+				"#be4500",
+				"#f3bb91"
+			],
+			'text-halo-width': 0,
+			'text-halo-blur': 0.1,
+		},
+		filter: [
+			"match",
+			["get", "class"],
+			[
+				"country",
+				"disputed_country"
+			],
+			[
+				"match",
+				["get", "worldview"],
+				["all", "US"],
+				true,
+				false
+			],
+			false
+		]
+	});
+
+	var toggleButton = document.getElementById('toggleButton');
+	toggleButton.addEventListener('click', function () {
+		var layerId = 'country-label-custom'; // Replace with your layer's ID
+		var visibility = map.getLayoutProperty(layerId, 'visibility');
+
+		if (visibility === 'visible') {
+			map.setLayoutProperty(layerId, 'visibility', 'none');
+		} else {
+			map.setLayoutProperty(layerId, 'visibility', 'visible');
+		}
+	});
+
+				/* map.on('click', 'sanctions-layer', (e) => {
+					new AnimatedPopup({
+			            offset: [0, -15],
+									openingAnimation: {
+										duration: 200,
+										easing: 'easeInSine',
+										transform: 'scale'
+									},
+									closingAnimation: {
+										duration: 800,
+										easing: 'easeOutBack',
+										transform: 'opacity'
+									}
+			        })
+					.setLngLat(e.lngLat)
+					.setHTML(`<h4 class="infobox-name">${e.features[0].properties.name}</h4>`)
+					.addTo(map);
+				});
+
+				map.on('click', ['sanctions-layer'], (e) => {
+				    map.flyTo({
+				        center: e.lngLat,
+				        curve: 1.5,
+				        speed: 0.3
+				    });
+				});
+		// Change the cursor to a pointer when
+		// the mouse is over the states layer.
+		map.on('mouseenter', 'sanctions-layer', () => {
+			map.getCanvas().style.cursor = 'pointer';
+		});
+
+		// Change the cursor back to a pointer
+		// when it leaves the states layer.
+		map.on('mouseleave', 'sanctions-layer', () => {
+			map.getCanvas().style.cursor = '';
+		}); */
+
+}); 
+
+
+
+</script>
+
+</body>
+</html>
