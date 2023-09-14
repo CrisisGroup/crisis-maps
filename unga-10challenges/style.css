@@ -206,8 +206,8 @@ p.infobox-dateline {
     border-radius: 50%;
     font-family: 'franklin-gothic-urw', sans-serif;
     font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
+    font-size: 20px;
+    line-height: 24px;
 }
 
 h2 {
@@ -221,7 +221,18 @@ h2 {
     padding: 15px;
     margin-top: 15px;
 }
-  
+
+#loading {
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	z-index: 0;
+	background: #000;
+	opacity: .9;
+	transition: opacity 1s ease-out;
+	pointer-events: none;
+}
 
 .color-line {
     display: flex;
