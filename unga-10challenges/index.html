@@ -11,7 +11,7 @@
 	<script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/mapbox-gl-animated-popup@v0.3.0/dist/mapbox-gl-animated-popup.min.js"></script>
-	<link rel="stylesheet" href="https://use.typekit.net/zsy2ynr.css">
+	<link rel="stylesheet" href="https://use.typekit.net/kjv8sgv.css">
 	<link href='style.css' rel='stylesheet' />
 
 	<script>
@@ -30,8 +30,8 @@ $(document).ready(function(){
 <div id="mobilemenubtn"> MENU </div>
 <div class="box">
 
-<h1>The Reach of U.S. Sanctions</h1>
-<p id="tagline">This map shows the locations of individuals and entities who are on the U.S. Treasury’s Specially Designated Nationals List. The darker the country, the higher the number of sanctions targets in that country.</p>
+<h1>WHAT <span style="color:#000;">CONFLICTS</span> SHOULD THE UNGA LOOK AT?</h1>
+<!-- <p id="tagline">This map shows the locations of individuals and entities who are on the U.S. Treasury’s Specially Designated Nationals List. The darker the country, the higher the number of sanctions targets in that country.</p>
 <hr />
 <p id="legend-tagline"><strong>LEGEND</strong></p>
 
@@ -41,7 +41,7 @@ $(document).ready(function(){
     <div class="color-part">HIGH</div>
 </div>
 
-  <button id="toggleButton">Toggle Country Names</button>
+  <button id="toggleButton">Toggle Country Names</button> -->
 <!-- <ul id="legend">
 <li><div><span style='background-color: hsla(38, 66%, 83%, 0.4); border: solid 1px #fff; border-radius: 100px; width: 15px; height: 15px;'></span>Less than 10</div></li>
 <li><div><span style='background-color: #d6a44c; border: solid 1px #fff; border-radius: 100px; width: 15px; height: 15px;'></span>More than 100</div></li>
@@ -50,6 +50,24 @@ $(document).ready(function(){
 <nav id="menu"></nav>
 </div>
 <div id="map"></div>
+<div id="ukraine" class="custom-marker">The UN should continue aiding suffering populations while preserving options to
+	ease the fighting or end the war if conditions change.<h2>Ukraine</h2>
+</div>
+<div id="afghan" class="custom-marker">The UN should continue aiding suffering populations while preserving options to
+	ease the fighting or end the war if conditions change.<h2>Afghanistan</h2>
+</div>
+<div id="sudan" class="custom-marker">The UN should continue aiding suffering populations while preserving options to
+	ease the fighting or end the war if conditions change.<h2>Sudan</h2>
+</div>
+<div id="southSudan" class="custom-marker">The UN should continue aiding suffering populations while preserving options
+	to ease the fighting or end the war if conditions change.<h2>South Sudan</h2>
+</div>
+<div id="mali" class="custom-marker">The UN should continue aiding suffering populations while preserving options
+	to ease the fighting or end the war if conditions change.<h2>Mali</h2>
+</div>
+<div id="haiti" class="custom-marker">The UN should continue aiding suffering populations while preserving options
+	to ease the fighting or end the war if conditions change.<h2>Haiti</h2>
+</div>
 <div id="mobilemenu"></div>
 
 <script>
@@ -80,7 +98,7 @@ map.addControl(new mapboxgl.NavigationControl({
     visualizePitch: true
 }));
 map.addControl(new mapboxgl.AttributionControl({
-    customAttribution: 'International Crisis Group | Data: <a href="https://ofac.treasury.gov/specially-designated-nationals-list-data-formats-data-schemas" target="_blank">U.S. Treasury Department</a>'
+    customAttribution: 'International Crisis Group | Data: <a href="https://ofac.treasury.gov/specially-designated-nationals-list-data-formats-data-schemas" target="_blank">Crisis Group</a>'
 }));
 
 // PASSIVE ROTATION
@@ -94,153 +112,24 @@ map.on('load', () => {
         easing: n => n
     });
 
-	map.addLayer({
-		id: 'country-label-custom', // Layer ID
-		type: 'symbol',
-		source: 'composite',
-		'source-layer': 'place_label', // Source layer from the "composite" source
-		layout: {
-			'text-field': [
-				"coalesce",
-				["get", "name_en"],
-				["get", "name"]
-			],
-			'visibility': 'none',
-			'text-anchor': 'center',
-			'text-radial-offset': ["step", ["zoom"], 0.6, 8, 0],
-			'text-justify': [
-				"step",
-				["zoom"],
-				[
-					"match",
-					["get", "text_anchor"],
-					[
-						"left",
-						"bottom-left",
-						"top-left"
-					],
-					"left",
-					[
-						"right",
-						"bottom-right",
-						"top-right"
-					],
-					"right",
-					"center"
-				],
-				7,
-				"auto"
-			],
-			'text-max-width': 8,
-			'text-line-height': 1.1,
-			'text-letter-spacing': 0.15,
-			'text-size': [
-				"interpolate",
-				[
-					"cubic-bezier",
-					0.2,
-					0,
-					0.7,
-					1
-				],
-				["zoom"],
-				1,
-				[
-					"step",
-					["get", "symbolrank"],
-					11,
-					4,
-					9,
-					5,
-					8
-				],
-				9,
-				[
-					"step",
-					["get", "symbolrank"],
-					22,
-					4,
-					19,
-					5,
-					17
-				]
-			],
-			'text-font': [
-				"Helvetica Neue LT Pro 750 Italic",
-				"Arial Unicode MS Regular"
-			],
-			'text-transform': 'uppercase',
-		},
-		paint: {
-			'text-color': [
-				"match",
-				["get", "iso_3166_1"],
-				["RU", "IR", "MX"],
-				"#f3bb91",
-				[
-					"GB",
-					"TR",
-					"DE",
-					"SY",
-					"AF",
-					"YE",
-					"CN",
-					"MM",
-					"PK",
-					"VE",
-					"PE",
-					"PA",
-					"BY",
-					"IQ",
-					"UA",
-					"AE",
-					"CO",
-					"TH",
-					"LB",
-					"CY"
-				],
-				"#ffffff",
-				"#be4500"
-			],
-			'text-halo-color': [
-				"match",
-				["get", "iso_3166_1"],
-				["RU", "IR", "MX"],
-				"#be4500",
-				"#f3bb91"
-			],
-			'text-halo-width': 0,
-			'text-halo-blur': 0.1,
-		},
-		filter: [
-			"match",
-			["get", "class"],
-			[
-				"country",
-				"disputed_country"
-			],
-			[
-				"match",
-				["get", "worldview"],
-				["all", "US"],
-				true,
-				false
-			],
-			false
-		]
-	});
-
-	var toggleButton = document.getElementById('toggleButton');
-	toggleButton.addEventListener('click', function () {
-		var layerId = 'country-label-custom'; // Replace with your layer's ID
-		var visibility = map.getLayoutProperty(layerId, 'visibility');
-
-		if (visibility === 'visible') {
-			map.setLayoutProperty(layerId, 'visibility', 'none');
-		} else {
-			map.setLayoutProperty(layerId, 'visibility', 'visible');
-		}
-	});
+	var ukraine = new mapboxgl.Marker({ element: document.getElementById('ukraine'), anchor: 'bottom-left' })
+		.setLngLat([31.374019, 49.652727]) // Coordinates to anchor the element
+		.addTo(map);
+	var afghan = new mapboxgl.Marker({ element: document.getElementById('afghan'), anchor: 'bottom-left' })
+		.setLngLat([66.019723, 33.846664]) // Coordinates to anchor the element
+		.addTo(map);
+	var sudan = new mapboxgl.Marker({ element: document.getElementById('sudan'), anchor: 'bottom-left' })
+		.setLngLat([30.025771, 17.62436]) // Coordinates to anchor the element
+		.addTo(map);
+	var southSudan = new mapboxgl.Marker({ element: document.getElementById('southSudan'), anchor: 'bottom-right' })
+		.setLngLat([30.025771, 17.62436]) // Coordinates to anchor the element
+		.addTo(map);
+	var mali = new mapboxgl.Marker({ element: document.getElementById('mali'), anchor: 'bottom-left' })
+		.setLngLat([-1.696222, 18.066419]) // Coordinates to anchor the element
+		.addTo(map);
+	var haiti = new mapboxgl.Marker({ element: document.getElementById('haiti'), anchor: 'top-right' })
+		.setLngLat([-72.649713, 19.090991]) // Coordinates to anchor the element
+		.addTo(map);
 
 				/* map.on('click', 'sanctions-layer', (e) => {
 					new AnimatedPopup({
