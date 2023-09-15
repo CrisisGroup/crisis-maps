@@ -72,8 +72,8 @@
 	<div id="southSudan" class="custom-marker"><h2>South Sudan</h2>The UN will need to decide whether to support the upcoming elections, and
 		how to prevent and mitigate any potential unrest.
 	</div>
-	<div id="mali" class="custom-marker">The UN will need to look for limited political openings after peacekeepers
-		leave, but should not abandon Mali altogether.<h2>Mali</h2>
+	<div id="mali" class="custom-marker"><h2>Mali</h2>The UN will need to look for limited political openings after peacekeepers
+		leave, but should not abandon Mali altogether.| <a href="https://www.crisisgroup.org">Read More</a>
 	</div>
 	<div id="haiti" class="custom-marker"><h2>Haiti</h2>The Security Council should help Haiti resolve its political crisis and
 		mandate a new security support mission.
@@ -154,7 +154,7 @@ document.getElementById('map').style.display = 'block';
 			var southSudan = new mapboxgl.Marker({ element: document.getElementById('southSudan'), anchor: 'top-right', offset: [0, -20], })
 				.setLngLat([29.883169, 7.166656]) // Coordinates to anchor the element
 				.addTo(map);
-			var mali = new mapboxgl.Marker({ element: document.getElementById('mali'), anchor: 'bottom-left', offset: [0, 20], })
+			var mali = new mapboxgl.Marker({ element: document.getElementById('mali'), anchor: 'top-right', offset: [0, -20], })
 				.setLngLat([-1.696222, 18.066419]) // Coordinates to anchor the element
 				.addTo(map);
 			var haiti = new mapboxgl.Marker({ element: document.getElementById('haiti'), anchor: 'top-right', offset: [0, -20], })

@@ -37,11 +37,11 @@ body {
 }
 
 #link {
-    color: #bad879;
+    color: #fff;
 }
 
 a {
-    color: #bad879;
+    color: #fff;
 }
 
 #menu a::before {
@@ -240,6 +240,10 @@ h2 {
 }
 
 #southSudan h2 {
+    border-radius: 0 0 0 24px !important;
+}
+
+#mali h2 {
     border-radius: 0 0 0 24px !important;
 }
 
