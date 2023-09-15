@@ -35,7 +35,7 @@
 	<link rel="stylesheet"
 		href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
 		type="text/css">
-	<div id="mobilemenubtn"> MENU </div>
+	<!-- <div id="mobilemenubtn"> TOGGLE TITLE </div> -->
 	<div class="box">
 
 		<h1>WHAT <span style="color:#000;">CONFLICTS</span> SHOULD THE UNGA LOOK AT?</h1>
@@ -69,14 +69,14 @@
 	<div id="sudan" class="custom-marker">Security Council diplomats should speak up and weigh in behind efforts to end
 		the fighting.<h2>Sudan</h2>
 	</div>
-	<div id="southSudan" class="custom-marker">The UN will need to decide whether to support the upcoming elections, and
-		how to prevent and mitigate any potential unrest.<h2>South Sudan</h2>
+	<div id="southSudan" class="custom-marker"><h2>South Sudan</h2>The UN will need to decide whether to support the upcoming elections, and
+		how to prevent and mitigate any potential unrest.
 	</div>
 	<div id="mali" class="custom-marker">The UN will need to look for limited political openings after peacekeepers
 		leave, but should not abandon Mali altogether.<h2>Mali</h2>
 	</div>
-	<div id="haiti" class="custom-marker">The Security Council should help Haiti resolve its political crisis and
-		mandate a new security support mission.<h2>Haiti</h2>
+	<div id="haiti" class="custom-marker"><h2>Haiti</h2>The Security Council should help Haiti resolve its political crisis and
+		mandate a new security support mission.
 	</div>
 	<div id="unga" class="custom-marker">The U.S. should continue moving reform discussions
 		forward if it wants to convince others that the Council is still a serious platform for discussion.<h2>New York</h2>
@@ -95,12 +95,12 @@ document.getElementById('map').style.display = 'block';
 			container: 'map',
 			style: 'mapbox://styles/daltonwb/clmje1grv046s01qiea1p78ld',
 			center: [-12.10634, 40.71023],
-			zoom: 2.5,
+			zoom: 2,
 			bearing: 0,
 			projection: 'globe',
 			pitch: 0,
-			maxZoom: 4,
-			minZoom: 2.5,
+			maxZoom: 3,
+			minZoom: 2,
 			attributionControl: false
 		});
 
@@ -151,13 +151,13 @@ document.getElementById('map').style.display = 'block';
 			var sudan = new mapboxgl.Marker({ element: document.getElementById('sudan'), anchor: 'bottom-left', offset: [0, 20], })
 				.setLngLat([30.025771, 17.62436]) // Coordinates to anchor the element
 				.addTo(map);
-			var southSudan = new mapboxgl.Marker({ element: document.getElementById('southSudan'), anchor: 'top-left', offset: [0, 20], })
+			var southSudan = new mapboxgl.Marker({ element: document.getElementById('southSudan'), anchor: 'top-right', offset: [0, -20], })
 				.setLngLat([29.883169, 7.166656]) // Coordinates to anchor the element
 				.addTo(map);
 			var mali = new mapboxgl.Marker({ element: document.getElementById('mali'), anchor: 'bottom-left', offset: [0, 20], })
 				.setLngLat([-1.696222, 18.066419]) // Coordinates to anchor the element
 				.addTo(map);
-			var haiti = new mapboxgl.Marker({ element: document.getElementById('haiti'), anchor: 'bottom-left', offset: [0, 20], })
+			var haiti = new mapboxgl.Marker({ element: document.getElementById('haiti'), anchor: 'top-right', offset: [0, -20], })
 				.setLngLat([-72.649713, 19.090991]) // Coordinates to anchor the element
 				.addTo(map);
 			var unga = new mapboxgl.Marker({ element: document.getElementById('unga'), anchor: 'bottom-left', offset: [0, 20], })

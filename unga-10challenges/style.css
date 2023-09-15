@@ -114,16 +114,29 @@ h1 {
     font-weight: 900;
     font-size: 94px;
     line-height: 74px;
-    padding: 0;
+    padding: 10% 0 0 10%;
     margin: 0;
     text-align: left;
     letter-spacing: .02em;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 1440px) {
     h1 {
-        font-size: 18px;
-        width: 90%;
+        font-size: 72px;
+        line-height: 60px;
+    }
+}
+
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 54px;
+        line-height: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        display: none;
     }
 }
 
@@ -212,14 +225,22 @@ p.infobox-dateline {
 
 h2 {
     font-family: 'franklin-gothic-urw', sans-serif;
-    color: #fff;
-    font-size: 18px;
+    color: #e87722;
+    font-size: 22px;
     margin-top: 0;
     font-weight: 700;
     background-color: #000;
     border-radius: 0 0 24px 0;
     padding: 15px;
     margin-top: 15px;
+}
+
+#haiti h2 {
+    border-radius: 0 0 0 24px !important;
+}
+
+#southSudan h2 {
+    border-radius: 0 0 0 24px !important;
 }
 
 #loading {
