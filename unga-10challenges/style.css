@@ -120,6 +120,13 @@ h1 {
     letter-spacing: .02em;
 }
 
+@media (max-width: 1920px) {
+    h1 {
+        font-size: 64px;
+        line-height: 60px;
+    }
+}
+
 @media (max-width: 1440px) {
     h1 {
         font-size: 72px;
