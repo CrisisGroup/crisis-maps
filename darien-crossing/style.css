@@ -1,0 +1,394 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: black;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#menu {
+    background: #fff;
+    position: relative;
+    z-index: 9999;
+    width: 250px;
+    text-align: left;
+    font-family: 'franklin-gothic-urw', sans-serif;
+    margin-bottom: 30px;
+    text-transform: capitalize;
+}
+
+#menu a {
+    font-size: 13px;
+    color: #404040;
+    display: block;
+    margin: 0;
+    padding: 0;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: left;
+    background: #e1e1e1;
+}
+
+#link {
+    color: #fff;
+}
+
+a {
+    color: #fff;
+}
+
+#menu a::before {
+    content: "☒ ";
+}
+
+#menu a:last-child {
+    border: none;
+}
+
+#menu a:hover {
+    background-color: #f8f8f8;
+    color: #404040;
+}
+
+#menu a.active {
+    background-color: #3887be;
+    color: #ffffff;
+}
+
+#menu a.active::before {
+    content: "☑ ";
+}
+
+#menu a.active:hover {
+    background: #3074a4;
+}
+
+#menu a:visited {
+    color: #f1e0d0;
+}
+
+#mobilemenubtn {
+    opacity: 0;
+}
+
+@media (max-width: 768px) {
+    #mobilemenubtn {
+        background-color: #ff6a69;
+        z-index: 99999999;
+        position: absolute;
+        text-align: center;
+        color: #FFF;
+        width: auto;
+        font-weight: bold;
+        font-family: "franklin-gothic-urw", sans-serif;
+        border-radius: 8px;
+        margin: 10px 0 0 10px;
+        letter-spacing: .1em;
+        padding: 10px;
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .mapboxgl-ctrl-geocoder {
+        width: 80% !important;
+    }
+}
+
+@media (max-width: 320px) {
+    .mapboxgl-ctrl-geocoder {
+        width: 40% !important;
+        min-width: 210px !important;
+    }
+}
+
+h1 {
+    font-family: 'franklin-gothic-urw', sans-serif;
+    font-weight: 900;
+    font-size: 94px;
+    line-height: 74px;
+    padding: 10% 0 0 10%;
+    margin: 0;
+    text-align: left;
+    letter-spacing: .02em;
+}
+
+@media (max-width: 1920px) {
+    h1 {
+        font-size: 64px;
+        line-height: 60px;
+    }
+}
+
+@media (max-width: 1440px) {
+    h1 {
+        font-size: 72px;
+        line-height: 60px;
+    }
+}
+
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 54px;
+        line-height: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        display: none;
+    }
+}
+
+
+hr {
+    height: 5px;
+    width: 30px;
+    text-align: left;
+    background-color: #fff;
+    border: none;
+    margin: 0;
+}
+
+h4.infobox-name {
+    font-size: 32px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: 'franklin-gothic-urw', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.4em;
+    letter-spacing: 0.05em;
+    color: #b8b7ba;
+}
+
+h4.infobox-date {
+    font-size: 20px;
+    margin-bottom: 10px;
+    display: inline;
+    font-family: 'franklin-gothic-urw', sans-serif;
+}
+
+p.infobox-dateline {
+    margin: 0;
+    display: inline;
+    font-family: 'franklin-gothic-urw', sans-serif;
+    font-size: 18px;
+}
+
+
+
+#floatleft {
+    float: left;
+}
+
+#tagline {
+    vertical-align: middle;
+    color: #fff;
+    width: 380px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+#legend-tagline {
+    vertical-align: middle;
+    color: #fff;
+    width: 270px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    font-style: italic;
+}
+
+#legend-instruct {
+    color: #fff;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.2;
+    width: 200px;
+}
+
+.custom-marker {
+    position: absolute;
+    width: 200px;
+    background-color: none;
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 50%;
+    font-family: 'franklin-gothic-urw', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+h2 {
+    font-family: 'franklin-gothic-urw', sans-serif;
+    color: #e87722;
+    font-size: 22px;
+    margin-top: 0;
+    font-weight: 700;
+    background-color: #000;
+    border-radius: 0 0 24px 0;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+#haiti h2 {
+    border-radius: 0 0 0 24px !important;
+}
+
+#southSudan h2 {
+    border-radius: 0 0 0 24px !important;
+}
+
+#mali h2 {
+    border-radius: 0 0 0 24px !important;
+}
+
+#loading {
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	z-index: 0;
+	background: #000;
+	opacity: .9;
+	transition: opacity 1s ease-out;
+	pointer-events: none;
+}
+
+.color-line {
+    display: flex;
+    height: 20px; /* Adjust the height as needed */
+    width: 100%; /* Set the line width */
+  }
+
+  .color-part {
+    flex: 1;
+    height: 100%;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .color-part:nth-child(1) {
+    background-color: #f3bb91;
+    color: #be4500;
+  }
+
+  .color-part:nth-child(2) {
+    background-color: #e87722;
+    color: #fff;
+  }
+
+  .color-part:nth-child(3) {
+    background-color: #be4500;
+    color: #f3bb91;
+  }
+
+  #toggleButton {
+    border-radius: 10px;
+    font-family: 'franklin-gothic-urw';
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 10px;
+    background-color: #383d44;
+    color: #fff;
+    margin-top: 30px;
+}
+
+.box {
+    background: none;
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    z-index: 1;
+    font-family: 'franklin-gothic-urw', sans-serif;
+    color: #fff;
+    width: 30%;
+}
+
+@media (max-width: 768px) {
+    .box {
+        bottom: 0;
+        position: fixed;
+        top: auto;
+        left: auto;
+        width: 100%;
+        border-radius: 0;
+    }
+}
+
+ul {
+    list-style-type: square;
+}
+
+#legend div span {
+    display: inline-block;
+    height: 10px;
+    width: 30px;
+    margin-right: 5px;
+}
+
+.mapboxgl-popup-content {
+    position: relative;
+    background: #111923;
+    border-radius: 30px;
+    border: solid .75px #fff;
+    box-shadow: 0 1px 30px rgb(0 0 0 / 25%);
+    padding: 20px;
+    cursor: pointer;
+    color: #ffffff;
+    width: 300px;
+}
+
+.mapboxgl-popup-close-button {
+    border: 0;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 20px;
+    background: #BAD879;
+    float: right;
+    margin: -25px;
+    color: white;
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+    align-self: center;
+    border-bottom: none;
+    border-top-color: #fff;
+}
+
+.threat-vectors {
+    font-family: 'franklin-gothic-urw', sans-serif;
+    font-size: 18px;
+    margin-top: 10px;
+    width: auto;
+}
+
+#mapInset {
+    height: 180px;
+    width: 250px;
+    max-width: 100%;
+    z-index: 1;
+    opacity: 1;
+    cursor: none;
+    border: solid .5px #ccc;
+}
+
+#mapInset .mapboxgl-ctrl-bottom-left {
+    display: none;
+}
+
+#legend {
+    list-style-type: none;
+    padding-left: 0;
+}
