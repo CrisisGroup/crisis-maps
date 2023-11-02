@@ -63,7 +63,7 @@
 	</div>
 	<div id="sudan" class="custom-marker">Canoe trip along the river. <h2>Bajo Chiquito | ~$25 USD</h2>
 	</div>
-	<div id="southSudan" class="custom-marker"><h2>Lajas Blancas | ~$60 USD</h2>Bus trip to Costa Rica's border
+	<div id="southSudan" class="custom-marker">Bus trip to Costa Rica's border <h2>Lajas Blancas | ~$60 USD</h2>
 	</div>
 </div>
 	<div id="mobilemenu"></div>
@@ -164,7 +164,7 @@ document.getElementById('map').style.display = 'block';
 						map.setPaintProperty("road-draw-line", "line-gradient", [
 							"step",
 							["line-progress"],
-							"red",
+							"#e87722",
 							animationPhase,
 							"rgba(0, 0, 0, 0)"
 						]);
@@ -224,10 +224,10 @@ document.getElementById('map').style.display = 'block';
 				const el = document.createElement('div');
 				el.className = 'circle-marker';
 				// Apply custom styling to the circle element (black circle with white stroke)
-				el.style.width = '25px';
-				el.style.height = '25px';
-				el.style.backgroundColor = 'black';
-				el.style.border = '1px solid white'; // 1px white stroke
+				el.style.width = '20px';
+				el.style.height = '20px';
+				el.style.backgroundColor = '#e87722';
+				el.style.border = '2px solid white'; // 1px white stroke
 				el.style.borderRadius = '50%';
 				return el;
 			}
