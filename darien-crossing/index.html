@@ -22,23 +22,23 @@
 
 	<div class="box">
 
-		<h1>CROSSING THE <span style="color:#e87722;">DARIEN</span></h1>
+		<h1>CROSSING THE <span style="color:#e87722;">DARIÉN</span></h1>
 		
 		<nav id="menu"></nav>
 	</div>
 	<div id="map"></div>
 	<div id="loading">
-	<div id="ukraine" class="custom-marker"><h2>Boat trip across the sea | Necoclí | ~$40 USD</h2>
+	<div id="ukraine" class="custom-marker"><h2>Boat trip across the sea | Necoclí | <span style="color: #e87722;">~$40 USD</span></h2>
 	</div>
-	<div id="afghan" class="custom-marker"><h2>Trip through the jungle to Panamá's border. | Acandí | ~$160 USD </h2>
+	<div id="afghan" class="custom-marker"><h2>Trip through the jungle to Panamá's border. | Acandí | <span style="color: #e87722;">~$160 USD</span> </h2>
 	</div>
-	<div id="sudan" class="custom-marker"><h2>Canoe trip along the river. | Bajo Chiquito | ~$25 USD</h2>
+	<div id="sudan" class="custom-marker"><h2>Canoe trip along the river. | Bajo Chiquito | <span style="color: #e87722;">~$25 USD</span></h2>
 	</div>
-	<div id="southSudan" class="custom-marker"><h2>Bus trip to Costa Rica's border. | Lajas Blancas | ~$60 USD</h2>
+	<div id="southSudan" class="custom-marker"><h2>Bus trip to Costa Rica's border. | Lajas Blancas | <span style="color: #e87722;">~$60 USD</span></h2>
 	</div>
 </div>
 	<div id="mobilemenu"></div>
-
+	<div id="mapInset"></div>
 	<script>
 		document.getElementById('loading').style.display = 'none';
 
@@ -61,6 +61,81 @@ document.getElementById('map').style.display = 'block';
 			attributionControl: false
 		});
 
+		const insetMap = new mapboxgl.Map({
+		container: 'mapInset', // container id
+		style: 'mapbox://styles/daltonwb/cloimyix8003101qsgjpifqkf', //hosted style id
+		center: [-77.77956, 8.32529],
+		zoom: 3, 
+		hash: false,
+		interactive: false,
+		projection: 'globe',
+		attributionControl: false
+	});
+
+	insetMap.on('load', () => {
+
+			insetMap.addSource('boundsSource', {
+				'type': 'geojson',
+				'data': {
+					"type": "FeatureCollection",
+					"features": [
+						{
+							"type": "Feature",
+							"properties": {},
+							"geometry": {
+								"coordinates": [
+									[
+										[
+											-83.05701684568346,
+											12.035449926938696
+										],
+										[
+											-83.05701684568346,
+											4.1710695998210525
+										],
+										[
+											-72.34361579540905,
+											4.1710695998210525
+										],
+										[
+											-72.34361579540905,
+											12.035449926938696
+										],
+										[
+											-83.05701684568346,
+											12.035449926938696
+										]
+									]
+								],
+								"type": "Polygon"
+							}
+						}
+					]
+				}
+			});
+
+			insetMap.addLayer({
+				'id': 'boundsLayer',
+				'type': 'fill',
+				'source': 'boundsSource', // reference the data source
+				'layout': {},
+				'paint': {
+					'fill-color': '#ccc', // blue color fill
+					'fill-opacity': 0.4
+				}
+			});
+			// // Add a black outline around the polygon.
+			insetMap.addLayer({
+				'id': 'outlineLayer',
+				'type': 'line',
+				'source': 'boundsSource',
+				'layout': {},
+				'paint': {
+					'line-color': '#fff',
+					'line-width': 1
+				}
+			});
+		});
 
 		map.addControl(new mapboxgl.NavigationControl());
 		map.addControl(new mapboxgl.FullscreenControl());

@@ -110,8 +110,9 @@ a {
 }
 
 h1 {
-    font-family: 'franklin-gothic-urw', sans-serif;
-    font-weight: 900;
+    font-family: "franklin-gothic-urw-cond", sans-serif;
+    font-weight: 700;
+    font-style: normal;
     font-size: 94px;
     line-height: 74px;
     padding: 10% 0 0 10%;
@@ -266,6 +267,27 @@ h2 {
 	pointer-events: none;
 }
 
+#mapInset {
+    top: 25px;
+    left: 25px;
+    height: 180px;
+    width:250px;
+    max-width:100%;
+    position: fixed;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+}
+#mapInset .mapboxgl-ctrl-bottom-left{
+    display: none;
+}
+@media (max-width: 500px) {
+    #mapInset {
+        display: none;
+    }
+}
+
 .color-line {
     display: flex;
     height: 20px; /* Adjust the height as needed */
@@ -309,11 +331,11 @@ h2 {
     background: none;
     position: absolute;
     bottom: 40px;
-    left: 10px;
+    left: 0;
     z-index: 1;
     font-family: 'franklin-gothic-urw', sans-serif;
     color: #fff;
-    width: 30%;
+    width: 45%;
 }
 
 @media (max-width: 768px) {
