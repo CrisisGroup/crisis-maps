@@ -16,54 +16,25 @@
 		<link rel="stylesheet" href="https://use.typekit.net/kjv8sgv.css">
 		<link href='style.css' rel='stylesheet' />
 
-<!-- 		<script>
-			$(document).ready(function () {
-				$("#mobilemenubtn").click(function () {
-					$(".box").slideToggle("slow");
-				});
-			});
-		</script> -->
-
 	</head>
 
 <body>
-	<!-- Load the `mapbox-gl-geocoder` plugin. -->
-<!-- 	<script
-		src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
-	<link rel="stylesheet"
-		href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
-		type="text/css"> -->
-	<!-- <div id="mobilemenubtn"> TOGGLE TITLE </div> -->
+
 	<div class="box">
 
 		<h1>CROSSING THE <span style="color:#e87722;">DARIEN</span></h1>
-		<!-- <p id="tagline">This map shows the locations of individuals and entities who are on the U.S. Treasury’s Specially Designated Nationals List. The darker the country, the higher the number of sanctions targets in that country.</p>
-<hr />
-<p id="legend-tagline"><strong>LEGEND</strong></p>
-
-<div class="color-line">
-    <div class="color-part">LOW</div>
-    <div class="color-part">MEDIUM</div>
-    <div class="color-part">HIGH</div>
-</div>
-
-  <button id="toggleButton">Toggle Country Names</button> -->
-		<!-- <ul id="legend">
-<li><div><span style='background-color: hsla(38, 66%, 83%, 0.4); border: solid 1px #fff; border-radius: 100px; width: 15px; height: 15px;'></span>Less than 10</div></li>
-<li><div><span style='background-color: #d6a44c; border: solid 1px #fff; border-radius: 100px; width: 15px; height: 15px;'></span>More than 100</div></li>
-<li><div><span style='background-color: #d6a44c; border: solid 1px #fff; border-radius: 100px; width: 15px; height: 15px;'></span>More than 2,000</div></li>
-</ul> -->
+		
 		<nav id="menu"></nav>
 	</div>
 	<div id="map"></div>
 	<div id="loading">
-	<div id="ukraine" class="custom-marker">Lodging, food and boat trip. <h2>Necoclí | ~$250 USD</h2>
+	<div id="ukraine" class="custom-marker"><h2>Boat trip across the sea | Necoclí | ~$40 USD</h2>
 	</div>
-	<div id="afghan" class="custom-marker"><h2>Acandí | ~$160 USD </h2>Trip through the jungle to Panamá's border.
+	<div id="afghan" class="custom-marker"><h2>Trip through the jungle to Panamá's border. | Acandí | ~$160 USD </h2>
 	</div>
-	<div id="sudan" class="custom-marker">Canoe trip along the river. <h2>Bajo Chiquito | ~$25 USD</h2>
+	<div id="sudan" class="custom-marker"><h2>Canoe trip along the river. | Bajo Chiquito | ~$25 USD</h2>
 	</div>
-	<div id="southSudan" class="custom-marker">Bus trip to Costa Rica's border <h2>Lajas Blancas | ~$60 USD</h2>
+	<div id="southSudan" class="custom-marker"><h2>Bus trip to Costa Rica's border. | Lajas Blancas | ~$60 USD</h2>
 	</div>
 </div>
 	<div id="mobilemenu"></div>
@@ -78,9 +49,9 @@ document.getElementById('map').style.display = 'block';
 		const map = new mapboxgl.Map({
 			container: 'map',
 			style: 'mapbox://styles/daltonwb/clohbaaka000p01p99mri2r96',
-			center: [-77.165798, 7.605015],
 			zoom: 8.59,
 			bearing: 41.60,
+			center: [-77.77956, 8.32529],
 			projection: 'mercator',
 			pitch: 60,
 			maxZoom: 14,
@@ -89,6 +60,7 @@ document.getElementById('map').style.display = 'block';
 			showZoom: true,
 			attributionControl: false
 		});
+
 
 		map.addControl(new mapboxgl.NavigationControl());
 		map.addControl(new mapboxgl.FullscreenControl());
