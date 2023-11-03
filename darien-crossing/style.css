@@ -255,6 +255,10 @@ h2 {
     border-radius: 0 0 0 24px !important;
 }
 
+#sudan h2 {
+    border-radius: 0 0 0 24px !important;
+}
+
 #loading {
 	top: 0;
 	height: 100vh;
