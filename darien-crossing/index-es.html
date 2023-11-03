@@ -138,6 +138,7 @@ insetMap.on('load', () => {
 	});
 
 	map.addControl(new mapboxgl.NavigationControl());
+	map.scrollZoom.disable();
 	map.addControl(new mapboxgl.FullscreenControl());
 	map.addControl(new mapboxgl.AttributionControl({
 		customAttribution: 'International Crisis Group | Map: Paul Franz and Claire Boccon-Gibod'
