@@ -243,6 +243,24 @@ h2 {
     margin-top: 15px;
 }
 
+#startAnimationButton {
+    width: 250px;
+    max-width: 100%;
+    z-index: 1;
+    opacity: 1;
+    cursor: pointer;
+    font-family: "franklin-gothic-urw-cond", sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+    background: #007367;
+    border: solid 1px #ccc;
+    left: 25px;
+    color: #fff;
+    top: 230px;
+    padding: 8px;
+}
+
 #haiti h2 {
     border-radius: 0 0 0 24px !important;
 }

@@ -26,6 +26,7 @@
 		
 		<nav id="menu"></nav>
 	</div>
+
 	<div id="map"></div>
 	<div id="loading">
 	<div id="ukraine" class="custom-marker"><h2>Boat trip across the sea | Necoclí <span style="color: #e87722;">~$40 USD</span></h2>
@@ -37,8 +38,11 @@
 	<div id="southSudan" class="custom-marker"><h2>Bus trip to Costa Rica's border | Lajas Blancas <span style="color: #e87722;">~$60 USD</span></h2>
 	</div>
 </div>
+
 	<div id="mobilemenu"></div>
 	<div id="mapInset"></div>
+	<button id="startAnimationButton">Animate Migration Path</button>
+
 	<script>
 		document.getElementById('loading').style.display = 'none';
 
@@ -227,7 +231,6 @@ document.getElementById('map').style.display = 'block';
 			});
 		});
 
-			map.on('style.load', function () {
 				// Define your roadDraw function
 				function roadDraw() {
 					let startTime;
@@ -258,10 +261,12 @@ document.getElementById('map').style.display = 'block';
 
 				// Call roadDraw once the Mapbox style is fully loaded
 				roadDraw();
-			});
 
+				document.getElementById('startAnimationButton').addEventListener('click', roadDraw);
 		// INFOBOXES
 		map.on('load', () => {
+
+			
 
 			const points = [
 				[-76.78767, 8.42717], // Point 1 Necocli
