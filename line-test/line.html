@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Load data from an external GeoJSON file</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiZnJhbnppbmR1c3RyaWVzIiwiYSI6ImNrZXN6bDI0ZDE5ejMycm1yMzQ4YTcxcmkifQ.aL6yg8sRwBFNq_7Trmtw9Q';
+const map = new mapboxgl.Map({
+container: 'map', // container ID
+style: 'mapbox://styles/franzindustries/ckox0180z0zu317qehibd2dew', // style URL
+zoom: 7, // starting zoom
+center: [30.143243, 6.914554] // starting center
+});
+
+map.on('load', () => {
+map.addSource('reach', {
+type: 'geojson',
+// Use a URL for the value for the `data` property.
+data: 'geojson/reach_lines_2017.geojson'
+});
+
+map.addLayer({
+  'id': 'reach-layer',
+  'type': 'line',
+  'source': 'reach',
+  'layout': {
+  'line-join': 'round',
+  'line-cap': 'round'
+  },
+  'paint': {
+  'line-color': 'red',
+  'line-width': 4
+  }
+});
+});
+</script>
+
+</body>
+</html>
