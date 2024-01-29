@@ -4,8 +4,8 @@ body {
 
 .image-container {
     position: relative;
-    width: 695px; /* Set to desired width */
-    height: 695px; /* Set to desired height */
+    width: 690px; /* Set to desired width */
+    height: 690px; /* Set to desired height */
 }
 
 .image-container img {
