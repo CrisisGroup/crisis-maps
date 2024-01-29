@@ -1,3 +1,7 @@
+body {
+    margin: 0;
+}
+
 .image-container {
     position: relative;
     width: 695px; /* Set to desired width */
