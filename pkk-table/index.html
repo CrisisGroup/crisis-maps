@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DataTable with Date Range Filtering</title>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <!-- Include DataTables CSS and JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+    <!-- Include Date Range Picker library -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+</head>
+<body>
+    <!-- Date Range Input -->
+<input type="text" id="dateRange" name="daterange" />
+
+<!-- DataTable -->
+<table id="example" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data rows will be dynamically loaded here -->
+    </tbody>
+</table>
+<script>
+    $(document).ready(function() {
+        var table = $('#example').DataTable({
+            "ajax": "data.json",
+            "columns": [
+                { "data": "date" },
+                { "data": "name" },
+                { "data": "location" },
+                { "data": "value" }
+            ]
+        });
+    
+        $('#dateRange').daterangepicker({
+            locale: {
+              format: 'YYYY-MM-DD'
+            },
+            opens: 'left'
+        }, function(start, end, label) {
+            $.fn.dataTable.ext.search.push(
+                function(settings, data, dataIndex) {
+                    var startDate = start.format('YYYY-MM-DD');
+                    var endDate = end.format('YYYY-MM-DD');
+                    var date = data[0]; // Assuming date is in the first column
+                    return (date >= startDate && date <= endDate);
+                }
+            );
+            table.draw();
+        });
+    
+        $('#dateRange').on('apply.daterangepicker', function(ev, picker) {
+            table.draw();
+        });
+    });
+    </script>
+    </body>
+    </html>
