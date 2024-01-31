@@ -34,16 +34,30 @@
     </tbody>
 </table>
 <script>
-    $(document).ready(function() {
-        var table = $('#example').DataTable({
-            "ajax": "https://crisisgroup.github.io/crisis-maps/pkk-table/data.json",
-            "columns": [
-                { "data": "date" },
-                { "data": "name" },
-                { "data": "location" },
-                { "data": "value" }
-            ]
-        });
+   $(document).ready(function() {
+    // AJAX request to fetch your data
+    $.ajax({
+        url: 'https://crisisgroup.github.io/crisis-maps/pkk-table/data.json', // Replace with the path to your JSON file
+        dataType: 'json',
+        success: function(data) {
+            // Initialize DataTables after data is successfully loaded
+            $('#example').DataTable({
+                "data": data, // Use the loaded data
+                "columns": [
+                    { "data": "date" },
+                    { "data": "name" },
+                    { "data": "location" },
+                    { "data": "value" }
+                ]
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // Handle any errors encountered while loading the data
+            console.error('Error loading data: ' + textStatus, errorThrown);
+        }
+    });
+
+   
     
         $('#dateRange').daterangepicker({
             locale: {
