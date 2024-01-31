@@ -34,34 +34,35 @@
     </tbody>
 </table>
 <script>
-   $(document).ready(function() {
-    // AJAX request to fetch your data
-    $.ajax({
-        url: 'https://crisisgroup.github.io/crisis-maps/pkk-table/data.json', // Replace with the path to your JSON file
-        dataType: 'json',
-        success: function(data) {
-            // Initialize DataTables after data is successfully loaded
-            $('#example').DataTable({
-                "data": data, // Use the loaded data
-                "columns": [
-                    { "data": "date" },
-                    { "data": "name" },
-                    { "data": "location" },
-                    { "data": "value" }
-                ]
-            });
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            // Handle any errors encountered while loading the data
-            console.error('Error loading data: ' + textStatus, errorThrown);
-        }
-    });
-
-   
+    $(document).ready(function() {
+        var table; // Define 'table' in a wider scope
     
+        // AJAX request to fetch your data
+        $.ajax({
+            url: 'https://crisisgroup.github.io/crisis-maps/pkk-table/data.json',
+            dataType: 'json',
+            success: function(data) {
+                // Initialize DataTables after data is successfully loaded
+                table = $('#example').DataTable({
+                    "data": data, // Use the loaded data
+                    "columns": [
+                        { "data": "date" },
+                        { "data": "name" },
+                        { "data": "location" },
+                        { "data": "value" }
+                    ]
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Handle any errors encountered while loading the data
+                console.error('Error loading data: ' + textStatus, errorThrown);
+            }
+        });
+    
+        // Setup the date range picker
         $('#dateRange').daterangepicker({
             locale: {
-              format: 'YYYY-MM-DD'
+                format: 'YYYY-MM-DD'
             },
             opens: 'left'
         }, function(start, end, label) {
@@ -73,13 +74,14 @@
                     return (date >= startDate && date <= endDate);
                 }
             );
-            table.draw();
+            table.draw(); // Now 'table' is accessible here
         });
     
         $('#dateRange').on('apply.daterangepicker', function(ev, picker) {
-            table.draw();
+            table.draw(); // And here as well
         });
     });
     </script>
+    
     </body>
     </html>
