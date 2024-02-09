@@ -18,26 +18,30 @@ h4 {
 /* Container for the filtering elements */
 .filters-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px; /* Adjust as needed */
+    align-items: flex-start; /* Aligns children at the top of the container */
+    justify-content: space-between; /* Adjusts spacing between children */
+    margin-bottom: 2em;
 }
 
-/* Styling for each filter section to ensure they are aligned properly */
-.date-range-title, .export-buttons-title, .year-filter-container {
+/* Ensure individual filter elements also align their contents at the top */
+.date-range-title, .year-filter-container, .export-buttons-title {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin-right: 20px; /* Adjust spacing between filter elements */
+    justify-content: flex-start; /* Aligns content at the top */
 }
 
 /* Optional: Adjust the select and input width for consistency */
-#dateRange, #yearFilter {
+#dateRange {
     width: 200px; /* Adjust as needed */
 }
 
+#yearFilter {
+    width: 200px;
+    height: 22px;
+}
+
 /* If you want the titles to be inline with their respective controls */
-.date-range-title h4, .export-buttons-title h4 {
+.date-range-title h4, .export-buttons-title h4, .year-filter-container h4 {
     margin-bottom: 5px;
 }
 
