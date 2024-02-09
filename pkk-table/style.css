@@ -51,6 +51,7 @@ table.dataTable thead {
     color: #FFF;
     font-size: 18px;
     letter-spacing: 0.02em;
+    text-align: left;
 }
 
 table.dataTable thead th {

@@ -22,7 +22,7 @@ $(document).ready(function() {
                             'copy', 'csv', 'excel', 'pdf', 'print'
                         ],
                         initComplete: function() {
-                            $(".dt-buttons").appendTo(".filters-container");
+                            $(".dt-buttons").appendTo(".export-buttons-title");
                         }
                     });
 
