@@ -1,190 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Fatalities in Turkey</title>
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
 
-<!-- Buttons extension CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+    <!-- Buttons extension CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
 
-<!-- Include jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-<!-- Include Moment.js for Date Range Picker -->
-<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <!-- Include Moment.js for Date Range Picker -->
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
-<!-- Include Date Range Picker JavaScript and CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!-- Include Date Range Picker JavaScript and CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-<!-- DataTables -->
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
-<!-- Buttons extension and its dependencies -->
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
-<link rel="stylesheet" href="https://use.typekit.net/kqj3chj.css">
+    <!-- Include PapaParse for CSV to JSON conversion -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 
-<style>
-    /* DataTables container */
-.dataTables_wrapper {
-    font-family: "franklin-gothic-urw", sans-serif;
-    font-size: 14px;
-    color: #333;
-}
-
-/* Table head */
-table.dataTable thead {
-    background-color: #003e51;
-    color: #FFF;
-}
-
-table.dataTable thead th {
-    border-bottom: 2px solid #0275d8;
-}
-
-/* Table body */
-table.dataTable tbody tr {
-    background-color: #f9f9f9;
-}
-
-table.dataTable tbody tr:nth-child(even) {
-    background-color: #eff2f7;
-}
-
-table.dataTable tbody td {
-    padding: 8px 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-/* Hover state for rows */
-table.dataTable tbody tr:hover {
-    background-color: #e1f5fe;
-}
-
-/* DataTables buttons */
-.dt-button {
-    background-color: #003e51;
-    color: white;
-    padding: 6px 12px;
-    margin-right: 5px;
-    text-decoration: none;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.dt-button:hover {
-    background-color: #0275d8;
-}
-
-/* Pagination */
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-    padding: 5px 10px;
-    background-color: #003e51;
-    color: white !important;
-    margin: 0 2px;
-    border-radius: 3px;
-    border: none;
-    cursor: pointer;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    background-color: #0275d8;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
-    background-color: #cccccc;
-    cursor: default;
-}
-
-/* Current page indicator */
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    background-color: #0275d8;
-    color: white !important;
-}
-
-</style>
+    <!-- Buttons extension and its dependencies -->
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/kqj3chj.css">
+    <link rel="stylesheet" href="style.css" />
 
 </head>
+
 <body>
+<!--     <iframe src='https://flo.uri.sh/visualisation/16381712/embed' title='Interactive or visual content'
+        class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;'
+        sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe> -->
+
+    <h1>Fatalities Database: Turkey 2015 - Present </h1>
     <!-- Date Range Input -->
-<input type="text" id="dateRange" name="daterange" />
+    <div class="date-range-title">
+        <h4>Select Date Range</h4>
+        <input type="text" id="dateRange" name="dateRange">
+    </div>
 
-<!-- DataTable -->
-<table id="example" class="display" style="width:100%">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Value</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Data rows will be dynamically loaded here -->
-    </tbody>
-</table>
-<script>
-    $(document).ready(function() {
-        var table; // Define 'table' in a wider scope
+    <!-- Title for the Export Buttons, placed above the table -->
+    <div class="export-buttons-title">
+        <h4>Export Table Data</h4>
+    </div>
+    <!-- DataTable -->
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data loads here -->
+        </tbody>
+    </table>
+    <script src="tables.js"></script>
+</body>
 
-        // AJAX request to fetch your data
-        $.ajax({
-            url: 'https://crisisgroup.github.io/crisis-maps/pkk-table/data.json',
-            dataType: 'json',
-            success: function(data) {
-                // Initialize DataTables with export buttons after data is successfully loaded
-                table = $('#example').DataTable({
-                    "data": data, // Use the loaded data
-                    "columns": [
-                        { "data": "date" },
-                        { "data": "name" },
-                        { "data": "location" },
-                        { "data": "value" }
-                    ],
-                    "dom": 'Bfrtip', // Necessary to position the buttons
-                    "buttons": [
-                        'copy', 'csv', 'excel', 'pdf', 'print'
-                    ]
-                });
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                // Handle any errors encountered while loading the data
-                console.error('Error loading data: ' + textStatus, errorThrown);
-            }
-        });
-
-        // Setup the date range picker
-        $('#dateRange').daterangepicker({
-            locale: {
-                format: 'YYYY-MM-DD'
-            },
-            opens: 'left'
-        }, function(start, end, label) {
-            $.fn.dataTable.ext.search.push(
-                function(settings, data, dataIndex) {
-                    var startDate = start.format('YYYY-MM-DD');
-                    var endDate = end.format('YYYY-MM-DD');
-                    var date = data[0]; // Assuming date is in the first column
-                    return (date >= startDate && date <= endDate);
-                }
-            );
-            table.draw(); // Now 'table' is accessible here
-        });
-
-        $('#dateRange').on('apply.daterangepicker', function(ev, picker) {
-            table.draw(); // And here as well
-        });
-    });
-</script>
-
-    
-    </body>
-    </html>
+</html>
