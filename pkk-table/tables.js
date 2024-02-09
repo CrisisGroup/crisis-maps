@@ -1,20 +1,20 @@
 $(document).ready(function() {
-    var csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSa0aOzsbBYTUp_y7j83cMV1LEtz_rH6vovCkW1rvSBC6CEfJxqFKxZ0EPAdpQvCeCVDIMWI8M8VI9E/pub?gid=0&single=true&output=csv"; // Replace with your published Google Spreadsheet CSV URL
+    var csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSa0aOzsbBYTUp_y7j83cMV1LEtz_rH6vovCkW1rvSBC6CEfJxqFKxZ0EPAdpQvCeCVDIMWI8M8VI9E/pub?gid=0&single=true&output=csv"; // Your Google Spreadsheet CSV URL
 
-    // Fetch the CSV data using AJAX and PapaParse for conversion
+    // Fetch the CSV data using AJAX
     $.ajax({
         url: csvUrl,
         success: function(csvData) {
-            // Convert CSV to JSON
+            // Convert CSV to JSON with PapaParse
             Papa.parse(csvData, {
-                header: true, // Assumes first row of CSV are headers
-                dynamicTyping: true, // Automatically convert numbers and booleans
+                header: true,
+                dynamicTyping: true,
                 skipEmptyLines: true,
                 complete: function(results) {
                     var table = $('#example').DataTable({
                         "data": results.data,
                         "columns": [
-                            { "data": "date" }, // Adjust based on your CSV headers
+                            { "data": "date" },
                             { "data": "group" },
                             { "data": "province" },
                             { "data": "fatalities" }
@@ -22,10 +22,14 @@ $(document).ready(function() {
                         "dom": 'Bfrtip',
                         "buttons": [
                             'copy', 'csv', 'excel', 'pdf', 'print'
-                        ]
+                        ],
+                        initComplete: function() {
+                            // Move the dt-buttons div after DataTables initialization
+                            $(".dt-buttons").appendTo(".filters-container");
+                        }
                     });
 
-                    // Setup the date range picker with an empty field on first load
+                    // Setup the date range picker
                     $('#dateRange').daterangepicker({
                         locale: {
                             format: 'YYYY-MM-DD'
@@ -55,6 +59,6 @@ $(document).ready(function() {
         error: function(jqXHR, textStatus, errorThrown) {
             console.error('Error fetching or parsing data: ' + textStatus, errorThrown);
         },
-        dataType: "text" // Important for interpreting the fetched data as CSV
+        dataType: "text"
     });
 });
