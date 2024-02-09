@@ -1,12 +1,44 @@
 * {
     font-family: "franklin-gothic-urw", sans-serif;
 } 
+
+h4 {
+    font-size: 18px;
+}
  
  /* DataTables container */
 .dataTables_wrapper {
     font-family: "franklin-gothic-urw", sans-serif;
     font-size: 14px;
     color: #333;
+}
+
+/* Filter layout */
+
+/* Container for the filtering elements */
+.filters-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Adjust as needed */
+}
+
+/* Styling for each filter section to ensure they are aligned properly */
+.date-range-title, .export-buttons-title, .year-filter-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 20px; /* Adjust spacing between filter elements */
+}
+
+/* Optional: Adjust the select and input width for consistency */
+#dateRange, #yearFilter {
+    width: 200px; /* Adjust as needed */
+}
+
+/* If you want the titles to be inline with their respective controls */
+.date-range-title h4, .export-buttons-title h4 {
+    margin-bottom: 5px;
 }
 
 /* Table head */
