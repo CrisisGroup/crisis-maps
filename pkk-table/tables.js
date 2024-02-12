@@ -24,6 +24,7 @@ $(document).ready(function() {
                         initComplete: function() {
                             $(".dt-buttons").appendTo(".export-buttons-title");
                             $(".dataTables_filter").appendTo(".search-bar-container");
+                            $('input[type="search"]').attr('placeholder', 'Type to search...');
                         }
                     });
 

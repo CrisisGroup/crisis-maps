@@ -41,8 +41,12 @@ h4 {
 }
 
 /* If you want the titles to be inline with their respective controls */
-.date-range-title h4, .export-buttons-title h4, .year-filter-container h4 {
+.date-range-title h4, .export-buttons-title h4, .year-filter-container h4, .search-bar-container h4 {
     margin-bottom: 5px;
+}
+
+.search-bar-container input {
+    margin-left: 10px;
 }
 
 /* Table head */
