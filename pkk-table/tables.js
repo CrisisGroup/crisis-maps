@@ -23,6 +23,7 @@ $(document).ready(function() {
                         ],
                         initComplete: function() {
                             $(".dt-buttons").appendTo(".export-buttons-title");
+                            $(".dataTables_filter").appendTo(".search-bar-container");
                         }
                     });
 
