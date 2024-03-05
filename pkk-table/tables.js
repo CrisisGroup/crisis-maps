@@ -47,6 +47,16 @@ $(document).ready(function() {
                         table.draw();
                     }).on('cancel.daterangepicker', function(ev, picker) {
                         $(this).val('');
+                        $.fn.dataTable.ext.search.pop(); // Ensure no filter is applied
+                        table.draw();
+                    });
+
+                    // Add clear functionality for the date range
+                    $('#clearDateRange').on('click', function() {
+                        $('#dateRange').val(''); // Clear the date range input
+                        $('#dateRange').data('daterangepicker').setStartDate(moment().startOf('year')); // Reset to start of current year
+                        $('#dateRange').data('daterangepicker').setEndDate(moment().endOf('year')); // Reset to end of current year
+                        $.fn.dataTable.ext.search.pop(); // Ensure no filter is applied
                         table.draw();
                     });
 
@@ -63,7 +73,7 @@ $(document).ready(function() {
                             }
                         );
                         table.draw();
-                        $.fn.dataTable.ext.search.pop(); // Clear the search criteria
+                        $.fn.dataTable.ext.search.pop(); // Clear the search criteria after redraw
                     });
                 }
             });
