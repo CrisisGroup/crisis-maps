@@ -31,6 +31,12 @@ h4 {
     }
 }
 
+@media screen and (max-width: 640px) {
+div.dt-buttons {
+    text-align: left !important; 
+}
+}
+
 /* Ensure individual filter elements also align their contents at the top */
 .date-range-title, .year-filter-container, .export-buttons-title {
     display: flex;
