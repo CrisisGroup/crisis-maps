@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Fatalities in Turkey</title>
+    <title>Kriz Grubu Veri Tabanı: Türkiye & Kuzey Irak / Temmuz 2015'ten beri</title>
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
 
@@ -43,16 +43,16 @@
     <!-- Date Range Input -->
     <div class="filters-container">
         <div class="date-range-title">
-            <h4>Filter by Custom Date Range</h4>
+            <h4>Özelliklere göre filtrele</h4>
             <input type="text" placeholder="YYYY-MM-DD" id="dateRange" name="dateRange">
             <button id="clearDateRange">Clear Dates</button>
         </div>
     
         <!-- Assuming you want the year filter to be inline as well -->
         <div class="year-filter-container">
-            <h4>Filter by Year</h4>
+            <h4>Yıllara göre filtrele</h4>
             <select id="yearFilter">
-                <option value="">Select Year</option>
+                <option value="">Yıl</option>
                 <option value="2024">2024</option>
                 <option value="2023">2023</option>
                 <option value="2022">2022</option>
@@ -68,12 +68,12 @@
         </div>
 
         <div class="search-bar-container">
-            <h4>Search by Any Term</h4>
+            <h4>Anahtar terime göre arama</h4>
         </div>
     
         <!-- Adjust or remove this div based on your actual needs for export buttons -->
         <div class="export-buttons-title">
-            <h4>Export Table Data</h4>
+            <h4>Veri indir / tablo</h4>
         </div>
 
     </div>
@@ -82,17 +82,17 @@
     <table id="example" class="display" style="width:100%">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Group Targeted</th>
-                <th>Province</th>
-                <th>Fatality Count</th>
+                <th>Tarih</th>
+                <th>Kategori</th>
+                <th>İl</th>
+                <th>Ölüm sayısı</th>
             </tr>
         </thead>
         <tbody>
             <!-- Data loads here -->
         </tbody>
     </table>
-    <script src="tables.js"></script>
+    <script src="tables-tr.js"></script>
 </body>
 
 </html>
