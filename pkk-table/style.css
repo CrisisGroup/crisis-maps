@@ -23,6 +23,14 @@ h4 {
     margin-bottom: 2em;
 }
 
+@media (max-width: 600px) { /* Adjust 600px to your desired breakpoint for mobile devices */
+    .filters-container {
+        flex-direction: column; /* Stacks children vertically */
+        align-items: stretch; /* Children will stretch to fill the container width */
+        justify-content: flex-start; /* Adjusts spacing vertically between children */
+    }
+}
+
 /* Ensure individual filter elements also align their contents at the top */
 .date-range-title, .year-filter-container, .export-buttons-title {
     display: flex;
@@ -31,7 +39,7 @@ h4 {
 }
 
 /* Optional: Adjust the select and input width for consistency */
-#dateRange {
+#dateRange, #clearDateRange {
     width: 200px; /* Adjust as needed */
 }
 

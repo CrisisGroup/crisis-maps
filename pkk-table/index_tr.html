@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fatalities in Turkey</title>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+
+    <!-- Buttons extension CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <!-- Include Moment.js for Date Range Picker -->
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+    <!-- Include Date Range Picker JavaScript and CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+    <!-- Include PapaParse for CSV to JSON conversion -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+    <!-- Buttons extension and its dependencies -->
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/kqj3chj.css">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+</head>
+
+<body>
+
+    <!--<h1>Fatalities Database: Turkey 2015 - Present </h1>-->
+    <!-- Date Range Input -->
+    <div class="filters-container">
+        <div class="date-range-title">
+            <h4>Filter by Custom Date Range</h4>
+            <input type="text" placeholder="YYYY-MM-DD" id="dateRange" name="dateRange">
+            <button id="clearDateRange">Clear Dates</button>
+        </div>
+    
+        <!-- Assuming you want the year filter to be inline as well -->
+        <div class="year-filter-container">
+            <h4>Filter by Year</h4>
+            <select id="yearFilter">
+                <option value="">Select Year</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <!-- Add more years as needed -->
+            </select>
+        </div>
+
+        <div class="search-bar-container">
+            <h4>Search by Any Term</h4>
+        </div>
+    
+        <!-- Adjust or remove this div based on your actual needs for export buttons -->
+        <div class="export-buttons-title">
+            <h4>Export Table Data</h4>
+        </div>
+
+    </div>
+    
+    <!-- DataTable -->
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Group Targeted</th>
+                <th>Province</th>
+                <th>Fatality Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data loads here -->
+        </tbody>
+    </table>
+    <script src="tables.js"></script>
+</body>
+
+</html>
