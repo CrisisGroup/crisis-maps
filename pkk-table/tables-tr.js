@@ -21,6 +21,13 @@ $(document).ready(function() {
                         "buttons": [
                             'copy', 'csv', 'excel', 'pdf', 'print'
                         ],
+                        "language": {
+                            "paginate": {
+                                "previous": "Önceki",  // Custom text for previous button
+                                "next": "Sonraki"  // Custom text for next button
+                            },
+                            "search": "Ara:",  // Custom text for search box, add here if you want to customize
+                        },
                         initComplete: function() {
                             $(".dt-buttons").appendTo(".export-buttons-title");
                             $(".dataTables_filter").appendTo(".search-bar-container");
