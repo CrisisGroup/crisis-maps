@@ -9,8 +9,8 @@
 		<meta charset="utf-8">
 		<title>Cameroon's Water Crisis</title>
 		<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-		<script src='https://api.mapbox.com/mapbox-gl-js/v3.0.0-beta.1/mapbox-gl.js'></script>
-		<link href='https://api.mapbox.com/mapbox-gl-js/v3.0.0-beta.1/mapbox-gl.css' rel='stylesheet' />
+		<link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
+		<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"
 			integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://use.typekit.net/kjv8sgv.css">
@@ -22,7 +22,7 @@
 
 	<div class="box">
 
-		<h1>CAMEROON'S WATER <span style="color:#e87722;">CRISIS</span></h1>
+		<h1>TIMELINE OF CAMEROON'S WATER <span style="color:#e87722;">CRISIS</span></h1>
 
 		<nav id="menu"></nav>
 	</div>
@@ -45,7 +45,7 @@
 
 	<div id="mobilemenu"></div>
 	<div id="mapInset"></div>
-	<button id="startAnimationButton">Animate Migration Path</button>
+	<button id="startAnimationButton">Navigate the Timeline</button>
 
 	<script>
 		document.getElementById('loading').style.display = 'none';
@@ -56,18 +56,49 @@
 		mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
 		const map = new mapboxgl.Map({
 			container: 'map',
-			style: 'mapbox://styles/daltonwb/cloippdcn003401ns03vw4gt6',
+			style: 'mapbox://styles/daltonwb/clu9th7bp01es01nwh2sv5g7z',
 			zoom: 9,
 			bearing: -20,
 			center: [14.863725, 11.592343],
-			projection: 'mercator',
+			projection: 'globe',
 			pitch: 45,
 			maxZoom: 14,
 			minZoom: 8,
-			/* 	maxBounds: [[-84.84417, 3.25636], [-71.30006, 11.46672]], */
+			maxBounds: [[12.803782352780502, 10.268535070350396], [17.043613795438773, 13.055481325837178]],
 			showZoom: true,
 			attributionControl: false
 		});
+
+		var locations = [
+			{ lat: 11.79426383, lon: 15.14228381, pitch: 0, bearing: 0, zoom: 10 },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 0, bearing: 0, zoom: 11 },
+			{ lat: 11.39823307, lon: 14.56872937, pitch: 0, bearing: 0, zoom: 10 },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 0, bearing: 0, zoom: 11 },
+			{ lat: 11.8250052, lon: 15.091314, pitch: 0, bearing: 0, zoom: 10 },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 0, bearing: 0, zoom: 11 },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 0, bearing: 0, zoom: 10 },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 0, bearing: 0, zoom: 11 },
+			{ lat: 11.592343, lon: 14.863725, pitch: 45, bearing: -20, zoom: 9 },
+		];
+
+		var currentLocation = 0;
+
+		function navigateLocations() {
+			if (currentLocation >= locations.length) {
+				currentLocation = 0; // Loop back to the first location
+			}
+			var loc = locations[currentLocation];
+			map.flyTo({
+				center: [loc.lon, loc.lat],
+				pitch: loc.pitch,
+				bearing: loc.bearing,
+				zoom: loc.zoom,
+				essential: true // this animation is considered essential with respect to prefers-reduced-motion
+			});
+			currentLocation++;
+		}
+
+		document.getElementById('startAnimationButton').addEventListener('click', navigateLocations);
 
 		const insetMap = new mapboxgl.Map({
 			container: 'mapInset', // container id
@@ -76,7 +107,7 @@
 			zoom: 3,
 			hash: false,
 			interactive: false,
-			projection: 'globe',
+			projection: 'mercator',
 			attributionControl: false
 		});
 
@@ -151,179 +182,6 @@
 		map.addControl(new mapboxgl.AttributionControl({
 			customAttribution: 'International Crisis Group | Map: Paul Franz and Claire Boccon-Gibod'
 		}));
-
-		map.on('load', () => {
-			map.addSource('road', {
-				type: 'geojson',
-				lineMetrics: true,
-				data:
-				{
-					"type": "Feature",
-					"properties": {},
-					"geometry": {
-						"coordinates": [
-							[
-								-76.787678,
-								8.427174,
-								0
-							],
-							[
-								-77.27898,
-								8.510109,
-								0
-							],
-							[
-								-77.6788592,
-								8.4572499,
-								0
-							],
-							[
-								-77.81918,
-								8.4043422,
-								0
-							],
-							[
-								-78.5242628,
-								9.0453295,
-								0
-							],
-							[
-								-79.3042921,
-								9.1917706,
-								0
-							],
-							[
-								-79.9085401,
-								9.0019281,
-								0
-							],
-							[
-								-80.0403761,
-								8.8445544,
-								0
-							],
-							[
-								-80.6446241,
-								8.5459032,
-								0
-							],
-							[
-								-81.9355177,
-								8.4046407,
-								0
-							],
-							[
-								-82.8402743,
-								8.5352335,
-								0
-							]
-						],
-						"type": "LineString"
-					}
-				}
-			});
-
-			map.addLayer({
-				id: 'road-draw-line',
-				type: 'line',
-				source: 'road',
-				paint: {
-					'line-color': "rgba(0,0,0,0)",
-					'line-width': 12,
-					'line-opacity': 0.8
-				}
-			});
-		});
-
-		// Define your roadDraw function
-		function roadDraw() {
-			let startTime;
-			const duration = 40000;
-
-			const frame = (time) => {
-				if (!startTime) startTime = time;
-				const animationPhase = (time - startTime) / duration;
-
-				// Reduce the visible length of the line by using a line-gradient to cut off the line
-				// animationPhase is a value between 0 and 1 that represents the progress of the animation
-				map.setPaintProperty("road-draw-line", "line-gradient", [
-					"step",
-					["line-progress"],
-					"#e87722",
-					animationPhase,
-					"rgba(0, 0, 0, 0)"
-				]);
-
-				if (animationPhase > 1) {
-					return;
-				}
-				window.requestAnimationFrame(frame);
-			}
-
-			window.requestAnimationFrame(frame);
-		}
-
-		// Call roadDraw once the Mapbox style is fully loaded
-		roadDraw();
-
-		document.getElementById('startAnimationButton').addEventListener('click', roadDraw);
-		// INFOBOXES
-		map.on('load', () => {
-
-
-
-			const points = [
-				[-76.78767, 8.42717], // Point 1 Necocli
-				[-77.27897, 8.5101], // Point 2 Acandi
-				[-77.67885, 8.45724], // Point 3 Bajo Chiquito
-				[-77.81918, 8.40434], // Point 4 Lajas Blancas
-			];
-
-			var ukraine = new mapboxgl.Marker({ element: document.getElementById('ukraine'), anchor: 'bottom-left', offset: [0, -5], })
-				.setLngLat([-76.78767, 8.4271]) // Coordinates to anchor the element
-				.addTo(map);
-			var afghan = new mapboxgl.Marker({ element: document.getElementById('afghan'), anchor: 'top-left', offset: [0, 0], })
-				.setLngLat([-77.27897, 8.5101]) // Coordinates to anchor the element
-				.addTo(map);
-			var sudan = new mapboxgl.Marker({ element: document.getElementById('sudan'), anchor: 'bottom-right', offset: [0, -2], })
-				.setLngLat([-77.67885, 8.45724]) // Coordinates to anchor the element
-				.addTo(map);
-			var southSudan = new mapboxgl.Marker({ element: document.getElementById('southSudan'), anchor: 'top-right', offset: [0, 10], })
-				.setLngLat([-77.81918, 8.40434]) // Coordinates to anchor the element
-				.addTo(map);
-
-			const circleMarker = new mapboxgl.Marker({
-				element: createCircleElement(), // Create a custom circle element
-				anchor: 'bottom', // Adjust anchor as needed
-				offset: [0, 0], // Adjust offset as needed
-			});
-
-			function createCircleMarker(coordinates) {
-				return new mapboxgl.Marker({
-					element: createCircleElement(), // Create a custom circle element
-					anchor: 'center', // Adjust anchor as needed
-					offset: [0, 0], // Adjust offset as needed
-				}).setLngLat(coordinates); // Set the coordinates for the marker
-			}
-
-			// Helper function to create a custom circle element
-			function createCircleElement() {
-				const el = document.createElement('div');
-				el.className = 'circle-marker';
-				// Apply custom styling to the circle element (black circle with white stroke)
-				el.style.width = '20px';
-				el.style.height = '20px';
-				el.style.backgroundColor = '#e87722';
-				el.style.border = '2px solid white'; // 1px white stroke
-				el.style.borderRadius = '50%';
-				return el;
-			}
-
-			// Create and add the circle markers for each set of coordinates
-			points.forEach(coordinates => {
-				createCircleMarker(coordinates).addTo(map);
-			});
-		});
 
 	</script>
 
