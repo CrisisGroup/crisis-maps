@@ -13,25 +13,15 @@
 		<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"
 			integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="https://use.typekit.net/kjv8sgv.css">
+		<link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
 		<link href='style.css' rel='stylesheet' />
-		<style>
-			#locationInfo {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				background: rgba(255, 255, 255, 0.8);
-				padding: 10px;
-				display: none;
-			}
-		</style>
 	</head>
 
 <body>
 
 	<div class="box">
 
-		<h1>TIMELINE OF CAMEROON'S WATER <span style="color:#e87722;">CRISIS</span></h1>
+		<h1>Timeline of Cameroon’s Water Crisis</h1>
 
 		<nav id="menu"></nav>
 	</div>
@@ -42,7 +32,7 @@
 	<div id="mapInset"></div>
 	<button id="startAnimationButton">Navigate the Timeline</button>
 
-	<div id="locationInfo" style="position: absolute; top: 50%; left: 50%; background: rgba(255,255,255,0.8); padding: 10px; display: none;">
+	<div id="locationInfo" style="display: none;">
 		<h2 id="locationTitle"></h2>
 		<p id="locationDescription"></p>
 	</div>
@@ -69,15 +59,15 @@
 		});
 
 		var locations = [
-			{ lat: 11.792262, lon: 15.143065, pitch: 35, bearing: -57.5, zoom: 14, title: 'First Wave of Violence', description: 'The violent clash began on 10 August in Missiska, in the Logone Birni district of Cameroon\'s Far North region, when cattle belonging to Choa Arab herders got trapped into a fishing canal thus triggering a violent cycle of retaliation. The Musgum community immediately evacuated women and children to their Chadian Musgum sistercommunity living on the otherside of the border. The conflict killed at least 45 people and injured 74 others. At least 19 villages were burnt and 40 others abandoned by their inhabitants' },
-			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: 'State Visit', description: 'Far North Governor Midjiyawa Bakari visit in Kousseri to ease tensions. Authorities ordered the deployment of a unit of national security forces in each of the more than one hundred affected villages in the area. Meanwhile, community leaders from both communities read a joint statement where they commit "to spare no effort for a definitive return of peace between the two communities that coexist".'  },
-			{ lat: 11.39823307, lon: 14.56872937, pitch: 0, bearing: 0, zoom: 14.5, title: 'Land Dispute', description: 'On 23 September 2021, Arab Choa people from Malia and Toukoumaya villages clashed over a land dispute around Waza town (Logone-et-Chari, Extreme-Nord). 5 people were injured.'  },
-			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: 'Test3', description: 'On 2 October 2021, members of the Arab and Musgum ethnic groups clashed in Gueli neighborhood of Kousseri village (Logone-et-Chari, Extreme-Nord), after a private dispute between two members of both groups. One person was injured, and a vehicle burnt down.'   },
-			{ lat: 11.39823307, lon: 14.56872937, pitch: 0, bearing: 0, zoom: 14.5, title: 'Second Wave', description: 'Clashes between communities of herders, farmers and fishermen broke out on 5 December in the village of Ouloumsa, Far North Cameroon. Violence quickly spread to neighbouring villages before reaching Kousseri, the administrative centre and main commercial hub of Logone and Chari division, on 8 December.'   },
-			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: 'Test3', description: '"Clashes between communities of herders, farmers and fishermen broke out on 5 December in the village of Ouloumsa, Far North Cameroon. Violence quickly spread to neighbouring villages before reaching Kousseri, the administrative centre and main commercial hub of Logone and Chari division, on 8 December.The army has been deployed following deadly clashes. The food and livestock market was set on fire during the clashes between the Mosgum and the Choa Arabs. A total of 112 villages were burnt as at 17 December 2021. The violence took place over several days (5 - 9 December)"'   },
-			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: 'Delegation', description: 'Governmental delegation with military officials and lawmakers led by territorial administration minister Paul Atanga Nji consulted  Choa Arabs and Musgum traditional authorities to march towards peace.'   },
-			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: 'Demonstrations', description: 'On 11 January 2022, Arab Choa young men demonstrated in Kousseri town (Logone-Et-Chari, Extreme-Nord) against the arrest of two members of their communities the previous day. The gendarmerie forces fired shots in the air to disperse them.'   },
-			{ lat: 11.592343, lon: 14.863725, pitch: 15, bearing: 0, zoom: 8, title: 'What\'s Next?', description: 'In the future. To start the timeline again, click the button in the top left.'   },
+			{ lat: 11.792262, lon: 15.143065, pitch: 35, bearing: -57.5, zoom: 14, title: '10 August 2021', description: 'First Wave of Violence: The violent clash began on 10 August in Missiska, in the Logone Birni district of Cameroon\'s Far North region, when cattle belonging to Choa Arab herders got trapped into a fishing canal thus triggering a violent cycle of retaliation. The Musgum community immediately evacuated women and children to their Chadian Musgum sistercommunity living on the otherside of the border. The conflict killed at least 45 people and injured 74 others. At least 19 villages were burnt and 40 others abandoned by their inhabitants' },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: 'State Visit', description: 'Far North Governor Midjiyawa Bakari visit in Kousseri to ease tensions. Authorities ordered the deployment of a unit of national security forces in each of the more than one hundred affected villages in the area. Meanwhile, community leaders from both communities read a joint statement where they commit "to spare no effort for a definitive return of peace between the two communities that coexist".' },
+			{ lat: 11.39823307, lon: 14.56872937, pitch: 0, bearing: 0, zoom: 14.5, title: 'Land Dispute', description: 'On 23 September 2021, Arab Choa people from Malia and Toukoumaya villages clashed over a land dispute around Waza town (Logone-et-Chari, Extreme-Nord). 5 people were injured.' },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: 'Test3', description: 'On 2 October 2021, members of the Arab and Musgum ethnic groups clashed in Gueli neighborhood of Kousseri village (Logone-et-Chari, Extreme-Nord), after a private dispute between two members of both groups. One person was injured, and a vehicle burnt down.' },
+			{ lat: 11.39823307, lon: 14.56872937, pitch: 0, bearing: 0, zoom: 14.5, title: 'Second Wave', description: 'Clashes between communities of herders, farmers and fishermen broke out on 5 December in the village of Ouloumsa, Far North Cameroon. Violence quickly spread to neighbouring villages before reaching Kousseri, the administrative centre and main commercial hub of Logone and Chari division, on 8 December.' },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: 'Test3', description: '"Clashes between communities of herders, farmers and fishermen broke out on 5 December in the village of Ouloumsa, Far North Cameroon. Violence quickly spread to neighbouring villages before reaching Kousseri, the administrative centre and main commercial hub of Logone and Chari division, on 8 December.The army has been deployed following deadly clashes. The food and livestock market was set on fire during the clashes between the Mosgum and the Choa Arabs. A total of 112 villages were burnt as at 17 December 2021. The violence took place over several days (5 - 9 December)"' },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: 'Delegation', description: 'Governmental delegation with military officials and lawmakers led by territorial administration minister Paul Atanga Nji consulted  Choa Arabs and Musgum traditional authorities to march towards peace.' },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: 'Demonstrations', description: 'On 11 January 2022, Arab Choa young men demonstrated in Kousseri town (Logone-Et-Chari, Extreme-Nord) against the arrest of two members of their communities the previous day. The gendarmerie forces fired shots in the air to disperse them.' },
+			{ lat: 11.592343, lon: 14.863725, pitch: 15, bearing: 0, zoom: 8, title: 'What\'s Next?', description: 'In the future. To start the timeline again, click the button in the top left.' },
 		];
 
 		var currentLocation = 0;
