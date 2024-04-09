@@ -12,88 +12,12 @@ body {
     width: 100%;
 }
 
-#menu {
-    background: #fff;
-    position: relative;
-    z-index: 9999;
-    width: 250px;
-    text-align: left;
-    font-family: 'franklin-gothic-urw', sans-serif;
-    margin-bottom: 30px;
-    text-transform: capitalize;
-}
-
-#menu a {
-    font-size: 13px;
-    color: #404040;
-    display: block;
-    margin: 0;
-    padding: 0;
-    padding: 10px;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-    text-align: left;
-    background: #e1e1e1;
-}
-
 #link {
     color: #fff;
 }
 
 a {
     color: #fff;
-}
-
-#menu a::before {
-    content: "☒ ";
-}
-
-#menu a:last-child {
-    border: none;
-}
-
-#menu a:hover {
-    background-color: #f8f8f8;
-    color: #404040;
-}
-
-#menu a.active {
-    background-color: #3887be;
-    color: #ffffff;
-}
-
-#menu a.active::before {
-    content: "☑ ";
-}
-
-#menu a.active:hover {
-    background: #3074a4;
-}
-
-#menu a:visited {
-    color: #f1e0d0;
-}
-
-#mobilemenubtn {
-    opacity: 0;
-}
-
-@media (max-width: 768px) {
-    #mobilemenubtn {
-        background-color: #ff6a69;
-        z-index: 99999999;
-        position: absolute;
-        text-align: center;
-        color: #FFF;
-        width: auto;
-        font-weight: bold;
-        font-family: "franklin-gothic-urw", sans-serif;
-        border-radius: 8px;
-        margin: 10px 0 0 10px;
-        letter-spacing: .1em;
-        padding: 10px;
-        opacity: 1;
-    }
 }
 
 @media (max-width: 768px) {
@@ -113,12 +37,13 @@ h1 {
     font-family: "franklin-gothic-urw", sans-serif;
     font-weight: 900;
     font-style: italic;
-    font-size: 94px;
+    font-size: 90px;
     line-height: 94px;
-    padding: 10% 0 0 10%;
+    padding: 0 0 0 10%;
     margin: 0;
     text-align: left;
     letter-spacing: .01em;
+    width: 100%;
 }
 
 @media (max-width: 1920px) {
@@ -148,87 +73,6 @@ h1 {
     }
 }
 
-
-hr {
-    height: 5px;
-    width: 30px;
-    text-align: left;
-    background-color: #fff;
-    border: none;
-    margin: 0;
-}
-
-h4.infobox-name {
-    font-size: 32px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-family: 'franklin-gothic-urw', sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    line-height: 1.4em;
-    letter-spacing: 0.05em;
-    color: #b8b7ba;
-}
-
-h4.infobox-date {
-    font-size: 20px;
-    margin-bottom: 10px;
-    display: inline;
-    font-family: 'franklin-gothic-urw', sans-serif;
-}
-
-p.infobox-dateline {
-    margin: 0;
-    display: inline;
-    font-family: 'franklin-gothic-urw', sans-serif;
-    font-size: 18px;
-}
-
-#floatleft {
-    float: left;
-}
-
-#tagline {
-    vertical-align: middle;
-    color: #fff;
-    width: 380px;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 1.2;
-}
-
-#legend-tagline {
-    vertical-align: middle;
-    color: #fff;
-    width: 270px;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 1.2;
-    letter-spacing: 0.1em;
-    font-style: italic;
-}
-
-#legend-instruct {
-    color: #fff;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 1.2;
-    width: 200px;
-}
-
-.custom-marker {
-    position: absolute;
-    width: 200px;
-    background-color: none;
-    color: #ffffff;
-    padding: 5px;
-    border-radius: 50%;
-    font-family: 'franklin-gothic-urw', sans-serif;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-}
-
 h2 {
     font-family: 'franklin-gothic-urw', sans-serif;
     color: #fff;
@@ -236,8 +80,14 @@ h2 {
     font-weight: 700;
     background-color: #a4343a;
     padding: 15px;
-    margin-top: 0;
+    border: solid 6px #fff;
+    margin: 0;
 }
+
+@keyframes fadeInAnimation {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 
 #locationInfo {
     width: 400px;
@@ -245,10 +95,16 @@ h2 {
     top: 50%;
     left: 50%;
     background: rgba(255, 255, 255, 0.8);
-    padding: 10px;
     font-family: 'franklin-gothic-urw', sans-serif;
     font-weight: 500;
     font-size: 1em; 
+    opacity: 0;
+    animation: fadeInAnimation 2s forwards;  
+    border-bottom-right-radius: 30px
+}
+
+#locationDescription {
+    padding: 5px 20px 5px 20px;
 }
 
 @media (max-width: 768px) {
@@ -258,7 +114,7 @@ h2 {
 }
 
 #startAnimationButton {
-    width: 250px;
+    width: 350px;
     max-width: 100%;
     z-index: 1;
     opacity: 1;
@@ -267,13 +123,23 @@ h2 {
     font-weight: bold;
     font-size: 18px;
     position: relative;
-    background: #007367;
+    background: none;
     border: solid 1px #ccc;
-    left: 25px;
+    border-radius: 15px;
     color: #fff;
-    top: 230px;
-    padding: 8px;
+    padding: 10px;
+    margin: 0 0 30px 10%;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Transition timing */
 }
+
+#startAnimationButton:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Adds a slight white overlay */
+    border-color: #eee; /* Lightens the border color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
+}
+
 
 #loading {
 	top: 0;
@@ -288,8 +154,8 @@ h2 {
 }
 
 #mapInset {
-    top: 25px;
-    left: 25px;
+    bottom: 40px;
+    right: 25px;
     height: 180px;
     width:250px;
     max-width:100%;
@@ -298,7 +164,10 @@ h2 {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
     pointer-events: none;
+    cursor: none;
+    border: solid .5px #ccc;
 }
+
 #mapInset .mapboxgl-ctrl-bottom-left{
     display: none;
 }
@@ -413,20 +282,6 @@ ul {
     font-size: 18px;
     margin-top: 10px;
     width: auto;
-}
-
-#mapInset {
-    height: 180px;
-    width: 250px;
-    max-width: 100%;
-    z-index: 1;
-    opacity: 1;
-    cursor: none;
-    border: solid .5px #ccc;
-}
-
-#mapInset .mapboxgl-ctrl-bottom-left {
-    display: none;
 }
 
 #legend {
