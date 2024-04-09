@@ -115,7 +115,7 @@ h2 {
 }
 
 #startAnimationButton {
-    width: 350px;
+    width: 375px;
     max-width: 100%;
     z-index: 1;
     opacity: 1;
@@ -128,11 +128,11 @@ h2 {
     border: solid 1px #ccc;
     border-radius: 15px;
     color: #fff;
-    padding: 10px;
+    padding: 10px 12px 10px 12px;
     margin: 0 0 30px 10%;
     text-transform: uppercase;
     letter-spacing: .2em;
-    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Transition timing */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #startAnimationButton:hover {
