@@ -14,48 +14,58 @@
 
 <body>
 
-<div class="box">
+	<div class="box">
 
-	<button id="startAnimationButton">Navigate the Timeline →</button>
-	
-	<h1>Timeline of Cameroon’s Water Crisis</h1>
+		<button id="startAnimationButton">Navigate the Timeline →</button>
 
-</div>
+		<h1>Timeline of Cameroon’s Water Crisis</h1>
 
-<div id="map"></div>
+	</div>
 
-<div id="mapInset"></div>
+	<div id="map"></div>
 
-<div id="locationInfo" style="display: none;">
-	<h2 id="locationTitle"></h2>
-	<p id="locationDescription"></p>
-</div>
+	<div id="mapInset"></div>
 
-<script>
+	<div id="locationInfo" style="display: none;">
+		<h2 id="locationTitle"></h2>
+		<p id="locationDescription"></p>
+	</div>
 
-	// Show the map container
-	document.getElementById('map').style.display = 'block';
+	<div id="navigationControls">
+		<button class="locationButton" data-location="0">Location 1</button>
+		<span style="color: #fff; font-weight: bold; align-self: center;">|</span>
+		<button class="locationButton" data-location="1">Location 2</button>
+		<span style="color: #fff; font-weight: bold; align-self: center;">|</span>
+		<button class="locationButton" data-location="2">Location 3</button>
+		<span style="color: #fff; font-weight: bold; align-self: center;">|</span>
+		<button class="locationButton" data-location="3">Location 4</button>
+	</div>
 
-	mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
-	const map = new mapboxgl.Map({
-		container: 'map',
-		style: 'mapbox://styles/daltonwb/cluskejgz001a01qj6wnpgo81',
-		zoom: 8.5,
-		bearing: -20,
-		center: [14.863725, 11.592343],
-		projection: 'globe',
-		pitch: 45,
-		maxZoom: 14,
-		minZoom: 8,
-		maxBounds: [[12.803782352780502, 10.268535070350396], [17.043613795438773, 13.055481325837178]],
-		dragPan: false,
-		scrollZoom: false,
-		doubleClickZoom: false,
-		attributionControl: false
-	});
+	<script>
+
+		// Show the map container
+		document.getElementById('map').style.display = 'block';
+
+		mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+		const map = new mapboxgl.Map({
+			container: 'map',
+			style: 'mapbox://styles/daltonwb/cluskejgz001a01qj6wnpgo81',
+			zoom: 8.5,
+			bearing: -20,
+			center: [14.863725, 11.592343],
+			projection: 'globe',
+			pitch: 45,
+			maxZoom: 14,
+			minZoom: 8,
+			maxBounds: [[12.803782352780502, 10.268535070350396], [17.043613795438773, 13.055481325837178]],
+			dragPan: false,
+			scrollZoom: false,
+			doubleClickZoom: false,
+			attributionControl: false
+		});
 
 		var locations = [
-			{ lat: 11.79426383, lon: 15.14228381, pitch: 35, bearing: -57.5, zoom: 14, title: '10 August 2021', description: 'FIRST WAVE OF VIOLENCE - The violent clash began on 10 August in Missiska, in the Logone Birni district of Cameroon\'s Far North region, when cattle belonging to Choa Arab herders got trapped into a fishing canal dug by Musgum fishers, triggering a cycle of violent retaliation. The Musgum community evacuated women and children to their Chadian Musgum sister community living on the otherside of the border, across the Logone River. The conflict killed at least 45 people and injured 74 others. At least 19 villages were burnt and 40 others abandoned by their inhabitants.' },
+			{ lat: 11.79426383, lon: 15.14228381, pitch: 35, bearing: -57.5, zoom: 14, title: '10 August 2021 | CHAD', description: 'FIRST WAVE OF VIOLENCE - The violent clash began on 10 August in Missiska, in the Logone Birni district of Cameroon\'s Far North region, when cattle belonging to Choa Arab herders got trapped into a fishing canal dug by Musgum fishers, triggering a cycle of violent retaliation. The Musgum community evacuated women and children to their Chadian Musgum sister community living on the otherside of the border, across the Logone River. The conflict killed at least 45 people and injured 74 others. At least 19 villages were burnt and 40 others abandoned by their inhabitants.' },
 			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '14 August 2021', description: 'Far North Governor Midjiyawa Bakari visit in Kousseri to ease tensions. Authorities ordered the deployment of a unit of national security forces in each of the more than one hundred affected villages in the area. Meanwhile, community from both communities read a joint statement where they commit "to spare no effort for a definitive return of peace between the two communities that coexist".' },
 			{ lat: 11.39823307, lon: 14.56872937, pitch: 0, bearing: 0, zoom: 14.5, title: '23 September 2021', description: 'Arab Choa people from Malia and Toukoumaya villages clashed in a land dispute around Waza town (Logone-et-Chari, Far North). 5 people were injured.' },
 			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '2 October 2021', description: 'Members of the Arab and Musgum ethnic groups clashed in Gueli neighborhood of Kousseri (Logone-et-Chari, Far North), after a private dispute between two members of both groups. One person was injured, and a vehicle burnt down.' },
@@ -72,29 +82,46 @@
 			if (currentLocation >= locations.length) {
 				currentLocation = 0; // Loop back to the first location
 			}
-			var loc = locations[currentLocation];
+			updateMapAndView(locations[currentLocation]);
+			currentLocation++;
+		}
+
+		function updateMapAndView(location) {
 			map.flyTo({
-				center: [loc.lon, loc.lat],
-				pitch: loc.pitch,
-				bearing: loc.bearing,
-				zoom: loc.zoom,
+				center: [location.lon, location.lat],
+				pitch: location.pitch,
+				bearing: location.bearing,
+				zoom: location.zoom,
 				speed: .8,
 				essential: true // this animation is considered essential with respect to prefers-reduced-motion
 			});
 
 			// Update HTML content
-			document.getElementById('locationTitle').innerText = loc.title || 'Location Title';
-			document.getElementById('locationDescription').innerText = loc.description || 'Location description here.';
+			document.getElementById('locationTitle').innerText = location.title || 'Location Title';
+			document.getElementById('locationDescription').innerText = location.description || 'Location description here.';
 			document.getElementById('locationInfo').style.display = 'block'; // Make the container visible
+		}
 
-			currentLocation++;
+		function jumpToLocation(index) {
+			// Since this is called by direct jump buttons, stop the sequential navigation
+			currentLocation = index; // Set current location to index for potential future navigation control
+			updateMapAndView(locations[index]);
 		}
 
 		document.getElementById('startAnimationButton').addEventListener('click', navigateLocations);
 
+		// Attach event listeners to the navigation buttons
+		var navButtons = document.querySelectorAll('.locationButton');
+		navButtons.forEach(button => {
+			button.addEventListener('click', function () {
+				var index = this.getAttribute('data-location');
+				jumpToLocation(parseInt(index, 10));
+			});
+		});
+
 		const insetMap = new mapboxgl.Map({
-			container: 'mapInset', // container id
-			style: 'mapbox://styles/daltonwb/clujzh5s103nd01nw7lco2zk3', //hosted style id
+			container: 'mapInset',
+			style: 'mapbox://styles/daltonwb/clujzh5s103nd01nw7lco2zk3',
 			center: [14.863725, 11.592343],
 			zoom: 2,
 			hash: false,
