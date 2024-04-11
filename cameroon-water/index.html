@@ -40,7 +40,7 @@
 	const map = new mapboxgl.Map({
 		container: 'map',
 		style: 'mapbox://styles/daltonwb/cluskejgz001a01qj6wnpgo81',
-		zoom: 9,
+		zoom: 8.5,
 		bearing: -20,
 		center: [14.863725, 11.592343],
 		projection: 'globe',
@@ -96,7 +96,7 @@
 			container: 'mapInset', // container id
 			style: 'mapbox://styles/daltonwb/clujzh5s103nd01nw7lco2zk3', //hosted style id
 			center: [14.863725, 11.592343],
-			zoom: 3,
+			zoom: 2,
 			hash: false,
 			interactive: false,
 			projection: 'mercator',
@@ -169,7 +169,6 @@
 		});
 
 		map.scrollZoom.disable();
-		map.addControl(new mapboxgl.FullscreenControl());
 		map.addControl(new mapboxgl.AttributionControl({
 			customAttribution: 'International Crisis Group | Map: Paul Franz and Claire Boccon-Gibod'
 		}));

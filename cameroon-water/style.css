@@ -35,9 +35,8 @@ a {
 
 h1 {
     font-family: "franklin-gothic-urw", sans-serif;
-    font-weight: 900;
-    font-style: italic;
-    font-size: 90px;
+    font-weight: 700;
+    font-size: 100px;
     line-height: 94px;
     padding: 0 0 0 10%;
     margin: 0;
@@ -80,7 +79,6 @@ h2 {
     font-weight: 700;
     background-color: #a4343a;
     padding: 15px;
-    border: solid 6px #fff;
     margin: 0;
 }
 
@@ -97,7 +95,8 @@ h2 {
     background: rgba(255, 255, 255, 0.8);
     font-family: 'franklin-gothic-urw', sans-serif;
     font-weight: 500;
-    font-size: 1em; 
+    font-size: 18px; 
+    line-height: 24px;
     opacity: 0;
     animation: fadeInAnimation 2s forwards;  
     border-bottom-right-radius: 30px
@@ -155,10 +154,10 @@ h2 {
 }
 
 #mapInset {
-    bottom: 40px;
+    top: 25px;
     right: 25px;
     height: 180px;
-    width:250px;
+    width: 250px;
     max-width:100%;
     position: fixed;
     z-index: 1;
