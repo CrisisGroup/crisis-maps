@@ -162,6 +162,7 @@ h2 {
     transition: background-color 0.3s; /* Smooth transition for background color */
     font-family: "franklin-gothic-urw", sans-serif;
     text-transform: uppercase;
+    width: 175px;
 }
 
 .locationButton:hover {
