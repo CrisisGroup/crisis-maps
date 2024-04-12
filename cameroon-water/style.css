@@ -136,9 +136,9 @@ h2 {
 #navigationControls {
     display: flex;
     flex-direction: column;
-    align-items: start; /* Align items to the start of the container (left) */
-    padding: 10px; /* Add some padding around the container */
-    gap: 10px; /* Add space between buttons */
+    align-items: start;
+    padding: 0;
+    gap: 2px;
     z-index: 9999;
     position: fixed;
     top: 25px;
@@ -155,7 +155,7 @@ h2 {
     transition: background-color 0.3s; /* Smooth transition for background color */
     font-family: "franklin-gothic-urw", sans-serif;
     text-transform: uppercase;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.03em;
     width: 180px;
     font-size: 16px;
 }
