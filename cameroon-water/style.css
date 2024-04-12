@@ -113,7 +113,7 @@ h2 {
     }
 }
 
-#startAnimationButton {
+#originalPosition {
     width: 375px;
     max-width: 100%;
     z-index: 1;
@@ -134,7 +134,7 @@ h2 {
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-#startAnimationButton:hover {
+#originalPosition:hover {
     background-color: rgba(255, 255, 255, 0.1); /* Adds a slight white overlay */
     border-color: #eee; /* Lightens the border color */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
@@ -153,20 +153,22 @@ h2 {
 }
 
 .locationButton {
-    background-color: #5b7f57; /* Button background color */
+    background-color: #a4343a; /* Button background color */
     color: white; /* Button text color */
-    padding: 10px 20px; /* Padding inside the buttons */
+    padding: 10px; /* Padding inside the buttons */
     border: none; /* Remove default border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Change mouse cursor on hover */
     transition: background-color 0.3s; /* Smooth transition for background color */
     font-family: "franklin-gothic-urw", sans-serif;
     text-transform: uppercase;
-    width: 175px;
+    letter-spacing: 0.01em;
+    width: 180px;
+    font-size: 16px;
 }
 
 .locationButton:hover {
-    background-color: #31412f; /* Darker shade on hover */
+    background-color: #581317; /* Darker shade on hover */
 }
 
 #loading {
