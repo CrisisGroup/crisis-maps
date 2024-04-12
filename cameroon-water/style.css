@@ -54,19 +54,12 @@ h1 {
 
 @media (max-width: 1440px) {
     h1 {
-        font-size: 72px;
+        font-size: 56px;
         line-height: 60px;
     }
 }
 
 @media (max-width: 1024px) {
-    h1 {
-        font-size: 54px;
-        line-height: 50px;
-    }
-}
-
-@media (max-width: 768px) {
     h1 {
         display: none;
     }
