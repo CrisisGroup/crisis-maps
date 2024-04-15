@@ -65,6 +65,12 @@ h1 {
     }
 }
 
+@media (max-height: 700px) {
+    h1 {
+        display: none;
+    }
+}
+
 h2 {
     font-family: 'franklin-gothic-urw', sans-serif;
     color: #fff;
@@ -131,6 +137,12 @@ h2 {
     background-color: rgba(255, 255, 255, 0.1); /* Adds a slight white overlay */
     border-color: #eee; /* Lightens the border color */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
+}
+
+@media (max-height: 800px) {
+    #originalPosition {
+        display: none;
+    }
 }
 
 #navigationControls {
