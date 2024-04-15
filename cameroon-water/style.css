@@ -142,7 +142,7 @@ h2 {
     z-index: 9999;
     position: fixed;
     top: 25px;
-    margin: 0 0 0 4%;
+    margin: 0 0 0 5%;
 }
 
 .locationButton {
@@ -150,7 +150,7 @@ h2 {
     color: white; /* Button text color */
     padding: 10px; /* Padding inside the buttons */
     border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 15px; /* Rounded corners */
     cursor: pointer; /* Change mouse cursor on hover */
     transition: background-color 0.3s; /* Smooth transition for background color */
     font-family: "franklin-gothic-urw", sans-serif;
