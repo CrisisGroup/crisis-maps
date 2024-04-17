@@ -98,7 +98,7 @@
 			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '8 December 2021 | CAMEROON', description: 'Clashes between communities of herders, farmers and fishermen which broke out in the village of Ouloumsa, Far North Cameroon spread across villages quickly, reaching Kousseri, the capital of Logone-et-Chari on 8 December 2021.' },
 			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '15 December 2021 | CAMEROON', description: 'Governmental delegation including the minister of territorial administration, politicians and military officials consulted  Choa Arabs and Musgum traditional authorities in a peacebuilding outreach.' },
 			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '11 January 2022 | CAMEROON', description: 'Choa Arab young men demonstrated in Kousseri town (Logone-et-Chari, Far North) against the arrest of two members of their community the previous day. Gendarmes fired shots in the air to disperse them.' },
-			{ lat: 11.592343, lon: 14.863725, pitch: 15, bearing: 0, zoom: 8, title: 'What\'s Next?', description: 'To start the timeline over, tap the button on the left.' },
+			{ lat: 11.592343, lon: 14.863725, pitch: 15, bearing: 0, zoom: 8, title: 'What’s Next?', description: 'In May 2022, The government announced its ambition to put together a presidential special reconstruction and development program for the Far North to address the root causes of the jihadi violence and climate shocks. Though announced in 2022, the plan’s implementation is scheduled for 2024. The plan aims to facilitate the return of internally displaced people to their original territories. It will include investments in public infrastructures and basic structures.' },
 		];
 
 		var currentLocation = 0;
@@ -117,7 +117,8 @@
 				pitch: location.pitch,
 				bearing: location.bearing,
 				zoom: location.zoom,
-				speed: .8,
+				speed: .4,
+				curve: 1.5,
 				essential: true // this animation is considered essential with respect to prefers-reduced-motion
 			});
 
@@ -146,12 +147,12 @@
 
 		const insetMap = new mapboxgl.Map({
 			container: 'mapInset',
-			style: 'mapbox://styles/daltonwb/clujzh5s103nd01nw7lco2zk3',
+			style: 'mapbox://styles/daltonwb/clv41w08a00gt01qv2ylb2pfc',
 			center: [14.863725, 11.592343],
 			zoom: 2,
 			hash: false,
 			interactive: false,
-			projection: 'mercator',
+			projection: 'globe',
 			attributionControl: false
 		});
 
