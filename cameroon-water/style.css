@@ -20,19 +20,6 @@ a {
     color: #fff;
 }
 
-@media (max-width: 768px) {
-    .mapboxgl-ctrl-geocoder {
-        width: 80% !important;
-    }
-}
-
-@media (max-width: 320px) {
-    .mapboxgl-ctrl-geocoder {
-        width: 40% !important;
-        min-width: 210px !important;
-    }
-}
-
 h1 {
     font-family: "franklin-gothic-urw", sans-serif;
     font-weight: 700;
@@ -82,9 +69,14 @@ h2 {
 }
 
 @keyframes fadeInAnimation {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
 
 #locationInfo {
     width: 500px;
@@ -94,10 +86,10 @@ h2 {
     background: rgba(255, 255, 255, 0.8);
     font-family: 'franklin-gothic-urw', sans-serif;
     font-weight: 500;
-    font-size: 18px; 
+    font-size: 18px;
     line-height: 24px;
     opacity: 0;
-    animation: fadeInAnimation 2s forwards;  
+    animation: fadeInAnimation 2s forwards;
     border-bottom-right-radius: 30px
 }
 
@@ -134,9 +126,19 @@ h2 {
 }
 
 #originalPosition:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Adds a slight white overlay */
-    border-color: #eee; /* Lightens the border color */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Adds a slight white overlay */
+    border-color: #eee;
+    /* Lightens the border color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* Adds a subtle shadow for depth */
+}
+
+
+@media (max-width: 768px) {
+    #originalPosition {
+        display: none;
+    }
 }
 
 @media (max-height: 800px) {
@@ -157,14 +159,56 @@ h2 {
     margin: 0 0 0 5%;
 }
 
+@media (max-width: 768px) {
+    #navigationControls {
+        display: none;
+    }
+}
+
+#mobileButton {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #mobileButton {
+        width: 375px;
+        max-width: 100%;
+        z-index: 1;
+        opacity: 1;
+        cursor: pointer;
+        font-family: "franklin-gothic-urw-cond", sans-serif;
+        font-weight: bold;
+        font-size: 18px;
+        position: relative;
+        background: none;
+        border: solid 1px #ccc;
+        border-radius: 15px;
+        color: #fff;
+        padding: 10px 12px 10px 12px;
+        margin: 0 0 30px 10%;
+        text-transform: uppercase;
+        letter-spacing: .2em;
+        transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        display: block;
+    }
+}
+
+
 .locationButton {
-    background-color: #a4343a; /* Button background color */
-    color: white; /* Button text color */
-    padding: 10px; /* Padding inside the buttons */
-    border: none; /* Remove default border */
-    border-radius: 15px; /* Rounded corners */
-    cursor: pointer; /* Change mouse cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition for background color */
+    background-color: #a4343a;
+    /* Button background color */
+    color: white;
+    /* Button text color */
+    padding: 10px;
+    /* Padding inside the buttons */
+    border: none;
+    /* Remove default border */
+    border-radius: 15px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Change mouse cursor on hover */
+    transition: background-color 0.3s;
+    /* Smooth transition for background color */
     font-family: "franklin-gothic-urw", sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -173,19 +217,20 @@ h2 {
 }
 
 .locationButton:hover {
-    background-color: #581317; /* Darker shade on hover */
+    background-color: #581317;
+    /* Darker shade on hover */
 }
 
 #loading {
-	top: 0;
-	height: 100vh;
-	width: 100vw;
-	position: fixed;
-	z-index: 0;
-	background: #000;
-	opacity: .9;
-	transition: opacity 1s ease-out;
-	pointer-events: none;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 0;
+    background: #000;
+    opacity: .9;
+    transition: opacity 1s ease-out;
+    pointer-events: none;
 }
 
 #mapInset {
@@ -193,7 +238,7 @@ h2 {
     right: 25px;
     height: 180px;
     width: 250px;
-    max-width:100%;
+    max-width: 100%;
     position: fixed;
     z-index: 1;
     opacity: 1;
@@ -203,9 +248,10 @@ h2 {
     border: solid .5px #ccc;
 }
 
-#mapInset .mapboxgl-ctrl-bottom-left{
+#mapInset .mapboxgl-ctrl-bottom-left {
     display: none;
 }
+
 @media (max-width: 500px) {
     #mapInset {
         display: none;
@@ -214,33 +260,35 @@ h2 {
 
 .color-line {
     display: flex;
-    height: 20px; /* Adjust the height as needed */
-    width: 100%; /* Set the line width */
-  }
+    height: 20px;
+    /* Adjust the height as needed */
+    width: 100%;
+    /* Set the line width */
+}
 
-  .color-part {
+.color-part {
     flex: 1;
     height: 100%;
     font-weight: 700;
     text-align: center;
-  }
+}
 
-  .color-part:nth-child(1) {
+.color-part:nth-child(1) {
     background-color: #f3bb91;
     color: #be4500;
-  }
+}
 
-  .color-part:nth-child(2) {
+.color-part:nth-child(2) {
     background-color: #e87722;
     color: #fff;
-  }
+}
 
-  .color-part:nth-child(3) {
+.color-part:nth-child(3) {
     background-color: #be4500;
     color: #f3bb91;
-  }
+}
 
-  #toggleButton {
+#toggleButton {
     border-radius: 10px;
     font-family: 'franklin-gothic-urw';
     text-transform: uppercase;
@@ -310,13 +358,6 @@ ul {
     align-self: center;
     border-bottom: none;
     border-top-color: #fff;
-}
-
-.threat-vectors {
-    font-family: 'franklin-gothic-urw', sans-serif;
-    font-size: 18px;
-    margin-top: 10px;
-    width: auto;
 }
 
 #legend {

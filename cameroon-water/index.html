@@ -17,6 +17,7 @@
 	<div class="box">
 
 		<button id="originalPosition">Navigate the Timeline →</button>
+		<button id="mobileButton">Next →</button>
 
 		<h1>Timeline of Cameroon’s Water Crisis</h1>
 
@@ -134,7 +135,7 @@
 			updateMapAndView(locations[index]);
 		}
 
-		// document.getElementById('startAnimationButton').addEventListener('click', navigateLocations);
+		document.getElementById('mobileButton').addEventListener('click', navigateLocations);
 
 		// Attach event listeners to the navigation buttons
 		var navButtons = document.querySelectorAll('.locationButton');
