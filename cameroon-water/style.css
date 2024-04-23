@@ -99,8 +99,14 @@ h2 {
 
 @media (max-width: 768px) {
     #locationInfo {
-        left: 0;
-        width: 400px;
+        position: fixed; /* Keeps the div at the top of the viewport */
+        left: 50%; /* Start from the middle of the screen horizontally */
+        top: 5%; /* Distance from the top of the viewport */
+        transform: translateX(-50%); /* Shifts the div back to center it horizontally */
+        width: 90%; /* Responsive width, adjusts based on screen size */
+        max-width: 400px; /* Ensures the div doesn't grow beyond 400px */
+        z-index: 1; /* Ensures layering on top of other elements, if necessary */
+        /* Additional styling can follow here */
     }
 }
 
@@ -171,23 +177,25 @@ h2 {
 
 @media (max-width: 768px) {
     #mobileButton {
-        width: 375px;
-        max-width: 100%;
+        width: 375px; /* or percentage if more responsiveness is needed */
+        max-width: 100%; /* Ensures the button doesn't exceed the screen width */
+        position: fixed; /* Keeps the button at the bottom of the viewport */
+        left: 50%; /* Start from the middle of the screen horizontally */
+        bottom: 10%; /* Distance from the bottom of the viewport */
+        transform: translateX(-50%); /* Shifts the button back to center it horizontally */
         z-index: 1;
         opacity: 1;
         cursor: pointer;
         font-family: "franklin-gothic-urw-cond", sans-serif;
         font-weight: bold;
         font-size: 18px;
-        position: relative;
         background: none;
         border: solid 1px #ccc;
         border-radius: 15px;
         color: #fff;
-        padding: 10px 12px 10px 12px;
-        margin: 0 0 30px 10%;
+        padding: 10px 12px;
         text-transform: uppercase;
-        letter-spacing: .2em;
+        letter-spacing: 0.2em;
         transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         display: block;
     }
