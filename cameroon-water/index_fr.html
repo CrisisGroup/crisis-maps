@@ -64,7 +64,7 @@
 		function getZoomLevel() {
 			const width = window.innerWidth;
 			if (width < 600) {
-				return 6; // More zoomed out for smaller devices
+				return 6.5; // More zoomed out for smaller devices
 			} else if (width >= 600 && width < 1000) {
 				return 7;
 			} else {
@@ -82,7 +82,7 @@
 			projection: 'globe',
 			pitch: 45,
 			maxZoom: 14,
-			minZoom: 6,
+			minZoom: 6.5,
 			maxBounds: [[12.803782352780502, 10.268535070350396], [17.043613795438773, 13.055481325837178]],
 			dragPan: false,
 			scrollZoom: false,
