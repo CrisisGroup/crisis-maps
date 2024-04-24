@@ -16,7 +16,7 @@
 
 	<div class="box">
 
-		<button id="originalPosition">Consulter la chronologie →</button>
+		<button id="originalPosition" style="display:none;">Consulter la chronologie →</button>
 		<button id="mobileButton">Suivant →</button>
 
 		<h1>Chronologie des tensions liées à l’eau au Cameroun</h1>
@@ -33,19 +33,19 @@
 	</div>
 
 	<div id="navigationControls">
-		<button class="locationButton" data-location="0">10 août 2021</button>
+		<button class="locationButton" data-location="0">10 aoUt 2021</button>
 		<span style="color: #fff; font-weight: bold; align-self: center; font-size: 10px;">&#x7c;</span>
-		<button class="locationButton" data-location="1">14 août 2021</button>
+		<button class="locationButton" data-location="1">14 aoUt 2021</button>
 		<span style="color: fff; font-weight: bold; align-self: center; font-size: 10px;">|</span>
 		<button class="locationButton" data-location="2">23 septembre 2021</button>
 		<span style="color: #fff; font-weight: bold; align-self: center; font-size: 10px;">|</span>
 		<button class="locationButton" data-location="3">2 octobre 2021</button>
 		<span style="color: #fff; font-weight: bold; align-self: center; font-size: 10px;">|</span>
-		<button class="locationButton" data-location="4">5 décembre 2021</button>
+		<button class="locationButton" data-location="4">5 dEcembre 2021</button>
 		<span style="color: #fff; font-weight: bold; align-self: center; font-size: 10px;">|</span>
-		<button class="locationButton" data-location="5">8 décembre 2021</button>
+		<button class="locationButton" data-location="5">8 dEcembre 2021</button>
 		<span style="color: #fff; font-weight: bold; align-self: center; font-size: 10px;">|</span>
-		<button class="locationButton" data-location="6">15 décembre 2021</button>
+		<button class="locationButton" data-location="6">15 dEcembre 2021</button>
 		<span style="color: #fff; font-weight: bold; align-self: center; font-size: 10px;">|</span>
 		<button class="locationButton" data-location="7">11 janvier 2022</button>
 		<span style="color: #fff; font-weight: bold; align-self: center; font-size: 10px;">|</span>
@@ -95,16 +95,16 @@
 		});
 
 		var locations = [
-			{ lat: 11.79426383, lon: 15.14228381, pitch: 35, bearing: -57.5, zoom: 14, title: '10 août 2021 | CHAD', description: 'Première vague de violence – Dans le village de Missiska, dans l’arrondissement du Logone Birni (département du Logone-et-Chari, Extrême-Nord), de violents affrontements ont éclaté lorsqu’un bassin creusé par des pêcheurs Mousgoum a piégé et tué des bovins appartenant à des éleveurs arabes Choa. Les Mousgoum ont évacué les femmes et les enfants vers leur communauté voisine Mousgoum vivant de l’autre côté du fleuve Logone, au Tchad. Le conflit a fait au moins 45 morts et 74 blessés. Au moins dix-neuf villages ont brûlé et quarante autres ont été abandonnés par leurs habitants.' },
-			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '14 août 2021 | CAMEROON', description: 'Le gouverneur de l’Extrême-Nord, Midjiyawa Bakari, s’est rendu à Kousseri, la capitale du Logone-et-Chari, pour apaiser les tensions. Les autorités ont ordonné le déploiement de forces de sécurité dans plus de cent villages sinistrés de la région. Pendant ce temps, les leaders communautaires ont lu une déclaration commune dans laquelle ils s’engageaint « à ne ménager aucun effort pour un retour définitif de la paix entre les deux communautés qui coexistent ».' },
-			{ lat: 11.39823307, lon: 14.56872937, pitch: 0, bearing: 0, zoom: 14.5, title: '23 septembre 2021 | CAMEROON', description: 'Des Arabes Choa des villages de Malia et Toukoumaya se sont affrontés dans le cadre d’un litige foncier près de Waza, une ville du Logone-et-Chari. Cinq personnes ont été blessées.' },
-			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '2 octobre 2021 | CAMEROON', description: 'Les Arabes Choa et les Mousgoum se sont affrontés dans le quartier de Gueli à Kousseri après une dispute entre des membres des deux groupes. Une personne a été blessée et un véhicule a été incendié.' },
-			{ lat: 11.39823307, lon: 14.56872937, pitch: 0, bearing: 0, zoom: 14.5, title: '5 décembre 2021 | CAMEROON', description: 'Deuxième vague de violence – Des affrontements entre éleveurs, agriculteurs et pêcheurs ont éclaté dans le village d’Ouloumsa, ville du Logone-Birni, Extrême-Nord.' },
-			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '8 décembre 2021 | CAMEROON', description: 'Les affrontements qui ont éclaté à Ouloumsa se sont rapidement propagés dans les villages, pour atteindre Kousseri le 8 décembre 2021. Au moins 44 personnes ont été tuées et plus de 100 ont été blessées.' },
-			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '16 décembre 2021 | CAMEROON', description: 'Une délégation gouvernementale comprenant le ministre de l’administration territoriale, des responsables politiques et des militaires a consulté les autorités traditionnelles Arabes Choas et Mousgoum dans le cadre d’une action de consolidation de la paix. Environ 100 000 personnes avaient été déplacées.' },
-			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '10 janvier 2022 | CAMEROON', description: 'À Kousseri, les forces de sécurité ont réprimé une émeute des Arabes Choas qui protestaient contre l’arrestation de l’ancien maire accusé d’être impliqué dans les meurtres de décembre 2021, faisant quatre blessés et provoquant de nombreuses arrestations. Le lendemain, les Mousgoums et les Arabes Choas se sont affrontés à balles réelles après que ces derniers aient été accusés d’avoir tué deux membres de la communauté Mousgoum.' },
-			{ lat: 12.56270807, lon: 14.44745073, pitch: 35, bearing: -40, zoom: 14, title: '6-7 octobre 2023 | CAMEROON', description: 'Entre le 6 et le 7 octobre 2023, des agriculteurs Kotoko se sont affrontés à des éleveurs arabes Choa à Makary, Goulfey, Amdagalgui et Ngouma (Logone-et-Chari, Extrême-Nord), faisant au moins deux morts et 20 blessés.' },
-			{ lat: 12.87759002, lon: 14.29758313, pitch: 35, bearing: -40, zoom: 14, title: 'Décembre 2023-février 2024 | CAMEROON', description: 'Les militants de Boko Haram et de la province d’Afrique de l’Ouest de l’État islamique ont lancé plus d’une douzaine d’attaques contre des communautés de pêcheurs dans la partie nord de la division du Logone-et-Chari, enlevant environ 25 personnes et en tuant au moins sept. Des milliers de personnes ont fui vers le sud de la division, ce qui n’a fait qu’augmenter la pression sur les ressources disponibles dans cette zone.' },
+			{ lat: 11.79426383, lon: 15.14228381, pitch: 35, bearing: -57.5, zoom: 14, title: '10 août 2021 | TCHAD', description: 'Première vague de violence – Dans le village de Missiska, dans l’arrondissement du Logone Birni (département du Logone-et-Chari, Extrême-Nord), de violents affrontements ont éclaté lorsqu’un bassin creusé par des pêcheurs Mousgoum a piégé et tué des bovins appartenant à des éleveurs arabes Choa. Les Mousgoum ont évacué les femmes et les enfants vers leur communauté voisine Mousgoum vivant de l’autre côté du fleuve Logone, au TTCHAD. Le conflit a fait au moins 45 morts et 74 blessés. Au moins dix-neuf villages ont brûlé et quarante autres ont été abandonnés par leurs habitants.' },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '14 août 2021 | CAMEROUN', description: 'Le gouverneur de l’Extrême-Nord, Midjiyawa Bakari, s’est rendu à Kousseri, la capitale du Logone-et-Chari, pour apaiser les tensions. Les autorités ont ordonné le déploiement de forces de sécurité dans plus de cent villages sinistrés de la région. Pendant ce temps, les leaders communautaires ont lu une déclaration commune dans laquelle ils s’engageaient « à ne ménager aucun effort pour un retour définitif de la paix entre les deux communautés qui coexistent ».' },
+			{ lat: 11.39823307, lon: 14.56872937, pitch: 0, bearing: 0, zoom: 14.5, title: '23 septembre 2021 | CAMEROUN', description: 'Des Arabes Choa des villages de Malia et Toukoumaya se sont affrontés dans le cadre d’un litige foncier près de Waza, une ville du Logone-et-Chari. Cinq personnes ont été blessées.' },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '2 octobre 2021 | CAMEROUN', description: 'Les Arabes Choa et les Mousgoum se sont affrontés dans le quartier de Gueli à Kousseri après une dispute entre des membres des deux groupes. Une personne a été blessée et un véhicule a été incendié.' },
+			{ lat: 11.39823307, lon: 14.56872937, pitch: 0, bearing: 0, zoom: 14.5, title: '5 décembre 2021 | CAMEROUN', description: 'Deuxième vague de violence – Des affrontements entre éleveurs, agriculteurs et pêcheurs ont éclaté dans le village d’Ouloumsa, ville du Logone-Birni, Extrême-Nord.' },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '8 décembre 2021 | CAMEROUN', description: 'Les affrontements qui ont éclaté à Ouloumsa se sont rapidement propagés dans les villages, pour atteindre Kousseri le 8 décembre 2021. Au moins 44 personnes ont été tuées et plus de 100 ont été blessées.' },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '16 décembre 2021 | CAMEROUN', description: 'Une délégation gouvernementale comprenant le ministre de l’administration territoriale, des responsables politiques et des militaires a consulté les autorités traditionnelles Arabes Choas et Mousgoum dans le cadre d’une action de consolidation de la paix. Environ 100 000 personnes avaient été déplacées.' },
+			{ lat: 12.08725499, lon: 15.01527438, pitch: 35, bearing: -40, zoom: 14, title: '10 janvier 2022 | CAMEROUN', description: 'À Kousseri, les forces de sécurité ont réprimé une émeute des Arabes Choas qui protestaient contre l’arrestation de l’ancien maire accusé d’être impliqué dans les meurtres de décembre 2021, faisant quatre blessés et provoquant de nombreuses arrestations. Le lendemain, les Mousgoums et les Arabes Choas se sont affrontés à balles réelles après que ces derniers aient été accusés d’avoir tué deux membres de la communauté Mousgoum.' },
+			{ lat: 12.56270807, lon: 14.44745073, pitch: 35, bearing: -40, zoom: 14, title: '6-7 octobre 2023 | CAMEROUN', description: 'Entre le 6 et le 7 octobre 2023, des agriculteurs Kotoko se sont affrontés à des éleveurs arabes Choa à Makary, Goulfey, Amdagalgui et Ngouma (Logone-et-Chari, Extrême-Nord), faisant au moins deux morts et 20 blessés.' },
+			{ lat: 12.87759002, lon: 14.29758313, pitch: 35, bearing: -40, zoom: 14, title: 'Décembre 2023-février 2024 | CAMEROUN', description: 'Les militants de Boko Haram et de la province d’Afrique de l’Ouest de l’État islamique ont lancé plus d’une douzaine d’attaques contre des communautés de pêcheurs dans la partie nord de la division du Logone-et-Chari, enlevant environ 25 personnes et en tuant au moins sept. Des milliers de personnes ont fui vers le sud de la division, ce qui n’a fait qu’augmenter la pression sur les ressources disponibles dans cette zone.' },
 			{ lat: 11.592343, lon: 14.863725, pitch: 15, bearing: 0, zoom: 8, title: 'Perspectives d’avenir', description: 'En février 2024, les parties prenantes se sont réunies à Yaoundé pour harmoniser les plans de développement de l’Extrême-Nord, alors qu’un programme présidentiel de reconstruction annoncé en mai 2022 et estimé à 3 milliards de dollars devrait être mis en œuvre plus tard dans l’année.' },
 		];
 
