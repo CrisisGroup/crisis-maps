@@ -61,23 +61,38 @@
 		// Show the map container
 		document.getElementById('map').style.display = 'block';
 
+		function getZoomLevel() {
+			const width = window.innerWidth;
+			if (width < 600) {
+				return 6; // More zoomed out for smaller devices
+			} else if (width >= 600 && width < 1000) {
+				return 7;
+			} else {
+				return 8; // More zoomed in for larger devices
+			}
+		}
+
 		mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
 		const map = new mapboxgl.Map({
 			container: 'map',
 			style: 'mapbox://styles/daltonwb/clvcnz2i401du01pe0euf1pw7',
-			zoom: 8.5,
+			zoom: getZoomLevel(),
 			bearing: -20,
 			center: [14.863725, 11.592343],
 			projection: 'globe',
 			pitch: 45,
 			maxZoom: 14,
-			minZoom: 8,
+			minZoom: 6,
 			maxBounds: [[12.803782352780502, 10.268535070350396], [17.043613795438773, 13.055481325837178]],
 			dragPan: false,
 			scrollZoom: false,
 			doubleClickZoom: false,
 			interactive: false,
 			attributionControl: false
+		});
+
+		window.addEventListener('resize', function () {
+			map.setZoom(getZoomLevel());
 		});
 
 		map.on('load', function () {

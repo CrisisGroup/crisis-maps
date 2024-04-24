@@ -61,6 +61,17 @@
 		// Show the map container
 		document.getElementById('map').style.display = 'block';
 
+		function getZoomLevel() {
+			const width = window.innerWidth;
+			if (width < 600) {
+				return 6; // More zoomed out for smaller devices
+			} else if (width >= 600 && width < 1000) {
+				return 7;
+			} else {
+				return 8; // More zoomed in for larger devices
+			}
+		}
+
 		mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
 		const map = new mapboxgl.Map({
 			container: 'map',
@@ -78,6 +89,10 @@
 			doubleClickZoom: false,
 			interactive: false,
 			attributionControl: false
+		});
+
+		window.addEventListener('resize', function () {
+			map.setZoom(getZoomLevel());
 		});
 
 		map.on('load', function () {
