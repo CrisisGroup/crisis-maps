@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Map with Legend</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+	<link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
+	<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        .legend {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            padding: 10px 15px;
+            position: absolute;
+            right: 10px;
+            width: auto;
+            font-family: 'franklin-gothic-urw', sans-serif;
+            line-height: 24px;
+            z-index: 1;
+        }
+        .legend-header {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #333;
+            text-align: center;
+            font-weight: bold;
+        }
+        .legend i {
+            border-radius: 50%;
+            display: inline-block;
+            height: 12px;
+            width: 12px;
+            float: left;
+            margin-right: 5px;
+            margin-top: 6px;
+        }
+        .legend div {
+            clear: both;
+            padding: 5px 0;
+        }
+        .legend .color-box {
+            float: left;
+            width: 12px;
+            height: 12px;
+            margin: 5px 8px 5px 0;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<div class="legend">
+    <p><i style="background-color: #4a7dcf;"></i>U.S. Strikes</p>
+    <p><i style="background-color: hsla(0, 78%, 54%, 0.5);"></i>Iranian-backed Strikes</p>
+</div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        projection: 'mercator',
+        style: 'mapbox://styles/daltonwb/clvfn8evl05c301pk6x635op5',
+        center: [38.22564, 34.46435],
+        zoom: 5.5,
+        maxZoom: 14,
+		minZoom: 5.5,
+		maxBounds: [[29.02084, 29.89003],[47.26729, 38.52183]]
+    });
+</script>
+</body>
+</html>
