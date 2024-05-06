@@ -68,8 +68,17 @@
         zoom: 5.7,
         maxZoom: 14,
 		minZoom: 5.5,
+        showZoom: true,
 		maxBounds: [[29.02084, 29.89003],[47.26729, 38.52183]]
     });
+
+    map.addControl(new mapboxgl.NavigationControl());
+		map.scrollZoom.disable();
+		map.addControl(new mapboxgl.FullscreenControl());
+		map.addControl(new mapboxgl.AttributionControl({
+			customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a>'
+		}));
+
 </script>
 </body>
 </html>
