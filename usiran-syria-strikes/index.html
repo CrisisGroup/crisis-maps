@@ -1,74 +1,83 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <title>U.S. and Iranian Strikes in Syria</title>
+    <title>U.S. and Iran-backed Strikes in Syria</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-	<link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
-	<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
     <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
     <link rel="stylesheet" href="style.css">
+
 <body>
-<div id="map"></div>
-<div class="legend">
-    <div class="legend-header">LEGEND</div>
-    <p><i style="background-color: #165c7d;"></i>U.S. strikes</p>
-    <p><i style="background-color: #9a4343;"></i>Iranian-backed strikes</p>
-    <br />
-    <strong>Number of strikes per location</strong>
-    <div class="circle-container">
-        <div class="circle">
-            <span style="width: 10px; height: 10px;"></span>
+    <div id="map"></div>
+    <div class="legend">
+        <div class="legend-header">LEGEND</div>
+        <p><i style="background-color: #165c7d;"></i>U.S. strikes</p>
+        <p><i style="background-color: #9a4343;"></i>Iran-backed armed group strikes</p>
+        <br />
+        <strong>Number of strikes per location</strong>
+        <div class="circle-container">
+            <div class="alignment-div">
+                <div class="circle">
+                    <span style="width: 10px; height: 10px;"></span>
+                </div>
+                <div class="label">1</div>
+            </div>
         </div>
-        <div class="label">1</div>
-    </div>
-    <div class="circle-container">
-        <div class="circle">
-            <span style="width: 30px; height: 30px;"></span>
+        <div class="circle-container" id="margin-balance">
+            <div class="alignment-div">
+                <div class="circle">
+                    <span style="width: 30px; height: 30px;"></span>
+                </div>
+                <div class="label">15</div>
+            </div>
         </div>
-        <div class="label">15</div>
-    </div>
-    <div class="circle-container">
-        <div class="circle">
-            <span style="width: 50px; height: 50px;"></span>
+        <div class="circle-container">
+            <div class="alignment-div">
+                <div class="circle">
+                    <span style="width: 50px; height: 50px;"></span>
+                </div>
+                <div class="label">More than 30</div>
+            </div>
         </div>
-        <div class="label">&gt; 30</div>
+        <hr />
+        <p><strong>Source</strong>: Uppsala Conflict Data program and Crisis Group</p>
     </div>
-    <hr />
-    <p><strong>Source</strong>: Uppsala Conflict Data program (UCDP) and Crisis Group</p>
-</div>
-<script>
+    <script>
 
-function scroolZoomEnable() {
-			const width = window.innerWidth;
-			if (width < 1024) {
-				return false; // More zoomed out for smaller devices
-			}  else {
-				return true; // More zoomed in for larger devices
-			}
-		}
+        function scroolZoomEnable() {
+            const width = window.innerWidth;
+            if (width < 1024) {
+                return false; // Disable scrollwheel on smaller devices
+            } else {
+                return true; // Enable it
+            }
+        }
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        projection: 'mercator',
-        style: 'mapbox://styles/daltonwb/clvy659tu09xx01nugcsz6ffd',
-        center: [40.42998, 34.92193],
-        zoom: 6.8,
-        maxZoom: 14,
-		minZoom: 6.8,
-        showZoom: true,
-        scrollZoom: scroolZoomEnable(),
-		maxBounds: [[30.23994, 30.43999], [51.17745, 38.97027]],
-        attributionControl: false
-    });
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            projection: 'mercator',
+            style: 'mapbox://styles/daltonwb/clvzbvkhm07mn01phf0bocnvy',
+            center: [40.42998, 34.92193],
+            zoom: 6.8,
+            maxZoom: 14,
+            minZoom: 6.8,
+            showZoom: true,
+            scrollZoom: scroolZoomEnable(),
+            maxBounds: [[30.23994, 30.43999], [51.17745, 38.97027]],
+            attributionControl: false
+        });
 
-    map.addControl(new mapboxgl.NavigationControl());
-		map.addControl(new mapboxgl.FullscreenControl());
-		map.addControl(new mapboxgl.AttributionControl({
-			customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod'
-		}));
+        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.FullscreenControl());
+        map.addControl(new mapboxgl.AttributionControl({
+            customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod'
+        }));
 
-</script>
+    </script>
 </body>
+
 </html>
