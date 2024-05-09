@@ -62,19 +62,22 @@ body {
     text-align: left;
     margin-top: 0;
 }
-.circle {
+.circle-container {
     display: flex;
-    align-items: center;
+    justify-content: left; /* Centers the entire block horizontally */
+    align-items: center; /* Centers the circle vertically within each container */
     margin-bottom: 10px; /* Adds space between entries */
 }
+.circle {
+    margin-right: 10px; /* Ensures spacing between the circle and the label */
+}
 .circle span {
-    display: inline-block;
-    margin-right: 10px; /* Adjusted right margin for better spacing */
+    display: block;
     border-radius: 50%;
-    background-color: #76A5AF;
+    background-color: transparent; /* Removes the fill color */
+    border: 2px solid #473729; /* Sets the stroke color and width */
 }
 .label {
-    display: inline-block;
-    vertical-align: middle;
-    line-height: normal; /* Ensures text is centered vertically */
+    margin-left: 10px; /* Space between circle and label */
+    align-self: center; /* Aligns the label text with the center of the circle */
 }
