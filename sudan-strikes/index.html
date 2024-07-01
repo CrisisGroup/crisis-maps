@@ -1,0 +1,199 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title> China’s hydropower ‘battlefield’ in Tibet: Gangtuo dam</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	<link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
+	<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://use.typekit.net/kjv8sgv.css">
+	<link href='style.css' rel='stylesheet' />
+
+</head>
+
+<body>
+
+	<div class="box">
+
+		<nav id="menu"></nav>
+	</div>
+
+	<div id="map"></div>
+
+	<div id="mobilemenu"></div>
+	<div id="mapInset"></div>
+	<div style="display: flex; flex-direction: column; gap: 10px;">
+		<button class="button-view" id="location1">Zoom to local area</button>
+		<br />
+		<button class="button-view" id="location2">Zoom to region</button>
+		<ul class="legend" style="margin-top: 20px;">
+			<li><span style="color: #ffa500; font-size: 28px;">•</span> <span style="color: white;">Town</span></li>
+			<li><span style="color: #b3ff00; font-size: 28px;">•</span> <span style="color: white;">Village</span></li>
+			<li><span style="color: #08ff00; font-size: 28px;">•</span> <span style="color: white;">IDP camp</span></li>
+			<li><span style="color: #00ff9d; font-size: 28px;">•</span> <span style="color: white;">School</span></li>
+			<li><span style="color: #00b5ff; font-size: 28px;">•</span> <span style="color: white;">Hospital</span></li>
+			<li><span style="color: #0010ff; font-size: 28px;">•</span> <span style="color: white;">Market</span></li>
+		</ul>
+	</div>
+
+	<script>
+
+		// Show the map container
+
+		mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+		const map = new mapboxgl.Map({
+			container: 'map',
+			style: 'mapbox://styles/daltonwb/cly37gz8000ea01qoau9cerie',
+			zoom: 9,
+			bearing: 0,
+			center: [25.212655, 13.981157],
+			projection: 'mercator',
+			pitch: 0,
+			// maxBounds: [[80.34600, 24.62277], [114.90114, 38.38348]],
+			showZoom: true,
+			attributionControl: false
+		});
+
+		// Function to stop map rotation
+		function stopRotation() {
+			isRotating = false;
+		}
+
+		// Stop the rotation when one of the navigation buttons is clicked
+		document.getElementById('location1').addEventListener('click', stopRotation);
+		document.getElementById('location2').addEventListener('click', stopRotation);
+		// Repeat for any additional navigation buttons
+
+		// Existing map setup and rotation logic...
+		let isRotating = true; // Flag to control the rotation
+
+		function rotateCamera(timestamp) {
+			if (!isRotating) {
+				// If rotation is stopped, don't request further frames
+				return;
+			}
+			// Slow down the rotation to ~1 degree per second
+			map.rotateTo((timestamp / 1000) % 360, { duration: 0 });
+			// Request the next frame of the animation.
+			requestAnimationFrame(rotateCamera);
+		}
+
+		map.on('load', () => {
+			// Start the animation.
+			rotateCamera(0);
+		});
+
+		// Add a click event listener to stop the rotation
+		map.on('click', stopRotation);
+
+		var viewpoints = [
+			{ lat: 31.703889, lon: 98.544722, pitch: 60, bearing: 157.3, zoom: 15.71 },
+			{ lat: 31.7014, lon: 98.5061, pitch: 42, bearing: 33.6, zoom: 10.5 },
+		];
+
+		// Function to navigate to a specific viewpoint
+		function setViewpoint(index) {
+			var vp = viewpoints[index];
+			map.flyTo({
+				center: [vp.lon, vp.lat],
+				pitch: vp.pitch,
+				bearing: vp.bearing,
+				zoom: vp.zoom,
+				essential: true,
+				speed: 0.6
+			});
+		}
+
+		document.getElementById('location1').addEventListener('click', function () { setViewpoint(0); });
+		document.getElementById('location2').addEventListener('click', function () { setViewpoint(1); });
+
+		const insetMap = new mapboxgl.Map({
+			container: 'mapInset', // container id
+			style: 'mapbox://styles/daltonwb/cly3718lr00d301p8gsev8cyx', //hosted style id
+			center: [25.212655, 13.981157],
+			zoom: 3,
+			hash: false,
+			interactive: false,
+			projection: 'globe',
+			attributionControl: false
+		});
+
+		insetMap.on('load', () => {
+
+			insetMap.addSource('boundsSource', {
+				'type': 'geojson',
+				'data': {
+					"type": "FeatureCollection",
+					"features": [
+						{
+							"type": "Feature",
+							"properties": {},
+							"geometry": {
+								"coordinates": [
+									[
+										[
+											23.85127943733886,
+											14.55552021448851
+										],
+										[
+											23.85127943733886,
+											12.961286908572404
+										],
+										[
+											26.535214142031634,
+											12.961286908572404
+										],
+										[
+											26.535214142031634,
+											14.55552021448851
+										],
+										[
+											23.85127943733886,
+											14.55552021448851
+										]
+									]
+								],
+								"type": "Polygon"
+							}
+						}
+					]
+				}
+			});
+
+			insetMap.addLayer({
+				'id': 'boundsLayer',
+				'type': 'fill',
+				'source': 'boundsSource', // reference the data source
+				'layout': {},
+				'paint': {
+					'fill-color': '#ccc', // blue color fill
+					'fill-opacity': 0.4
+				}
+			});
+			// // Add a black outline around the polygon.
+			insetMap.addLayer({
+				'id': 'outlineLayer',
+				'type': 'line',
+				'source': 'boundsSource',
+				'layout': {},
+				'paint': {
+					'line-color': '#fff',
+					'line-width': 1
+				}
+			});
+		});
+
+		map.addControl(new mapboxgl.NavigationControl());
+		map.scrollZoom.enable();
+		map.addControl(new mapboxgl.FullscreenControl());
+		map.addControl(new mapboxgl.AttributionControl({
+			customAttribution: 'Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod. | International Crisis Group'
+		}));
+
+	</script>
+
+</body>
+
+</html>
