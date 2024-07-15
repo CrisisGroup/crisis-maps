@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .timeline {
+            display: flex;
+            align-items: center;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+
+        .timeline li {
+            position: relative;
+            padding: 20px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1 1 0;
+        }
+
+        .timeline li:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            right: -90px; /* Adjusted to accommodate the wider line */
+            height: 2px;
+            width: 100px; /* Double the previous width */
+            background-color: #003e51;
+        }
+
+        .timeline li span {
+            background-color: #003e51;
+            color: white;
+            width: 50px; /* Increased width */
+            height: 50px; /* Increased height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .timeline li p {
+            margin: 0;
+        }
+
+        .timeline li .description {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        @media (max-width: 1024px) {
+            .timeline {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .timeline li {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                padding: 20px 0;
+            }
+
+            .timeline li:not(:last-child)::after {
+                display: none;
+            }
+
+            .timeline li span {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .timeline li .description {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <ul class="timeline">
+        <li>
+            <span>1</span>
+            <p>Step 1</p>
+            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </li>
+        <li>
+            <span>2</span>
+            <p>Step 2</p>
+            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </li>
+        <li>
+            <span>3</span>
+            <p>Step 3</p>
+            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </li>
+        <li>
+            <span>4</span>
+            <p>Step 4</p>
+            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </li>
+        <li>
+            <span>5</span>
+            <p>Step 5</p>
+            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </li>
+        <li>
+            <span>6</span>
+            <p>Step 6</p>
+            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Test test</p>
+        </li>
+    </ul>
+</body>
+</html>
