@@ -3,36 +3,47 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Interactive Map</title>
+    <title>Map of Israeli Settlements and Outposts</title>
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        #map {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 100%;
-        }
-
-        .sidebar {
-            background-color: white;
-            position: absolute;
-            width: 200px;
-            height: 100px;
-            top: 10px;
-            left: 10px;
-            padding: 10px;
-            z-index: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <div class="legend">
+        <div class="legend-header">LEGEND</div>
+        <p><i style="background-color: #165c7d;"></i>Israeli Settlements</p>
+        <p><i style="background-color: #9a4343;"></i>Israeli Outposts</p>
+        <p><i style="background-color: #fff; border: solid 1px black;"></i>Other Outposts</p>
+        <br />
+     <!--    <strong>Number of strikes per location</strong>
+        <div class="circle-container">
+            <div class="alignment-div">
+                <div class="circle">
+                    <span style="width: 10px; height: 10px;"></span>
+                </div>
+                <div class="label">1</div>
+            </div>
+        </div>
+        <div class="circle-container" id="margin-balance">
+            <div class="alignment-div">
+                <div class="circle">
+                    <span style="width: 30px; height: 30px;"></span>
+                </div>
+                <div class="label">15</div>
+            </div>
+        </div>
+        <div class="circle-container">
+            <div class="alignment-div">
+                <div class="circle">
+                    <span style="width: 50px; height: 50px;"></span>
+                </div>
+                <div class="label">More than 30</div>
+            </div>
+        </div> -->
+        <hr />
+        <p><strong>Source</strong>: Peace Now</p>
+    </div>
     <div class='sidebar'>
         <input id="year-slider" type="range" min="1967" max="2020" step="1" value="1967"
             oninput="document.getElementById('selected-year').textContent = this.value">
@@ -56,7 +67,8 @@
 
             var initialYear = 1967;
 
-            // Add layer for "Settlement"
+            // Existing setup for Settlements and Outposts
+            // Settlements layer
             map.addLayer({
                 "id": "settlements-layer-settlement",
                 "type": "circle",
@@ -74,7 +86,7 @@
                 }
             });
 
-            // Add layer for "Outpost"
+            // Outposts layer
             map.addLayer({
                 "id": "settlements-layer-outpost",
                 "type": "circle",
@@ -92,12 +104,31 @@
                 }
             });
 
-            // Update map based on slider input for cumulative display
+            // Additional layer for stroke-only visibility that honors the time slider
+            map.addLayer({
+                "id": "il-pa-settlements-il-settle-69skx2-stroke",
+                "type": "circle",
+                "source": "composite",
+                "source-layer": "IL_PA_Settlements_-_il_settle-69skx2",
+                "filter": [
+                    "all",
+                    ["<=", ["get", "year"], initialYear],
+                    ["match", ["get", "type"], ["Settlement", "Outpost"], false, true]
+                ],
+                "paint": {
+                    "circle-color": "rgba(0, 0, 0, 0)", // No fill color
+                    "circle-stroke-color": "#000000",   // Black stroke
+                    "circle-stroke-width": 0.5
+                }
+            });
+
+            // Slider updates
             document.getElementById('year-slider').addEventListener('input', function (e) {
                 var year = parseInt(e.target.value, 10);
-                // Update filters for both layers
+                // Update filters for all layers to reflect changes up to the selected year
                 map.setFilter('settlements-layer-settlement', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Settlement"], true, false]]);
                 map.setFilter('settlements-layer-outpost', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Outpost"], true, false]]);
+                map.setFilter('il-pa-settlements-il-settle-69skx2-stroke', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Settlement", "Outpost"], false, true]]);
             });
         });
     </script>
