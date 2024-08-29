@@ -1,61 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Interactive Map</title>
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
-<style>
-    body { margin: 0; padding: 0; }
-    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    .sidebar {
-        background-color: white;
-        position: absolute;
-        width: 200px;
-        height: 100px;
-        top: 10px;
-        left: 10px;
-        padding: 10px;
-        z-index: 1;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>Interactive Map</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .sidebar {
+            background-color: white;
+            position: absolute;
+            width: 200px;
+            height: 100px;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+            z-index: 1;
+        }
+    </style>
 </head>
+
 <body>
-<div class='sidebar'>
-    <input id="year-slider" type="range" min="1967" max="2020" step="1" value="1967" oninput="document.getElementById('selected-year').textContent = this.value">
-    <p>Year: <span id="selected-year">1967</span></p>
-</div>
-<div id='map'></div>
-<script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/light-v10',
-        center: [35.2137, 31.7683],
-        zoom: 10
-    });
-
-    map.on('load', function () {
-        map.addSource('settlements', {
-            type: 'geojson',
-            data: 'settlements.geojson'
+    <div class='sidebar'>
+        <input id="year-slider" type="range" min="1967" max="2020" step="1" value="1967"
+            oninput="document.getElementById('selected-year').textContent = this.value">
+        <p>Year: <span id="selected-year">1967</span></p>
+    </div>
+    <div id='map'></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/daltonwb/cm0fiafq1000c01qu5i7c3vas',
+            center: [35.030781, 31.891362],
+            zoom: 8.5
         });
 
-        map.addLayer({
-            id: 'settlements-layer',
-            type: 'circle',
-            source: 'settlements',
-            paint: {
-                'circle-radius': 6,
-                'circle-color': '#B42222'
-            }
-        });
+        map.on('load', function () {
+            map.addSource('settlements', {
+                type: 'vector',
+                url: 'mapbox://daltonwb.b5xx5phj'
+            });
 
-        document.getElementById('year-slider').addEventListener('input', function(e) {
-            var year = parseInt(e.target.value, 10);
-            map.setFilter('settlements-layer', ['==', ['get', 'year'], year]);
+            var initialYear = 1967;
+
+            // Add layer for "Settlement"
+            map.addLayer({
+                "id": "settlements-layer-settlement",
+                "type": "circle",
+                "source": "composite",
+                "source-layer": "IL_PA_Settlements_-_il_settle-69skx2",
+                "filter": [
+                    "all",
+                    ["<=", ["get", "year"], initialYear],
+                    ["match", ["get", "type"], ["Settlement"], true, false]
+                ],
+                "paint": {
+                    "circle-color": "#6399ae",
+                    "circle-stroke-color": "#ffffff",
+                    "circle-stroke-width": 0.5
+                }
+            });
+
+            // Add layer for "Outpost"
+            map.addLayer({
+                "id": "settlements-layer-outpost",
+                "type": "circle",
+                "source": "composite",
+                "source-layer": "IL_PA_Settlements_-_il_settle-69skx2",
+                "filter": [
+                    "all",
+                    ["<=", ["get", "year"], initialYear],
+                    ["match", ["get", "type"], ["Outpost"], true, false]
+                ],
+                "paint": {
+                    "circle-color": "#a4343a",
+                    "circle-stroke-color": "#ffffff",
+                    "circle-stroke-width": 0.5
+                }
+            });
+
+            // Update map based on slider input for cumulative display
+            document.getElementById('year-slider').addEventListener('input', function (e) {
+                var year = parseInt(e.target.value, 10);
+                // Update filters for both layers
+                map.setFilter('settlements-layer-settlement', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Settlement"], true, false]]);
+                map.setFilter('settlements-layer-outpost', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Outpost"], true, false]]);
+            });
         });
-    });
-</script>
+    </script>
 </body>
+
 </html>
