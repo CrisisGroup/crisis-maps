@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interactive Map</title>
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
+<style>
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    .sidebar {
+        background-color: white;
+        position: absolute;
+        width: 200px;
+        height: 100px;
+        top: 10px;
+        left: 10px;
+        padding: 10px;
+        z-index: 1;
+    }
+</style>
+</head>
+<body>
+<div class='sidebar'>
+    <input id="year-slider" type="range" min="1967" max="2020" step="1" value="1967" oninput="document.getElementById('selected-year').textContent = this.value">
+    <p>Year: <span id="selected-year">1967</span></p>
+</div>
+<div id='map'></div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v10',
+        center: [35.2137, 31.7683],
+        zoom: 10
+    });
+
+    map.on('load', function () {
+        map.addSource('settlements', {
+            type: 'geojson',
+            data: 'settlements.geojson'
+        });
+
+        map.addLayer({
+            id: 'settlements-layer',
+            type: 'circle',
+            source: 'settlements',
+            paint: {
+                'circle-radius': 6,
+                'circle-color': '#B42222'
+            }
+        });
+
+        document.getElementById('year-slider').addEventListener('input', function(e) {
+            var year = parseInt(e.target.value, 10);
+            map.setFilter('settlements-layer', ['==', ['get', 'year'], year]);
+        });
+    });
+</script>
+</body>
+</html>
