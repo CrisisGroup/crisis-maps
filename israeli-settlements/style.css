@@ -52,7 +52,7 @@ h2 {
 input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
-    width: 100%;
+    width: 97%;
     height: 12px;
     background: transparent;
     outline: none;
@@ -95,6 +95,12 @@ input[type="range"]::-moz-range-track {
     border-radius: 6px;
 }
 
+@media (max-width: 500px) {
+    .slider-container {
+        width: 400px;  /* This hides the navigation controls */
+    }
+}
+
 @media (max-width: 1024px) {
     .mapboxgl-ctrl-top-right .mapboxgl-ctrl {
         display: none;  /* This hides the navigation controls */
@@ -108,7 +114,7 @@ input[type="range"]::-moz-range-track {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     padding: 10px 15px;
     position: absolute;
-    right: 10px;
+    right: 30px;
     width: auto;
     font-family: 'franklin-gothic-urw', sans-serif;
     z-index: 1;
@@ -116,10 +122,11 @@ input[type="range"]::-moz-range-track {
 
 .legend p {
     margin: 0;
+    font-size: 22px;
 }
 
 .legend-header {
-    font-size: 18px;
+    font-size: 26px;
     margin-bottom: 8px;
     color: #333;
     text-align: left;
@@ -131,8 +138,8 @@ input[type="range"]::-moz-range-track {
     display: inline-block;
     height: 12px;
     width: 12px;
-    margin-right: 5px;
-    margin-top: 6px;
+    margin-right: 30px;
+    margin-top: 7px;
 }
 
 .legend div {
