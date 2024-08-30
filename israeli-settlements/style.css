@@ -28,7 +28,6 @@ body {
     font-size: 32px;
     margin-bottom: 5px;
     color: #000;
-
 }
 
 h2 {
@@ -99,7 +98,7 @@ input[type="range"]::-moz-range-track {
 /* Media queries for responsive adjustments */
 @media (max-width: 768px) { /* Tablet and down to mobile */
     .slider-container {
-        position: fixed; /* Use fixed to stay at the top */
+        position: absolute; /* Use fixed to stay at the top */
         top: 0;
         left: 0;
         right: 0; /* Span the full width of the viewport */
@@ -110,6 +109,12 @@ input[type="range"]::-moz-range-track {
 
     input[type="range"] {
         width: calc(100% - 40px); /* Adjust width to account for padding */
+    }
+}
+
+@media (max-width: 425px) { /* Tablet and down to mobile */
+    .slider-container {
+        width: 95%;
     }
 }
 
