@@ -46,35 +46,30 @@ input[type="range"] {
     cursor: pointer;
   }
   
-  .base-infobox {
+  .sidebar {
+    background-color: white;
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.8);
+    width: 150px;
+    top: 30px;
+    left: 30px;
+    padding: 10px;
+    z-index: 1;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-    padding: 10px;
     font-family: 'franklin-gothic-urw', sans-serif;
-    z-index: 1;
-    width: calc(50% - 20px); /* Responsive width, assuming a 10px margin */
-    max-width: 300px; /* Max width to prevent over-expansion on larger screens */
-    box-sizing: border-box; /* Includes padding and border in the width */
 }
 
 .legend {
-    right: 25%; /* Half of the viewport width */
-    bottom: 10px;
-}
-
-.sidebar {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    padding: 10px 15px;
+    position: absolute;
     right: 10px;
-    bottom: 10px;
-}
-
-@media (max-width: 600px) {
-    .base-infobox {
-        padding: 8px; /* Smaller padding for smaller screens */
-        bottom: 5px; /* Less offset from the bottom */
-        right: 5px; /* Less offset from the right */
-    }
+    width: auto;
+    font-family: 'franklin-gothic-urw', sans-serif;
+    z-index: 1;
 }
 
 .legend p {
