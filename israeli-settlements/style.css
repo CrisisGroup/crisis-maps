@@ -14,8 +14,8 @@ body {
 
 .slider-container {
     position: absolute;
-    top: 30px;
-    left: 30px;
+    top: 3%;
+    left: 3%;
     right: 10px;
     width: 300px;
     font-family: 'franklin-gothic-urw', sans-serif;
@@ -33,13 +33,17 @@ body {
 h2 {
     font-weight: 100;
     font-size: 24px;
-    color: #000;
+    color: rgb(77, 77, 77);
     text-align: left;
+    letter-spacing: 0.09em;
+
 }
 
 #selected-year {
     font-weight: bold;
     font-size: 28px;
+    letter-spacing: normal;
+    color: #000;
 }
 
 .slider-container label {
@@ -76,7 +80,13 @@ input[type="range"]::-webkit-slider-thumb {
     border: 1px solid #000;
     border-radius: 50%;
     cursor: pointer;
-    margin-top: -4px;
+    margin-top: -4px; /* Centers the thumb vertically within the track */
+    transition: background 0.3s, border-color 0.3s; /* Smooth transition for hover effect */
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: #473729; /* Dark brown color when hovered */
+    border-color: #473729; /* Optionally change the border color too */
 }
 
 input[type="range"]::-moz-range-thumb {
@@ -86,6 +96,12 @@ input[type="range"]::-moz-range-thumb {
     border: 1px solid #000;
     border-radius: 50%;
     cursor: pointer;
+    transition: background 0.3s, border-color 0.3s; /* Smooth transition for hover effect */
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    background: #473729; /* Dark brown color when hovered */
+    border-color: #473729; /* Optionally change the border color too */
 }
 
 input[type="range"]::-moz-range-track {
