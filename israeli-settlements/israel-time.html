@@ -7,57 +7,58 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
 </head>
 
 <body>
-    <div class="legend">
+
+    <div class="base-infobox legend">
         <div class="legend-header">LEGEND</div>
         <p><i style="background-color: #165c7d;"></i>Israeli Settlements</p>
         <p><i style="background-color: #9a4343;"></i>Israeli Outposts</p>
         <p><i style="background-color: #fff; border: solid 1px black;"></i>Other Outposts</p>
         <br />
-     <!--    <strong>Number of strikes per location</strong>
-        <div class="circle-container">
-            <div class="alignment-div">
-                <div class="circle">
-                    <span style="width: 10px; height: 10px;"></span>
-                </div>
-                <div class="label">1</div>
-            </div>
-        </div>
-        <div class="circle-container" id="margin-balance">
-            <div class="alignment-div">
-                <div class="circle">
-                    <span style="width: 30px; height: 30px;"></span>
-                </div>
-                <div class="label">15</div>
-            </div>
-        </div>
-        <div class="circle-container">
-            <div class="alignment-div">
-                <div class="circle">
-                    <span style="width: 50px; height: 50px;"></span>
-                </div>
-                <div class="label">More than 30</div>
-            </div>
-        </div> -->
         <hr />
         <p><strong>Source</strong>: Peace Now</p>
     </div>
-    <div class='sidebar'>
+    <div class="base-infobox sidebar">
         <input id="year-slider" type="range" min="1967" max="2020" step="1" value="1967"
             oninput="document.getElementById('selected-year').textContent = this.value">
         <p>Year: <span id="selected-year">1967</span></p>
     </div>
+
     <div id='map'></div>
     <script>
+
+        function scroolZoomEnable() {
+            const width = window.innerWidth;
+            if (width < 1024) {
+                return false; // Disable scrollwheel on smaller devices
+            } else {
+                return true; // Enable it
+            }
+        }
+
         mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/daltonwb/cm0fiafq1000c01qu5i7c3vas',
             center: [35.030781, 31.891362],
-            zoom: 8.5
+            zoom: 8,
+            maxZoom: 14,
+            minZoom: 7.5,
+            showZoom: true,
+            scrollZoom: scroolZoomEnable(),
+            maxBounds: [[33.40434, 30.92008],[37.29292, 32.89675]],
+            attributionControl: false
         });
+
+        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.FullscreenControl());
+        map.addControl(new mapboxgl.AttributionControl({
+            customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod | Data: <a href="https://peacenow.org.il/en/settlements-watch/settlements-data/population" target="_blank">PeaceNow</a>'
+        }));
+
 
         map.on('load', function () {
             map.addSource('settlements', {
