@@ -14,21 +14,32 @@
 
     <div class="legend">
         <div class="legend-header">LEGEND</div>
-        <p><i style="background-color: #165c7d;"></i>Israeli Settlements</p>
-        <p><i style="background-color: #9a4343;"></i>Israeli Outposts</p>
-        <p><i style="background-color: #fff; border: solid 1px black;"></i>Other Outposts</p>
-        <br />
-        <hr />
-        <p><strong>Source</strong>: Peace Now</p>
+        <p><i style="background-color: #165c7d; border: solid 0.5px #fff;"></i>Settlements</p>
+        <p><i style="background-color: #9a4343; border: solid 0.5px #fff;"></i>Outposts</p>
+        <p><i style="background-color: #fff; border: solid 0.5px black;"></i>Other Outposts</p>
     </div>
-    <div class='sidebar'>
+    <div class="slider-container">
+        <h1>Israeli Settlement and Outpost Expansion in the West Bank</h1>
+        <label for="year-slider">
+            <h2>BY YEAR <span id="selected-year">1967</span></h2>
+        </label>
         <input id="year-slider" type="range" min="1967" max="2020" step="1" value="1967"
             oninput="document.getElementById('selected-year').textContent = this.value">
-        <p>Year: <span id="selected-year">1967</span></p>
     </div>
 
     <div id='map'></div>
     <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const range = document.getElementById('year-slider');
+            const updateSlider = () => {
+                const value = ((range.value - range.min) / (range.max - range.min) * 100);
+                range.style.setProperty('--thumb-percentage', `${value}%`);
+            };
+
+            range.addEventListener('input', updateSlider);
+            updateSlider();
+        });
 
         function scroolZoomEnable() {
             const width = window.innerWidth;
@@ -49,7 +60,7 @@
             minZoom: 7.5,
             showZoom: true,
             scrollZoom: scroolZoomEnable(),
-            maxBounds: [[33.40434, 30.92008],[37.29292, 32.89675]],
+            maxBounds: [[33.40434, 30.92008], [37.29292, 32.89675]],
             attributionControl: false
         });
 
