@@ -17,7 +17,7 @@ body {
     top: 30px;
     left: 30px;
     right: 10px;
-    width: 30%;
+    width: 300px;
     font-family: 'franklin-gothic-urw', sans-serif;
     z-index: 1;
     text-align: left;
@@ -25,7 +25,7 @@ body {
 }
 
 .slider-container h1 {
-    font-size: 32px;
+    font-size: 30px;
     margin-bottom: 5px;
     color: #000;
 }
@@ -93,29 +93,6 @@ input[type="range"]::-moz-range-track {
     background: linear-gradient(to right, #fff 0%, #fff var(--thumb-percentage, 0%), #d5d1cc var(--thumb-percentage, 0%));
     border: 1px solid #000;
     border-radius: 6px;
-}
-
-/* Media queries for responsive adjustments */
-@media (max-width: 768px) { /* Tablet and down to mobile */
-    .slider-container {
-        position: absolute; /* Use fixed to stay at the top */
-        top: 0;
-        left: 0;
-        right: 0; /* Span the full width of the viewport */
-        width: 100%; /* Ensure width is full for responsiveness */
-        padding: 10px 20px; /* Padding to avoid sticking to the edges, adjust as needed */
-        box-sizing: border-box; /* Include padding in width calculation */
-    }
-
-    input[type="range"] {
-        width: calc(100% - 40px); /* Adjust width to account for padding */
-    }
-}
-
-@media (max-width: 425px) { /* Tablet and down to mobile */
-    .slider-container {
-        width: 95%;
-    }
 }
 
 @media (max-width: 1024px) {
