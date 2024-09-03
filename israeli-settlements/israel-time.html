@@ -17,9 +17,10 @@
         <div class="legend-header">LEGEND</div>
         <p><i style="background-color: #165c7d; border: solid 0.5px #fff;"></i>Settlements</p>
         <p><i style="background-color: #9a4343; border: solid 0.5px #fff;"></i>Outposts</p>
-        <p><i style="background-color: #fff; border: solid 0.5px black;"></i>Other Outposts</p>
+        <p><i id="size-adjust" style="background-color: #fff; border: solid 0.25px #beb8b3;"></i>Other Outposts</p>
         <hr />
-        <p><i style="background-color: #beb8b3; border-radius: 0;"></i>Controlled or partly controlled by Palestinian Authorities</p>
+        <p><i style="background-color: #b8b3ad; border-radius: 0;"></i>Controlled or partly controlled by Palestinian
+            Authorities</p>
     </div>
     <div class="slider-container">
         <h1>Israeli Settlement and Outpost Expansion in the West Bank</h1>
@@ -52,6 +53,16 @@
                 return true; // Enable it
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.getElementById('year-slider');
+    slider.addEventListener('mouseenter', () => {
+        slider.style.animation = 'flicker 1.5s ease-in-out 3';
+    });
+    slider.addEventListener('mouseleave', () => {
+        slider.style.animation = 'none'; // Reset animation
+    });
+});
 
         mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
         var map = new mapboxgl.Map({
