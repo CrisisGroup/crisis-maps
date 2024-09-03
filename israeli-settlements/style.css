@@ -15,17 +15,36 @@ body {
 .slider-container {
     position: absolute;
     top: 3%;
-    left: 3%;
-    right: 10px;
-    width: 300px;
+    left: 5%; 
+    width: 20%; /* Set the width instead of max-width for a more consistent behavior */
     font-family: 'franklin-gothic-urw', sans-serif;
     z-index: 1;
     text-align: left;
-    box-sizing: border-box;
+    padding: 10px;
+}
+
+/* Adjustments for screens 768px wide or less */
+@media (max-width: 1024px) {
+    .slider-container {
+        position: absolute;  /* May adjust to fixed if you need it to stay visible while scrolling */
+        left: 2.5%;  /* Adjust left position for small screens */
+        right: 2.5%; /* Add right to control the width from both sides */
+        width: 50%;  /* Use width to explicitly control size, not max-width */
+    }
+}
+
+/* Adjustments for screens 768px wide or less */
+@media (max-width: 768px) {
+    .slider-container {
+        position: absolute;  /* May adjust to fixed if you need it to stay visible while scrolling */
+        left: 2.5%;  /* Adjust left position for small screens */
+        right: 2.5%; /* Add right to control the width from both sides */
+        width: 95%;  /* Use width to explicitly control size, not max-width */
+    }
 }
 
 .slider-container h1 {
-    font-size: 30px;
+    font-size: 34px;
     margin-bottom: 5px;
     color: #000;
 }
@@ -57,7 +76,7 @@ input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
     width: 97%;
-    height: 12px;
+    height: 10px;
     background: transparent;
     outline: none;
     opacity: 1.0;
@@ -80,7 +99,7 @@ input[type="range"]::-webkit-slider-thumb {
     border: 1px solid #000;
     border-radius: 50%;
     cursor: pointer;
-    margin-top: -4px; /* Centers the thumb vertically within the track */
+    margin-top: -5px; /* Centers the thumb vertically within the track */
     transition: background 0.3s, border-color 0.3s; /* Smooth transition for hover effect */
 }
 
@@ -109,12 +128,6 @@ input[type="range"]::-moz-range-track {
     background: linear-gradient(to right, #fff 0%, #fff var(--thumb-percentage, 0%), #d5d1cc var(--thumb-percentage, 0%));
     border: 1px solid #000;
     border-radius: 6px;
-}
-
-@media (max-width: 500px) {
-    .slider-container {
-        width: 400px;  /* This hides the navigation controls */
-    }
 }
 
 @media (max-width: 1024px) {
