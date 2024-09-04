@@ -43,11 +43,15 @@
     <div class="legend">
         <div class="legend-header">
             <h2>Map Legend</h2>
-            <strong><a href="#infobox" id="infoLink">Info</a></strong>
         </div>
         <p><i style="background-color: #6399ae; border: solid 0.5px #fff;"></i>Settlements</p>
         <p><i style="background-color: #a4343a; border: solid 0.5px #fff;"></i>Outposts</p>
-        <p><i id="size-adjust" style="background-color: #fff; border: solid 0.25px #7d7874;"></i>Other Outposts</p>
+
+        <div class="flex-container">
+            <p><i id="size-adjust" style="background-color: #fff; border: solid 0.25px #7d7874;"></i>Other Outposts</p>
+            <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span id="more-info-text">More Information</span></div>
+        </div>
+
         <hr />
         <p><i style="background-color: #b8b3ad; border-radius: 0;"></i>Controlled or partly controlled by Palestinian
             Authorities</p>
@@ -67,20 +71,20 @@
 
     <script>
         document.getElementById("infoLink").addEventListener('click', function (event) {
-            event.preventDefault();  
+            event.preventDefault();
             var modal = document.getElementById("myModal");
-            modal.classList.add('show'); 
+            modal.classList.add('show');
         });
 
         document.getElementsByClassName("close")[0].addEventListener('click', function () {
             var modal = document.getElementById("myModal");
-            modal.classList.remove('show');  
+            modal.classList.remove('show');
         });
 
         window.addEventListener('click', function (event) {
             var modal = document.getElementById("myModal");
             if (event.target == modal) {
-                modal.classList.remove('show');  
+                modal.classList.remove('show');
             }
         });
 
@@ -103,9 +107,9 @@
         function scroolZoomEnable() {
             const width = window.innerWidth;
             if (width < 1024) {
-                return false; 
+                return false;
             } else {
-                return true; 
+                return true;
             }
         }
 
@@ -115,7 +119,7 @@
                 slider.style.animation = 'flicker 1.5s ease-in-out 3';
             });
             slider.addEventListener('mouseleave', () => {
-                slider.style.animation = 'none'; 
+                slider.style.animation = 'none';
             });
         });
 
@@ -193,8 +197,8 @@
                     ["match", ["get", "type"], ["Settlement", "Outpost"], false, true]
                 ],
                 "paint": {
-                    "circle-color": "rgba(0, 0, 0, 0)", 
-                    "circle-stroke-color": "#000000", 
+                    "circle-color": "rgba(0, 0, 0, 0)",
+                    "circle-stroke-color": "#000000",
                     "circle-stroke-width": 0.5
                 }
             });

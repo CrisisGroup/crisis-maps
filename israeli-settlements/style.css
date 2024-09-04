@@ -176,7 +176,6 @@ input[type="range"]::-moz-range-track {
     z-index: 1;
 }
 
-
 @media (max-width: 1024px) {
     .legend {
         position: fixed;
@@ -235,6 +234,49 @@ input[type="range"]::-moz-range-track {
     margin-top: 0;
 }
 
+.info-icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    background: none;
+    color: #717c7d;
+    border: solid 1px #717c7d;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 50%;
+    font-style: normal;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.info-icon:hover {
+    background-color: #CCC;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+.flex-container {
+    display: flex;       
+    align-items: center; 
+}
+
+#morebox {
+    margin-left: 20px;   
+    display: flex;       
+    align-items: center; 
+}
+
+#more-info-text {
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 4px;
+    color: #717c7d;
+}
 
 .modal {
     visibility: hidden;
@@ -269,7 +311,6 @@ input[type="range"]::-moz-range-track {
     opacity: 1;
     transition: visibility 0s linear 0s, opacity 0.3s linear;
 }
-
 
 .close {
     color: #aaa;
