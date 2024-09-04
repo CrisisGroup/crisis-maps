@@ -9,27 +9,82 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Tag Manager -->
+
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+
+        })(window, document, 'script', 'dataLayer', 'GTM-TD5NKJJ');
+    </script>
+
 </head>
 
 <body>
 
-    <div class="legend">
-        <div class="legend-header">LEGEND</div>
-        <p><i style="background-color: #165c7d; border: solid 0.5px #fff;"></i>Settlements</p>
-        <p><i style="background-color: #9a4343; border: solid 0.5px #fff;"></i>Outposts</p>
-        <p><i id="size-adjust" style="background-color: #fff; border: solid 0.25px #beb8b3;"></i>Other Outposts</p>
-        <hr />
-        <p><i style="background-color: #b8b3ad; border-radius: 0;"></i>Controlled or partly controlled by Palestinian
-            Authorities</p>
-    </div>
     <div class="slider-container">
-        <h1>Israeli Settlement and Outpost Expansion in the West Bank</h1>
+        <h1>Mapping Israeli Settlement Expansion in the West Bank </h1>
         <label for="year-slider">
             <h2>BY YEAR &nbsp;&nbsp;<span id="selected-year">1967</span></h2>
         </label>
         <input id="year-slider" type="range" min="1967" max="2020" step="1" value="1967"
             oninput="document.getElementById('selected-year').textContent = this.value">
     </div>
+
+    <div class="legend">
+        <div class="legend-header">
+            <h2>Map Legend</h2>
+            <strong><a href="#infobox" id="infoLink">Info</a></strong>
+        </div>
+        <p><i style="background-color: #6399ae; border: solid 0.5px #fff;"></i>Settlements</p>
+        <p><i style="background-color: #a4343a; border: solid 0.5px #fff;"></i>Outposts</p>
+        <p><i id="size-adjust" style="background-color: #fff; border: solid 0.25px #7d7874;"></i>Other Outposts</p>
+        <hr />
+        <p><i style="background-color: #b8b3ad; border-radius: 0;"></i>Controlled or partly controlled by Palestinian
+            Authorities</p>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p><span style="font-weight: bold; color: #6399ae;">Settlements</span> in the West Bank that were
+                    officially established by the government (East Jerusalem excluded).</p>
+                <p><span style="font-weight: bold; color: #a4343a;">Outposts</span> are settlements that were
+                    established since the 1990's without government approval and are considered illegal according to
+                    Israeli law.</p>
+                <p><span style="font-weight: bold; color: #000;">Other Outposts</span> are ... something else.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("infoLink").addEventListener('click', function (event) {
+            event.preventDefault();  
+            var modal = document.getElementById("myModal");
+            modal.classList.add('show'); 
+        });
+
+        document.getElementsByClassName("close")[0].addEventListener('click', function () {
+            var modal = document.getElementById("myModal");
+            modal.classList.remove('show');  
+        });
+
+        window.addEventListener('click', function (event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.classList.remove('show');  
+            }
+        });
+
+    </script>
 
     <div id='map'></div>
     <script>
@@ -48,21 +103,21 @@
         function scroolZoomEnable() {
             const width = window.innerWidth;
             if (width < 1024) {
-                return false; // Disable scrollwheel on smaller devices
+                return false; 
             } else {
-                return true; // Enable it
+                return true; 
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-    const slider = document.getElementById('year-slider');
-    slider.addEventListener('mouseenter', () => {
-        slider.style.animation = 'flicker 1.5s ease-in-out 3';
-    });
-    slider.addEventListener('mouseleave', () => {
-        slider.style.animation = 'none'; // Reset animation
-    });
-});
+        document.addEventListener('DOMContentLoaded', function () {
+            const slider = document.getElementById('year-slider');
+            slider.addEventListener('mouseenter', () => {
+                slider.style.animation = 'flicker 1.5s ease-in-out 3';
+            });
+            slider.addEventListener('mouseleave', () => {
+                slider.style.animation = 'none'; 
+            });
+        });
 
         mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
         var map = new mapboxgl.Map({
@@ -81,7 +136,7 @@
         map.addControl(new mapboxgl.NavigationControl());
         map.addControl(new mapboxgl.FullscreenControl());
         map.addControl(new mapboxgl.AttributionControl({
-            customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod | Data: <a href="https://peacenow.org.il/en/settlements-watch/settlements-data/population" target="_blank">PeaceNow</a>'
+            customAttribution: 'International Crisis Group | Map: <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> & Claire Boccon-Gibod | Data: <a href="https://peacenow.org.il/en/settlements-watch/settlements-data/population" target="_blank">PeaceNow</a>'
         }));
 
 
@@ -93,8 +148,6 @@
 
             var initialYear = 1967;
 
-            // Existing setup for Settlements and Outposts
-            // Settlements layer
             map.addLayer({
                 "id": "settlements-layer-settlement",
                 "type": "circle",
@@ -112,7 +165,6 @@
                 }
             });
 
-            // Outposts layer
             map.addLayer({
                 "id": "settlements-layer-outpost",
                 "type": "circle",
@@ -130,7 +182,6 @@
                 }
             });
 
-            // Additional layer for stroke-only visibility that honors the time slider
             map.addLayer({
                 "id": "il-pa-settlements-il-settle-69skx2-stroke",
                 "type": "circle",
@@ -142,16 +193,14 @@
                     ["match", ["get", "type"], ["Settlement", "Outpost"], false, true]
                 ],
                 "paint": {
-                    "circle-color": "rgba(0, 0, 0, 0)", // No fill color
-                    "circle-stroke-color": "#000000",   // Black stroke
+                    "circle-color": "rgba(0, 0, 0, 0)", 
+                    "circle-stroke-color": "#000000", 
                     "circle-stroke-width": 0.5
                 }
             });
 
-            // Slider updates
             document.getElementById('year-slider').addEventListener('input', function (e) {
                 var year = parseInt(e.target.value, 10);
-                // Update filters for all layers to reflect changes up to the selected year
                 map.setFilter('settlements-layer-settlement', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Settlement"], true, false]]);
                 map.setFilter('settlements-layer-outpost', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Outpost"], true, false]]);
                 map.setFilter('il-pa-settlements-il-settle-69skx2-stroke', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Settlement", "Outpost"], false, true]]);
