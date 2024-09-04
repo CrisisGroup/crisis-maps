@@ -45,10 +45,9 @@
             <h2>Map Legend</h2>
         </div>
         <p><i style="background-color: #6399ae; border: solid 0.5px #fff;"></i>Settlements</p>
-        <p><i style="background-color: #a4343a; border: solid 0.5px #fff;"></i>Outposts</p>
 
         <div class="flex-container">
-            <p><i id="size-adjust" style="background-color: #fff; border: solid 0.25px #7d7874;"></i>Other Outposts</p>
+            <p><i style="background-color: #a4343a; border: solid 0.5px #fff;"></i>Outposts</p>
             <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span id="more-info-text">More Information</span></div>
         </div>
 
@@ -64,7 +63,6 @@
                 <p><span style="font-weight: bold; color: #a4343a;">Outposts</span> are settlements that were
                     established since the 1990's without government approval and are considered illegal according to
                     Israeli law.</p>
-                <p><span style="font-weight: bold; color: #000;">Other Outposts</span> are ... something else.</p>
             </div>
         </div>
     </div>
@@ -186,28 +184,10 @@
                 }
             });
 
-            map.addLayer({
-                "id": "il-pa-settlements-il-settle-69skx2-stroke",
-                "type": "circle",
-                "source": "composite",
-                "source-layer": "IL_PA_Settlements_-_il_settle-69skx2",
-                "filter": [
-                    "all",
-                    ["<=", ["get", "year"], initialYear],
-                    ["match", ["get", "type"], ["Settlement", "Outpost"], false, true]
-                ],
-                "paint": {
-                    "circle-color": "rgba(0, 0, 0, 0)",
-                    "circle-stroke-color": "#000000",
-                    "circle-stroke-width": 0.5
-                }
-            });
-
             document.getElementById('year-slider').addEventListener('input', function (e) {
                 var year = parseInt(e.target.value, 10);
                 map.setFilter('settlements-layer-settlement', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Settlement"], true, false]]);
                 map.setFilter('settlements-layer-outpost', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Outpost"], true, false]]);
-                map.setFilter('il-pa-settlements-il-settle-69skx2-stroke', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Settlement", "Outpost"], false, true]]);
             });
         });
     </script>
