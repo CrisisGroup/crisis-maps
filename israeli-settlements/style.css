@@ -259,7 +259,6 @@ input[type="range"]::-moz-range-track {
 
 .info-icon:hover {
     background-color: #CCC;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
     color: #fff;
 }
 
