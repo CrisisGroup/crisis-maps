@@ -3,7 +3,39 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Map of Israeli Settlements and Outposts</title>
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+    <link rel="alternate" hreflang="en" href="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
+    <link rel="icon" type="image/x-icon"
+        href="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/favicon.ico">
+        <link rel="canonical" href="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title"
+        content="[Visual] Mapping Israeli Settlement Expansion in the Occupied West Bank | International Crisis Group" />
+    <meta name="twitter:description"
+        content="Explore Israeli settlement expansion in this map of the occupied West Bank and its role in the broader Israel-Palestine conflict." />
+    <meta name="twitter:site" content="@crisisgroup" />
+    <meta name="twitter:image"
+        content="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/israel_social.jpg" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title"
+        content="[Visual] Mapping Israeli Settlement Expansion in the Occupied West Bank | International Crisis Group" />
+    <meta property="og:description"
+        content="Explore Israeli settlement expansion in this map of the occupied West Bank and its role in the broader Israel-Palestine conflict." />
+    <meta property="og:url" content="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
+    <meta property="og:site_name" content="International Crisis Group" />
+    <meta property="article:publisher" content="https://www.facebook.com/crisisgroup" />
+    <meta property="og:image"
+        content="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/israel_social.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <title>[Visual] Mapping Israeli Settlement Expansion in the Occupied West Bank | International Crisis Group</title>
+    <meta name="description"
+        content="Explore Israeli settlement expansion in this map of the occupied West Bank and its role in the broader Israel-Palestine conflict." />
+    <meta name="author" content="International Crisis Group">
+    <meta property="article:published_time" content="2024-09-06T07:00:00+00:00" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
@@ -48,7 +80,8 @@
 
         <div class="flex-container">
             <p><i style="background-color: #a4343a; border: solid 0.5px #fff;"></i>Outposts</p>
-            <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span id="more-info-text">More Information</span></div>
+            <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span
+                    id="more-info-text">More Information</span></div>
         </div>
 
         <hr />
@@ -63,9 +96,10 @@
                 <p><span style="font-weight: bold; color: #a4343a;">Outposts</span> are settlements that were
                     established since the 1990's without government approval and are considered illegal according to
                     Israeli law.</p>
-                    <p><strong>Area A (18%)</strong>: Administered by Palestinian Authority</p>
-                    <p><strong>Area B (22%)</strong>: Administered by Palestinian Authority, shared security control with Israel.</p>
-                    <p><strong>Area C (60%)</strong>: Administered by Israel.</p>
+                <p><strong>Area A (18%)</strong>: Administered by Palestinian Authority</p>
+                <p><strong>Area B (22%)</strong>: Administered by Palestinian Authority, shared security control with
+                    Israel.</p>
+                <p><strong>Area C (60%)</strong>: Administered by Israel.</p>
             </div>
         </div>
     </div>
@@ -141,6 +175,7 @@
         map.addControl(new mapboxgl.NavigationControl());
         map.addControl(new mapboxgl.FullscreenControl());
         map.addControl(new mapboxgl.AttributionControl({
+            compact: true,
             customAttribution: 'International Crisis Group | Map: <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> & Claire Boccon-Gibod | Data: <a href="https://peacenow.org.il/en/settlements-watch/settlements-data/population" target="_blank">PeaceNow</a>, <a href="https://data.humdata.org/dataset/geoboundaries-admin-boundaries-for-state-of-palestine" target="_blank">HDX</a>'
         }));
 
