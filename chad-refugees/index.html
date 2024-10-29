@@ -1,34 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Chad Map</title>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+    <title>Chad Refugee Flows</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-
-        })(window, document, 'script', 'dataLayer', 'GTM-TD5NKJJ');
-    </script>
 </head>
-
 <body>
     <div class="slider-container">
         <h1>Refugee Flows in Chad</h1>
         <input type="range" id="timeSlider" min="0" max="17" value="0" step="1">
-        <div id="dateDisplay">Date: 1/12/2024</div>
+        <div id="dateDisplay">Date: 4/23/2023</div>
     </div>
     <div id="map"></div>
 
@@ -38,55 +23,92 @@
         const map = new mapboxgl.Map({
             container: 'map',
             projection: 'globe',
-            style: 'mapbox://styles/daltonwb/cm2lny79i00bg01qrftzkhdgi',
-            center: [18.732207, 15.454166], 
+            style: 'mapbox://styles/daltonwb/cm2uk9436000901qk91yk827x',
+            center: [18.732207, 15.454166],
             zoom: 5
         });
 
         const dates = [
-            "1/12/2024", "10/12/2023", "11/12/2023", "12/12/2023",
-            "2/12/2024", "3/12/2024", "4/12/2024", "4/23/2023",
-            "5/12/2023", "5/12/2024", "6/12/2023", "6/12/2024",
-            "7/12/2023", "7/12/2024", "8/12/2023", "8/12/2024",
-            "9/12/2023", "9/29/2024"
-        ];  
+            "4/23/2023", "5/12/2023", "6/12/2023", "7/12/2023",
+            "8/12/2023", "9/12/2023", "10/12/2023", "11/12/2023",
+            "12/12/2023", "1/12/2024", "2/12/2024", "3/12/2024",
+            "4/12/2024", "5/12/2024", "6/12/2024", "7/12/2024",
+            "8/12/2024", "9/29/2024"
+        ];
+
+        let geojsonData = {
+            type: "FeatureCollection",
+            features: []
+        };
 
         map.on('load', () => {
-            // Add the Mapbox Tileset source
-            map.addSource('locations', {
-                type: 'vector',
-                url: 'mapbox://daltonwb.97uq9qgz'  // Replace with your Tileset ID
-            });
+            // Load CSV data
+            Papa.parse('/data/chad_sudan_refugees3.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    // Convert CSV to GeoJSON format
+                    results.data.forEach(row => {
+                        geojsonData.features.push({
+                            type: "Feature",
+                            geometry: {
+                                type: "Point",
+                                coordinates: [parseFloat(row.lon), parseFloat(row.lat)]
+                            },
+                            properties: {
+                                location: row.location,
+                                date: row.date,
+                                count: parseInt(row.count),
+                                cumulative: parseInt(row.cumulative)
+                            }
+                        });
+                    });
 
-            // Add a circle layer to display the points
-            map.addLayer({
-                id: 'locations-layer',
-                type: 'circle',
-                source: 'locations',
-                'source-layer': 'Chad_Sudan_Data_for_Visual_04-2f1uj7', 
-                paint: {
-                    'circle-radius': [
-                        'interpolate', ['linear'], ['get', 'count'],
-                        0, 5, 500, 20  // Adjust as needed based on your data
-                    ],
-                    'circle-color': '#007cbf',
-                    'circle-opacity': 0.8
-                },
-                filter: ['==', ['get', 'date'], dates[0]]  // Initial filter to show first date
-            });
+                    // Add data source and layer
+                    map.addSource('locations', {
+                        type: 'geojson',
+                        data: geojsonData
+                    });
 
-            const slider = document.getElementById('timeSlider');
-            const dateDisplay = document.getElementById('dateDisplay');
+                    map.addLayer({
+                        id: 'locations-layer',
+                        type: 'circle',
+                        source: 'locations',
+                        paint: {
+                            'circle-radius': [
+                                'interpolate', ['linear'], ['get', 'cumulative'],
+                                0, 1,
+                                100, 10,
+                                1000, 30
+                            ],
+                            'circle-color': '#007cbf',
+                            'circle-opacity': 0.8
+                        }
+                    });
 
-            slider.addEventListener('input', function (e) {
-                const selectedDate = dates[e.target.value];
+                    // Add slider functionality
+                    const slider = document.getElementById('timeSlider');
+                    const dateDisplay = document.getElementById('dateDisplay');
 
-                // Update the filter and date display based on the selected date
-                map.setFilter('locations-layer', ['==', ['get', 'date'], selectedDate]);
-                dateDisplay.textContent = `Date: ${selectedDate}`;
+                    slider.addEventListener('input', function (e) {
+                        const selectedIndex = e.target.value;
+                        const selectedDate = dates[selectedIndex];
+                        dateDisplay.textContent = `Date: ${selectedDate}`;
+
+                        // Filter features by the selected date
+                        const filteredFeatures = geojsonData.features.filter(feature => {
+                            return new Date(feature.properties.date) <= new Date(selectedDate);
+                        });
+
+                        // Update the map source with filtered data
+                        map.getSource('locations').setData({
+                            type: "FeatureCollection",
+                            features: filteredFeatures
+                        });
+                    });
+                }
             });
         });
     </script>
 </body>
-
 </html>
