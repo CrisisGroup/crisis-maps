@@ -59,16 +59,17 @@ body {
     }
 }
 
-#mapInset {
+#mapInset { 
     height: 180px;
-    width: 340px;
-    max-width: 100%;
+    width: 100%;  /* Set width to fill the parent container */
+    max-width: 100%;  /* Ensure it doesn't exceed parent width */
     z-index: 1;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
     pointer-events: none;
     cursor: none;
-    border: solid .5px #ccc;
+    border: solid 0.5px #ccc;
+    margin-bottom: 8px;
 }
 
 #mapInset .mapboxgl-ctrl-logo {
