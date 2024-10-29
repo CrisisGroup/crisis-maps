@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Chad Refugee Flows</title>
@@ -9,24 +10,46 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
 </head>
+
 <body>
     <div class="slider-container">
-        <h1>Refugee Flows in Chad</h1>
+        <h1>Displacement from Sudan to Chad</h1>
         <input type="range" id="timeSlider" min="0" max="17" value="0" step="1">
         <div id="dateDisplay">Date: 4/23/2023</div>
     </div>
+    <div class="legend">
+        <div id="mapInset"></div>
+        <div class="legend-header">
+            <h2>Map Legend</h2>
+        </div>
+        <p><i style="background-color: #6399ae; border: solid 0.5px #fff;"></i>Aggregate Count</p>
+        <p><i style="background-color: #a4343a; border: solid 0.5px #fff;"></i>Refugees by State</p>
+        <p><i style="background-color: #b8b3ad; border-radius: 0;"></i>additional legend (if needed)</p>
+        <div class="flex-container">
+            <p><i id="size-adjust" style="background-color: #fff; border-radius: 0; border: solid 2px #ccc;"></i>Area C
+            </p>
+            <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span
+                    id="more-info-text">More Information</span></div>
+        </div>
+    </div>
     <div id="map"></div>
-
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
 
         const map = new mapboxgl.Map({
             container: 'map',
-            projection: 'globe',
+            projection: 'mercator',
+            maxBounds: [[12.52133, 7.76222],[33.60286, 22.56662]],
             style: 'mapbox://styles/daltonwb/cm2uk9436000901qk91yk827x',
-            center: [18.732207, 15.454166],
-            zoom: 5
+            center: [22.13573, 15.38315],
+            zoom: 6.3,
+            attributionControl: false
         });
+
+        map.addControl(new mapboxgl.AttributionControl({
+            compact: true,
+            customAttribution: 'Data: Crisis Group research | Map by Paul Franz and Claire Boccon-Gibod'
+        }));
 
         const dates = [
             "4/23/2023", "5/12/2023", "6/12/2023", "7/12/2023",
@@ -42,11 +65,11 @@
         };
 
         map.on('load', () => {
-            // Load CSV data
+
             Papa.parse('data/chad_sudan_refugees3.csv', {
                 download: true,
                 header: true,
-                complete: function(results) {
+                complete: function (results) {
                     // Convert CSV to GeoJSON format
                     results.data.forEach(row => {
                         geojsonData.features.push({
@@ -118,6 +141,85 @@
                 }
             });
         });
+        const insetMap = new mapboxgl.Map({
+            container: 'mapInset',
+            style: 'mapbox://styles/daltonwb/clv41w08a00gt01qv2ylb2pfc',
+            center: [24.20990128366654, 15.423353836699718],
+            zoom: 2,
+            hash: false,
+            interactive: false,
+            projection: 'mercator',
+            attributionControl: false
+        });
+
+        insetMap.on('load', () => {
+
+            insetMap.addSource('boundsSource', {
+                'type': 'geojson',
+                'data': {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "coordinates": [
+                                    [
+                                        [
+                                            16.560558513535113,
+                                            20.45597187805032
+                                        ],
+                                        [
+                                            16.560558513535113,
+                                            9.806726689696958
+                                        ],
+                                        [
+                                            31.507776159208078,
+                                            9.806726689696958
+                                        ],
+                                        [
+                                            31.507776159208078,
+                                            20.45597187805032
+                                        ],
+                                        [
+                                            16.560558513535113,
+                                            20.45597187805032
+                                        ]
+                                    ]
+                                ],
+                                "type": "Polygon"
+                            }
+                        }
+                    ]
+                }
+            });
+
+            insetMap.addLayer({
+                'id': 'boundsLayer',
+                'type': 'fill',
+                'source': 'boundsSource', // reference the data source
+                'layout': {},
+                'paint': {
+                    'fill-color': '#ccc', // blue color fill
+                    'fill-opacity': 0.4
+                }
+            });
+            // // Add a black outline around the polygon.
+            insetMap.addLayer({
+                'id': 'outlineLayer',
+                'type': 'line',
+                'source': 'boundsSource',
+                'layout': {},
+                'paint': {
+                    'line-color': '#798271',
+                    'line-width': 1
+                }
+            });
+        });
+
+        map.scrollZoom.disable();
+
     </script>
 </body>
+
 </html>

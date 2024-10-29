@@ -24,7 +24,6 @@ body {
     padding: 10px;
 }
 
-
 @media (max-width: 1024px) {
     .slider-container {
         position: absolute;
@@ -58,6 +57,22 @@ body {
         color: #000;
         margin: 0;
     }
+}
+
+#mapInset {
+    height: 180px;
+    width: 340px;
+    max-width: 100%;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+    cursor: none;
+    border: solid .5px #ccc;
+}
+
+#mapInset .mapboxgl-ctrl-logo {
+    display: none !important;
 }
 
 h2 {
