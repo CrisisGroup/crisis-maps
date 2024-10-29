@@ -43,7 +43,7 @@
 
         map.on('load', () => {
             // Load CSV data
-            Papa.parse('/data/chad_sudan_refugees3.csv', {
+            Papa.parse('data/chad_sudan_refugees3.csv', {
                 download: true,
                 header: true,
                 complete: function(results) {
