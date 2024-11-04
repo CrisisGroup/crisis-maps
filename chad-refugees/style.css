@@ -85,11 +85,15 @@ h2 {
     text-transform: uppercase;
 }
 
-#selected-year {
+#dateDisplay {
     font-weight: bold;
     font-size: 28px;
     letter-spacing: normal;
     color: #000;
+}
+
+#dateDisplay h2 {
+    display: inline;
 }
 
 .slider-container label {
@@ -102,7 +106,7 @@ h2 {
 input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
-    width: 97%;
+    width: 65%;
     height: 10px;
     background: transparent;
     outline: none;
