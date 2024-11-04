@@ -92,8 +92,14 @@ h2 {
     color: #000;
 }
 
-#dateDisplay h2 {
+h2#dateh2 {
     display: inline;
+    font-weight: 100;
+    font-size: 24px;
+    color: rgb(77, 77, 77);
+    text-align: left;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
 }
 
 .slider-container label {
