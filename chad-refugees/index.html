@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Chad Refugee Flows</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
@@ -15,7 +16,7 @@
     <div class="slider-container">
         <h1>Displacement from Sudan to Chad</h1>
         <input type="range" id="timeSlider" min="0" max="17" value="0" step="1">
-        <div id="dateDisplay">Date: 4/23/2023</div>
+        <div id="dateDisplay">Date: April 2023</div>
     </div>
     <div class="legend">
         <div id="mapInset"></div>
@@ -35,7 +36,7 @@
     <div id="map"></div>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
-
+    
         const map = new mapboxgl.Map({
             container: 'map',
             projection: 'mercator',
@@ -45,12 +46,12 @@
             zoom: 6.3,
             attributionControl: false
         });
-
+    
         map.addControl(new mapboxgl.AttributionControl({
             compact: true,
             customAttribution: 'Data: Crisis Group research | Map by Paul Franz and Claire Boccon-Gibod'
         }));
-
+    
         const dates = [
             "4/23/2023", "5/12/2023", "6/12/2023", "7/12/2023",
             "8/12/2023", "9/12/2023", "10/12/2023", "11/12/2023",
@@ -58,14 +59,14 @@
             "4/12/2024", "5/12/2024", "6/12/2024", "7/12/2024",
             "8/12/2024", "9/29/2024"
         ];
-
+    
         let geojsonData = {
             type: "FeatureCollection",
             features: []
         };
-
+    
         map.on('load', () => {
-
+    
             Papa.parse('data/chad_sudan_refugees3.csv', {
                 download: true,
                 header: true,
@@ -86,12 +87,12 @@
                             }
                         });
                     });
-
+    
                     // Filter features to only include those up to the first date initially
                     const initialFilteredFeatures = geojsonData.features.filter(feature => {
                         return new Date(feature.properties.date) <= new Date(dates[0]);
                     });
-
+    
                     // Set the initial map source with filtered data
                     map.addSource('locations', {
                         type: 'geojson',
@@ -100,7 +101,7 @@
                             features: initialFilteredFeatures
                         }
                     });
-
+    
                     // Add the circle layer to the map
                     map.addLayer({
                         id: 'locations-layer',
@@ -114,24 +115,27 @@
                                 6000, 100
                             ],
                             'circle-color': '#165c7d',
-                            'circle-opacity': 0.8
+                            'circle-opacity': 0.7
                         }
                     });
-
+    
                     // Add slider functionality
                     const slider = document.getElementById('timeSlider');
                     const dateDisplay = document.getElementById('dateDisplay');
-
+    
                     slider.addEventListener('input', function (e) {
                         const selectedIndex = e.target.value;
-                        const selectedDate = dates[selectedIndex];
-                        dateDisplay.textContent = `Date: ${selectedDate}`;
-
+                        const selectedDate = new Date(dates[selectedIndex]);
+                        
+                        // Format date to "Month, Year"
+                        const formattedDate = selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+                        dateDisplay.textContent = `Date: ${formattedDate}`;
+    
                         // Filter features by the selected date
                         const filteredFeatures = geojsonData.features.filter(feature => {
-                            return new Date(feature.properties.date) <= new Date(selectedDate);
+                            return new Date(feature.properties.date) <= selectedDate;
                         });
-
+    
                         // Update the map source with filtered data
                         map.getSource('locations').setData({
                             type: "FeatureCollection",
@@ -141,9 +145,10 @@
                 }
             });
         });
+    
         const insetMap = new mapboxgl.Map({
             container: 'mapInset',
-            style: 'mapbox://styles/daltonwb/clv41w08a00gt01qv2ylb2pfc',
+            style: 'mapbox://styles/daltonwb/cm339b2l700x301pd5no6a9wn',
             center: [24.20990128366654, 15.423353836699718],
             zoom: 2,
             hash: false,
@@ -151,9 +156,9 @@
             projection: 'mercator',
             attributionControl: false
         });
-
+    
         insetMap.on('load', () => {
-
+    
             insetMap.addSource('boundsSource', {
                 'type': 'geojson',
                 'data': {
@@ -193,7 +198,7 @@
                     ]
                 }
             });
-
+    
             insetMap.addLayer({
                 'id': 'boundsLayer',
                 'type': 'fill',
@@ -204,7 +209,7 @@
                     'fill-opacity': 0.4
                 }
             });
-            // // Add a black outline around the polygon.
+            // Add a black outline around the polygon.
             insetMap.addLayer({
                 'id': 'outlineLayer',
                 'type': 'line',
@@ -216,10 +221,11 @@
                 }
             });
         });
-
+    
         map.scrollZoom.disable();
-
+    
     </script>
+    
 </body>
 
 </html>
