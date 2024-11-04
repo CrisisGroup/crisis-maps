@@ -40,7 +40,7 @@
             container: 'map',
             projection: 'mercator',
             maxBounds: [[12.52133, 7.76222],[33.60286, 22.56662]],
-            style: 'mapbox://styles/daltonwb/cm2uk9436000901qk91yk827x',
+            style: 'mapbox://styles/daltonwb/cm333xi6100sf01qk4jmf3hz2',
             center: [22.13573, 15.38315],
             zoom: 6.3,
             attributionControl: false
@@ -109,11 +109,11 @@
                         paint: {
                             'circle-radius': [
                                 'interpolate', ['linear'], ['get', 'cumulative'],
-                                0, 1,
-                                100, 10,
-                                1000, 30
+                                0, 5,
+                                3000, 50,
+                                6000, 100
                             ],
-                            'circle-color': '#007cbf',
+                            'circle-color': '#165c7d',
                             'circle-opacity': 0.8
                         }
                     });
