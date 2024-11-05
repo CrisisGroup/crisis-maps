@@ -285,7 +285,6 @@ input[type="range"]::-moz-range-track {
     box-shadow 0.3s ease-in-out,
     transform 0.3s ease-in-out;
     cursor: pointer;
-    margin-left: 15px;
 }
 
 .info-icon:hover {
