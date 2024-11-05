@@ -76,6 +76,10 @@ h2 {
     color: #000;
 }
 
+a#reportlink {
+    color: #98B8C5;
+}
+
 .slider-container label {
     font-size: 14px;
     font-weight: normal;
