@@ -43,8 +43,8 @@
         </div>
         <p><i style="background-color: #6399ae; border: solid 0.5px #fff;"></i>Number of refugees</p>
 
-            <a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span
-                    id="more-info-text">More Information</span>
+        <a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span id="more-info-text">More
+            Information</span>
 
         <hr />
         <p>Read our full report on Sudanese refugees <a id="reportlink" href="" target="_blank">here</a>.</p>
@@ -179,14 +179,14 @@
 
                         // Format date to "Month, Year"
                         const formattedDate = selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
-                        dateDisplay.textContent = `${formattedDate}`;
+                        dateDisplay.textContent = `Date: ${formattedDate}`;
 
-                        // Filter features by the selected date
+                        // Filter features to only include those that exactly match the selected date
                         const filteredFeatures = geojsonData.features.filter(feature => {
-                            return new Date(feature.properties.date) <= selectedDate;
+                            return new Date(feature.properties.date).getTime() === selectedDate.getTime();
                         });
 
-                        // Update the map source with filtered data
+                        // Update the map source with filtered data for the specific date
                         map.getSource('locations').setData({
                             type: "FeatureCollection",
                             features: filteredFeatures
