@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
     <title>Chad Refugee Flows</title>
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
@@ -30,9 +31,10 @@
 <body>
     <div class="slider-container">
         <h1>Displacement from Sudan to Chad</h1>
-        <input type="range" id="timeSlider" min="0" max="17" value="0" step="1"><br />
-        <h2 id="dateh2">Date:</h2>
+        <h2 id="dateh2">Date</h2>&nbsp;&nbsp;&nbsp;&nbsp;
         <div id="dateDisplay">April 2023</div>
+        <br /><br />
+        <input type="range" id="timeSlider" min="0" max="17" value="0" step="1"><br />
     </div>
     <div class="legend">
         <div id="mapInset"></div>
@@ -131,7 +133,7 @@
                                 6000, 100
                             ],
                             'circle-color': '#165c7d',
-                            'circle-opacity': 0.7
+                            'circle-opacity': 0.5
                         }
                     });
 
