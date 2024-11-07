@@ -147,6 +147,10 @@ input[type="range"]::-webkit-slider-thumb {
     transform: translateZ(0);
 }
 
+img#img-margin-adjust {
+    margin-top: 30px;
+}
+
 @keyframes flicker {
 
     0%,
