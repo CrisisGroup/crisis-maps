@@ -53,7 +53,7 @@ body {
 
 @media (max-width: 1024px) {
     .slider-container h1 {
-        font-size: 26px;
+        font-size: 32px;
         color: #000;
         margin: 0;
     }
@@ -207,12 +207,12 @@ input[type="range"]::-moz-range-track {
     padding: 10px 15px;
     position: absolute;
     right: 40px;
-    width: auto;
+    width: 350px;
     font-family: 'franklin-gothic-urw', sans-serif;
     z-index: 1;
 }
 
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
     .legend {
         position: fixed;
         left: 0;
@@ -224,7 +224,7 @@ input[type="range"]::-moz-range-track {
         transform: none;
         overflow: hidden;
     }
-}
+} */
 
 .legend h2 {
     font-size: 20px;
@@ -245,7 +245,7 @@ input[type="range"]::-moz-range-track {
     display: inline-block;
     height: 12px;
     width: 12px;
-    margin-right: 30px;
+    margin-right: 15px;
     margin-top: 7px;
 }
 
@@ -302,7 +302,7 @@ input[type="range"]::-moz-range-track {
 }
 
 #morebox {
-    margin-left: 60px;   
+    margin-left: 12px;   
     display: flex;       
     align-items: center; 
 }

@@ -42,11 +42,11 @@
         <div class="legend-header">
             <h2>Map Legend</h2>
         </div>
-        <p><i style="background-color: #6399ae; border: solid 0.5px #fff;"></i>Number of refugees</p>
-
-        <a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span id="more-info-text">More
-            Information</span>
-
+            <div class="flex-container">
+                <p><i style="background-color: #6399ae; border: solid 0.5px #fff;"></i>Total refugees</p>
+                <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span
+                        id="more-info-text">More Information</span></div>
+            </div>
         <hr />
         <p>Read our full report on the impact of the Sudanese war on eastern Chad <a id="reportlink" href=""
                 target="_blank">here</a>.</p>
@@ -100,7 +100,7 @@
 
         map.addControl(new mapboxgl.AttributionControl({
             compact: true,
-            customAttribution: 'Data: Crisis Group research | Map by Paul Franz and Claire Boccon-Gibod'
+            customAttribution: 'Data: <a href="https://www.unhcr.org/" target="_blank">UNHCR</a> | Map by Paul Franz and Claire Boccon-Gibod'
         }));
 
         map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), 'top-right');
