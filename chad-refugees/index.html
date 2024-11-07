@@ -47,12 +47,11 @@
             Information</span>
 
         <hr />
-        <p>Read our full report on the impact of the Sudanese war on eastern Chad<a id="reportlink" href="" target="_blank">here</a>.</p>
+        <p>Read our full report on the impact of the Sudanese war on eastern Chad <a id="reportlink" href="" target="_blank">here</a>.</p>
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <p><span style="font-weight: bold; color: #6399ae;">Settlements</span> in the West Bank that were
-                    officially established by the government (East Jerusalem excluded).</p>
+                <p>Before April 2023, Ouaddai was hosting less than 1 million inhabitants.</p>
                 <p><span style="font-weight: bold; color: #a4343a;">Outposts</span> are settlements that were
                     established since the 1990's without government approval and are considered illegal according to
                     Israeli law.</p>
@@ -181,7 +180,7 @@
 
                         // Format date to "Month, Year"
                         const formattedDate = selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
-                        dateDisplay.textContent = `Date: ${formattedDate}`;
+                        dateDisplay.textContent = `${formattedDate}`;
 
                         // Filter features to only include those that exactly match the selected date
                         const filteredFeatures = geojsonData.features.filter(feature => {
