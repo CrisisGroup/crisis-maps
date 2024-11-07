@@ -47,7 +47,7 @@
             Information</span>
 
         <hr />
-        <p>Read our full report on Sudanese refugees <a id="reportlink" href="" target="_blank">here</a>.</p>
+        <p>Read our full report on the impact of the Sudanese war on eastern Chad<a id="reportlink" href="" target="_blank">here</a>.</p>
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -101,6 +101,8 @@
             compact: true,
             customAttribution: 'Data: Crisis Group research | Map by Paul Franz and Claire Boccon-Gibod'
         }));
+
+        map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), 'top-right');
 
         const dates = [
             "4/23/2023", "5/12/2023", "6/12/2023", "7/12/2023",
