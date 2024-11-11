@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
-    <title>Déplacement du Soudan vers le Tchad</title>
+    <title>Chad Refugee Flows</title>
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
@@ -30,9 +30,9 @@
 
 <body>
     <div class="slider-container">
-        <h1>Déplacement du Soudan vers le Tchad</h1>
+        <h1>Displacement from Sudan to Chad</h1>
         <h2 id="dateh2">Date</h2>&nbsp;&nbsp;&nbsp;&nbsp;
-        <div id="dateDisplay">Janvier 2024</div>
+        <div id="dateDisplay">January 2024</div>
         <br /><br />
         <input type="range" id="timeSlider" min="0" max="17" value="10" step="1"><br />
         <img id="img-margin-adjust" src="legend.png" />
@@ -40,20 +40,27 @@
     <div class="legend">
         <div id="mapInset"></div>
         <div class="legend-header">
-            <h2>Légende</h2>
+            <h2>Map Legend</h2>
         </div>
             <div class="flex-container">
                 <p><i style="background-color: #6399ae; border: solid 0.5px #fff;"></i>Total refugees</p>
                 <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span
-                        id="more-info-text">Plus d’informations</span></div>
+                        id="more-info-text">More Information</span></div>
             </div>
         <hr />
-        <p>Lisez notre rapport complet sur l'impact de la guerre du Soudan sur l'est du Tchad <a id="reportlink" href=""
-                target="_blank">ici</a>.</p>
+        <p>Read our full report on the impact of the Sudanese war on eastern Chad <a id="reportlink" href=""
+                target="_blank">here</a>.</p>
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <p>Avant avril 2023, le Ouaddai accueillait moins d'un million d'habitants.</p>
+                <p>Before April 2023, Ouaddai was hosting less than 1 million inhabitants.</p>
+                <!--                 <p><span style="font-weight: bold; color: #a4343a;">Outposts</span> are settlements that were
+                    established since the 1990's without government approval and are considered illegal according to
+                    Israeli law.</p>
+                <p><strong>Area A (18%)</strong>: Administered by Palestinian Authority</p>
+                <p><strong>Area B (22%)</strong>: Administered by Palestinian Authority, shared security control with
+                    Israel.</p>
+                <p><strong>Area C (60%)</strong>: Administered by Israel.</p> -->
             </div>
         </div>
     </div>
@@ -85,7 +92,7 @@
             container: 'map',
             projection: 'mercator',
             maxBounds: [[7.74431, 4.62420], [37.70610, 23.78258]],
-            style: 'mapbox://styles/daltonwb/cm3d9qesl001n01p553f04v1v',
+            style: 'mapbox://styles/daltonwb/cm333xi6100sf01qk4jmf3hz2',
             center: [23.99507, 15.73259],
             zoom: 6,
             attributionControl: false
@@ -175,7 +182,7 @@
 
                     // Set the initial date display
                     const initialSelectedDate = new Date(initialDate);
-                    const formattedInitialDate = initialSelectedDate.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' });
+                    const formattedInitialDate = initialSelectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
                     dateDisplay.textContent = `${formattedInitialDate}`;
 
                     // Add slider functionality
@@ -184,7 +191,7 @@
                         const selectedDate = new Date(dates[selectedIndex]);
 
                         // Format date to "Month, Year"
-                        const formattedDate = selectedDate.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' });
+                        const formattedDate = selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
                         dateDisplay.textContent = `${formattedDate}`;
 
                         // Filter features to only include those that exactly match the selected date
@@ -204,7 +211,7 @@
 
         const insetMap = new mapboxgl.Map({
             container: 'mapInset',
-            style: 'mapbox://styles/daltonwb/cm3d9m9o9001l01qjbgod6ods',
+            style: 'mapbox://styles/daltonwb/cm339b2l700x301pd5no6a9wn',
             center: [24.20990128366654, 15.423353836699718],
             zoom: 2,
             hash: false,
