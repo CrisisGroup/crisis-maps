@@ -91,6 +91,7 @@ h2 {
     letter-spacing: normal;
     color: #000;
     display:inline; 
+    text-transform: capitalize;
 }
 
 h2#dateh2 {
