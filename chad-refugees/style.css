@@ -387,6 +387,7 @@ input[type="range"]::-moz-range-track {
     top: 18px;
     right: 50px;
     z-index: 2;  /* Ensure the button appears above the map */
+    letter-spacing: 0.1em;
 }
 
 .language-link {
