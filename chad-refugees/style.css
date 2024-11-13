@@ -207,6 +207,15 @@ input[type="range"]::-moz-range-track {
     }
 }
 
+.mapboxgl-popup-content {
+    border-radius: 10px;  /* Rounded corners */
+    border: 1px solid #00567a;  /* Stroke color */
+    background-color: rgba(255, 255, 255, 0.8);  /* 80% opaque white background */
+    padding: 10px;  /* Add some padding for better spacing */
+    font-family: 'franklin-gothic-urw', sans-serif;  /* Customize the font */
+    font-size: 16px;
+}
+
 .legend {
     background-color: rgba(255, 255, 255, 0.8);
     bottom: 40px;
@@ -217,6 +226,13 @@ input[type="range"]::-moz-range-track {
     width: 350px;
     font-family: 'franklin-gothic-urw', sans-serif;
     z-index: 1;
+}
+
+.mapboxgl-popup-tip {
+    border-width: .5px;  /* Set the stroke width to 2px */
+    border-style: solid;  /* Make sure the tip has a solid border */
+    border-color: #00567a;  /* Stroke color for the popup tip */
+    height: 12px;
 }
 
 /* @media (max-width: 1024px) {

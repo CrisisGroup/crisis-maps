@@ -42,18 +42,21 @@
         <div class="legend-header">
             <h2>Légende</h2>
         </div>
-            <div class="flex-container">
-                <p><i style="background-color: #6399ae; border: solid 0.5px #fff;"></i>Nombre total de réfugiés</p>
-                <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span
-                        id="more-info-text">Plus d’informations</span></div>
-            </div>
+        <div class="flex-container">
+            <p><i style="background-color: #6399ae; border: solid 0.5px #fff;"></i>Nombre total de réfugiés</p>
+            <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span
+                    id="more-info-text">Plus d’informations</span></div>
+        </div>
         <hr />
-        <p>Lisez notre briefing complet sur l'impact de la guerre au Soudan dans l'est du Tchad <a id="reportlink" href=""
-                target="_blank">ici</a>.</p>
+        <p>Lisez notre briefing complet sur l'impact de la guerre au Soudan dans l'est du Tchad <a id="reportlink"
+                href="" target="_blank">ici</a>.</p>
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <p>La province du Ouaddaï, frontalière du Darfour, est devenue l’épicentre de la crise. Cette région semi-aride d’environ un million d’habitants, où les conditions de vie étaient déjà très précaires avant-guerre, accueille plus de 70 pour cent des personnes arrivées au Tchad pour fuir le conflitsoudanais.</p>
+                <p>La province du Ouaddaï, frontalière du Darfour, est devenue l’épicentre de la crise. Cette région
+                    semi-aride d’environ un million d’habitants, où les conditions de vie étaient déjà très précaires
+                    avant-guerre, accueille plus de 70 pour cent des personnes arrivées au Tchad pour fuir le
+                    conflitsoudanais.</p>
                 <p>Avant avril 2023, le Ouaddai accueillait moins d'un million d'habitants.</p>
             </div>
         </div>
@@ -89,8 +92,11 @@
             style: 'mapbox://styles/daltonwb/cm3g2c514003r01qx0rb62v1i',
             center: [23.99507, 15.73259],
             zoom: 6,
+            scrollZoom: true,
             attributionControl: false
         });
+
+        map.scrollZoom.enable();
 
         map.addControl(new mapboxgl.AttributionControl({
             compact: true,
@@ -201,6 +207,41 @@
                     });
                 }
             });
+
+            // Create a popup but leave it empty for now
+            // Create a popup but leave it empty for now
+            let popup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false
+            });
+
+            // Add event listeners for mouse enter and leave to show the popup
+            map.on('mouseenter', 'locations-layer', function (e) {
+                // Change the cursor to a pointer
+                map.getCanvas().style.cursor = 'pointer';
+
+                // Get the feature properties for the hovered feature
+                let properties = e.features[0].properties;
+
+                // Get the coordinates of the point feature
+                let coordinates = e.features[0].geometry.coordinates;
+
+                // Multiply the cumulative value by 100 and add comma separators
+                let multipliedValue = (properties.cumulative * 100).toLocaleString();
+
+                // Set the popup content to the current date's multiplied integer value
+                popup.setLngLat(coordinates)
+                    .setHTML(`<strong>${properties.location}</strong><br><strong>Réfugiés:</strong> ${multipliedValue}`)
+                    .addTo(map);
+            });
+
+            map.on('mouseleave', 'locations-layer', function () {
+                // Reset the cursor
+                map.getCanvas().style.cursor = '';
+
+                // Remove the popup
+                popup.remove();
+            });
         });
 
         const insetMap = new mapboxgl.Map({
@@ -278,8 +319,6 @@
                 }
             });
         });
-
-        map.scrollZoom.disable();
 
     </script>
 
