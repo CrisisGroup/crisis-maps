@@ -381,3 +381,25 @@ input[type="range"]::-moz-range-track {
     text-decoration: none;
     cursor: pointer;
 }
+
+#language-button {
+    position: absolute;
+    top: 18px;
+    right: 50px;
+    z-index: 2;  /* Ensure the button appears above the map */
+}
+
+.language-link {
+    background-color: #00567a;
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: 'franklin-gothic-urw', sans-serif;
+    transition: background-color 0.3s;
+}
+
+.language-link:hover {
+    background-color: #80abbd;  /* Darker shade for hover effect */
+}
