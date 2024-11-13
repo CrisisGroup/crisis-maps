@@ -319,15 +319,10 @@ input[type="range"]::-moz-range-track {
     color: #fff;
 }
 
-.flex-container {
+#morebox { 
     display: flex;       
     align-items: center; 
-}
-
-#morebox {
-    margin-left: 12px;   
-    display: flex;       
-    align-items: center; 
+    margin-top: 6px;
 }
 
 #more-info-text {

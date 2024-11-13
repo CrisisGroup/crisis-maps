@@ -207,6 +207,40 @@
                     });
                 }
             });
+            // Create a popup but leave it empty for now
+            // Create a popup but leave it empty for now
+            let popup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false
+            });
+
+            // Add event listeners for mouse enter and leave to show the popup
+            map.on('mouseenter', 'locations-layer', function (e) {
+                // Change the cursor to a pointer
+                map.getCanvas().style.cursor = 'pointer';
+
+                // Get the feature properties for the hovered feature
+                let properties = e.features[0].properties;
+
+                // Get the coordinates of the point feature
+                let coordinates = e.features[0].geometry.coordinates;
+
+                // Multiply the cumulative value by 100 and add comma separators
+                let multipliedValue = (properties.cumulative * 100).toLocaleString();
+
+                // Set the popup content to the current date's multiplied integer value
+                popup.setLngLat(coordinates)
+                    .setHTML(`<strong>${properties.location}</strong><br><strong>Refugees:</strong> ${multipliedValue}`)
+                    .addTo(map);
+            });
+
+            map.on('mouseleave', 'locations-layer', function () {
+                // Reset the cursor
+                map.getCanvas().style.cursor = '';
+
+                // Remove the popup
+                popup.remove();
+            });
         });
 
         const insetMap = new mapboxgl.Map({
