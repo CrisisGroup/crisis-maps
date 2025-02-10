@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>U.S. and Iran-backed Strikes in Syria</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
+    <link rel="stylesheet" href="style.css">
+
+<body>
+    <div id="map"></div>
+    <div class="legend">
+        <div class="legend-header">LEGEND</div>
+        <p><i style="background-color: #165c7d;"></i>U.S. strikes</p>
+        <p><i style="background-color: #9a4343;"></i>Iran-backed armed group strikes</p>
+        <br />
+        <hr />
+        <p><strong>Source</strong>: Uppsala Conflict Data Program and Crisis Group</p>
+    </div>
+    <script>
+
+        function scroolZoomEnable() {
+            const width = window.innerWidth;
+            if (width < 1024) {
+                return false; // Disable scrollwheel on smaller devices
+            } else {
+                return true; // Enable it
+            }
+        }
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+
+        const map = new mapboxgl.Map({
+            container: 'map', // The HTML container ID
+            style: 'mapbox://styles/daltonwb/cm6z7yt8s00px01sba5al3a4f',
+            center: [17.39, 1.65], // Centroid of Africa
+            zoom: 2.5
+        });
+
+        // Add navigation controls
+        map.addControl(new mapboxgl.NavigationControl());
+
+        const africaBounds = [
+            [-25.0, -40.0], // Southwest corner (Angola/Namibia)
+            [60.0, 40.0]    // Northeast corner (Middle East)
+        ];
+
+        // Load map and add Tileset points
+        map.on('load', () => {
+
+            map.setMaxBounds(africaBounds); // Restrict panning to Africa
+
+            map.addSource('crisis-points', {
+                type: 'vector',
+                url: 'mapbox://daltonwb.6p1l0zzf' // Your Tileset ID
+            });
+
+            map.addLayer({
+                'id': 'points-layer',
+                'type': 'circle',
+                'source': 'crisis-points',
+                'source-layer': 'Edited_UN_Missions_Map__-_She-9kc5kq',
+                'paint': {
+                    'circle-radius': 6,
+                    'circle-color': '#ff6600',
+                    'circle-stroke-width': 1.5,
+                    'circle-stroke-color': '#fff'
+                }
+            });
+
+            // Hover effect
+            map.on('mouseenter', 'points-layer', () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            map.on('mouseleave', 'points-layer', () => {
+                map.getCanvas().style.cursor = '';
+            });
+
+            // Click event to show popup with feature properties
+            map.on('click', 'points-layer', (e) => {
+                const coordinates = e.features[0].geometry.coordinates;
+                const properties = e.features[0].properties;
+
+                map.flyTo({
+                    center: coordinates,
+                    zoom: 3, // Adjust zoom level as needed
+                    essential: true
+                });
+
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML(`
+                <strong>Details:</strong><br>
+                ${Object.keys(properties).map(key => `<strong>${key}:</strong> ${properties[key]}`).join('<br>')}
+            `)
+                    .addTo(map);
+            });
+        });
+
+        map.addControl(new mapboxgl.AttributionControl({
+            customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod'
+        }));
+
+    </script>
+</body>
+
+</html>
