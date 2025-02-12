@@ -19,7 +19,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     padding: 10px 15px;
     position: absolute;
-    right: 10px;
+    left: 10px;
     width: auto;
     font-family: 'franklin-gothic-urw', sans-serif;
     z-index: 1;
@@ -42,7 +42,6 @@ body {
     display: inline-block;
     height: 12px;
     width: 12px;
-    float: left;
     margin-right: 5px;
     margin-top: 6px;
 }
@@ -99,4 +98,31 @@ body {
     white-space: nowrap;
     margin-left: 20px;
     align-self: center;
+}
+
+#slideout-panel {
+    position: fixed;
+    top: 0;
+    right: -440px; /* Start hidden */
+    width: 400px;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#slideout-panel.show {
+    right: 0; /* Slide into view */
+}
+
+#close-panel {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
 }

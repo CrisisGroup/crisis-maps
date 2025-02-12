@@ -12,6 +12,10 @@
 
 <body>
     <div id="map"></div>
+    <div id="slideout-panel">
+        <button id="close-panel">&times;</button>
+        <div id="panel-content">Click on a point to see details</div>
+    </div>
     <div class="legend">
         <div class="legend-header">LEGEND</div>
         <p><i style="background-color: #165c7d;"></i>U.S. strikes</p>
@@ -37,11 +41,13 @@
             container: 'map', // The HTML container ID
             style: 'mapbox://styles/daltonwb/cm6z7yt8s00px01sba5al3a4f',
             center: [17.39, 1.65], // Centroid of Africa
-            zoom: 2.5
+            zoom: 2.5,
+            attributionControl: false
         });
 
         // Add navigation controls
-        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+
 
         const africaBounds = [
             [-25.0, -40.0], // Southwest corner (Angola/Namibia)
@@ -60,14 +66,19 @@
 
             map.addLayer({
                 'id': 'points-layer',
-                'type': 'circle',
+                'type': 'symbol',  // Change from 'circle' to 'symbol'
                 'source': 'crisis-points',
                 'source-layer': 'Edited_UN_Missions_Map__-_She-9kc5kq',
-                'paint': {
-                    'circle-radius': 6,
-                    'circle-color': '#ff6600',
-                    'circle-stroke-width': 1.5,
-                    'circle-stroke-color': '#fff'
+                'layout': {
+                    'icon-image': [
+                        'match',
+                        ['get', 'type'],  // Get the 'type' property from features
+                        'Peace Keeping Operation', 'hospital',
+                        'Special Political Mission', 'town-hall',
+                        'marker'  // Default fallback icon
+                    ],
+                    'icon-size': 1.2,  // Adjust icon size if needed
+                    'icon-allow-overlap': true  // Prevents icons from disappearing when they overlap
                 }
             });
 
@@ -87,23 +98,32 @@
 
                 map.flyTo({
                     center: coordinates,
+                    speed: 0.2,
                     zoom: 3, // Adjust zoom level as needed
                     essential: true
                 });
 
-                new mapboxgl.Popup()
-                    .setLngLat(coordinates)
-                    .setHTML(`
-                <strong>Details:</strong><br>
-                ${Object.keys(properties).map(key => `<strong>${key}:</strong> ${properties[key]}`).join('<br>')}
-            `)
-                    .addTo(map);
-            });
-        });
+                // Populate the slide-out panel
+                const panel = document.getElementById('slideout-panel');
+                const content = document.getElementById('panel-content');
 
-        map.addControl(new mapboxgl.AttributionControl({
-            customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod'
-        }));
+                content.innerHTML = `<h2>${properties["Full Name"]}</h2>
+<h3>${properties.type}</h3><p>${properties.description}</p><p>${properties.climate_lang}</p>`;
+
+                // Show the panel
+                panel.classList.add('show');
+            });
+
+            // Close button functionality
+            document.getElementById('close-panel').addEventListener('click', () => {
+                document.getElementById('slideout-panel').classList.remove('show');
+            });
+
+
+            map.addControl(new mapboxgl.AttributionControl({
+                customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod'
+            }));
+        });
 
     </script>
 </body>
