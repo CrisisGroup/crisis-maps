@@ -18,11 +18,11 @@
     </div>
     <div class="legend">
         <div class="legend-header">LEGEND</div>
-        <p><i style="background-color: #165c7d;"></i>U.S. strikes</p>
-        <p><i style="background-color: #9a4343;"></i>Iran-backed armed group strikes</p>
+        <p><img src="circle.svg"></i>Special Political Mission</p>
+        <p><img src="diamond.svg"></i>Peace Keeping Operation</p>
         <br />
         <hr />
-        <p><strong>Source</strong>: Uppsala Conflict Data Program and Crisis Group</p>
+        <p><strong>Source</strong>: United Nations</p>
     </div>
     <script>
 
@@ -73,11 +73,11 @@
                     'icon-image': [
                         'match',
                         ['get', 'type'],  // Get the 'type' property from features
-                        'Peace Keeping Operation', 'hospital',
-                        'Special Political Mission', 'town-hall',
+                        'Peace Keeping Operation', 'diamond',
+                        'Special Political Mission', 'circle',
                         'marker'  // Default fallback icon
                     ],
-                    'icon-size': 1.2,  // Adjust icon size if needed
+                    'icon-size': 1,  // Adjust icon size if needed
                     'icon-allow-overlap': true  // Prevents icons from disappearing when they overlap
                 }
             });

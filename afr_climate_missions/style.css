@@ -106,11 +106,12 @@ body {
     right: -440px; /* Start hidden */
     width: 400px;
     height: 100%;
-    background: white;
+    background: rgba(255, 255, 255, 0.9);
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease-in-out;
     padding: 20px;
     overflow-y: auto;
+    z-index: 9999;
 }
 
 #slideout-panel.show {
@@ -125,4 +126,24 @@ body {
     border: none;
     font-size: 20px;
     cursor: pointer;
+}
+
+/* Media Query for Viewports ≤ 425px */
+@media screen and (max-width: 425px) {
+    #slideout-panel {
+        width: calc(100% - 40px); /* Full width minus padding */
+        right: -100%; /* Adjust hiding position */
+        padding: 15px; /* Reduce padding slightly for small screens */
+    }
+    
+    #slideout-panel.show {
+        right: 0;
+    }
+
+    #close-panel {
+        left: auto;
+        right: 15px; /* Move inside the panel */
+        top: 15px; /* Adjust for smaller padding */
+        font-size: 24px; /* Slightly larger for better tap usability */
+    }
 }
