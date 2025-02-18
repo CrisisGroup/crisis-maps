@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>U.S. and Iran-backed Strikes in Syria</title>
+    <title>UN Climate Missions in Africa</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
@@ -39,7 +39,7 @@
 
         const map = new mapboxgl.Map({
             container: 'map', // The HTML container ID
-            style: 'mapbox://styles/daltonwb/cm6z7yt8s00px01sba5al3a4f',
+            style: 'mapbox://styles/daltonwb/cm7azqiw1006o01s4aup11tuy',
             center: [17.39, 1.65], // Centroid of Africa
             zoom: 2.5,
             attributionControl: false
@@ -65,22 +65,36 @@
             });
 
             map.addLayer({
-                'id': 'points-layer',
-                'type': 'symbol',  // Change from 'circle' to 'symbol'
-                'source': 'crisis-points',
-                'source-layer': 'Edited_UN_Missions_Map__-_She-9kc5kq',
-                'layout': {
-                    'icon-image': [
-                        'match',
-                        ['get', 'type'],  // Get the 'type' property from features
-                        'Peace Keeping Operation', 'diamond',
-                        'Special Political Mission', 'circle',
-                        'marker'  // Default fallback icon
-                    ],
-                    'icon-size': 1,  // Adjust icon size if needed
-                    'icon-allow-overlap': true  // Prevents icons from disappearing when they overlap
-                }
-            });
+    'id': 'points-layer',
+    'type': 'symbol',
+    'source': 'crisis-points',
+    'source-layer': 'Edited_UN_Missions_Map__-_She-9kc5kq',
+    'layout': {
+        'icon-image': [
+            'match',
+            ['get', 'type'],  // Get the 'type' property from features
+            'Peace Keeping Operation', 'diamond',
+            'Special Political Mission', 'circle',
+            'marker'  // Default fallback icon
+        ],
+        'icon-size': 1,  // Adjust icon size if needed
+        'icon-allow-overlap': true,  // Prevents icons from disappearing when they overlap
+
+        // Text label configuration
+        'text-field': ['get', 'name'], // Gets the 'name' property from the feature
+        'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'], // Font for the label
+        'text-size': 12, // Adjust text size as needed
+        'text-anchor': 'top', // Position text above the icon
+        'text-offset': [0, 1.2], // Moves text slightly above the icon
+        'text-allow-overlap': false // Prevents text overlap (set to true if needed)
+    },
+    'paint': {
+        'text-color': '#000000', // Sets text color to black
+        'text-halo-color': '#ffffff', // Adds a white outline to the text for visibility
+        'text-halo-width': 1 // Width of the halo effect
+    }
+});
+
 
             // Hover effect
             map.on('mouseenter', 'points-layer', () => {
