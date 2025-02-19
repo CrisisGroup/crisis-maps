@@ -41,7 +41,7 @@
             container: 'map', // The HTML container ID
             style: 'mapbox://styles/daltonwb/cm7azqiw1006o01s4aup11tuy',
             center: [17.39, 1.65], // Centroid of Africa
-            zoom: 2.5,
+            zoom: 4,
             attributionControl: false
         });
 
@@ -56,6 +56,16 @@
 
         // Load map and add Tileset points
         map.on('load', () => {
+
+            // Fit the map to the specified bounding box on initial load
+            map.fitBounds([
+                [-23.84972, -14.03445], // Southwest coordinates
+                [59.26259, 25.71981]    // Northeast coordinates
+            ], {
+                padding: { top: 20, bottom: 20, left: 20, right: 20 }, // Optional: Adds padding around the bounds
+                maxZoom: 8, // Optional: Prevents zooming in too far
+                linear: true // Optional: Makes the camera movement linear rather than easing
+            });
 
             map.setMaxBounds(africaBounds); // Restrict panning to Africa
 
