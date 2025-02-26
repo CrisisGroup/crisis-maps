@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Gender Map</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
+    <link rel="stylesheet" href="style.css">
+
+<body>
+    <div id="map"></div>
+    <div id="sidebar">
+        <h3>Country Info</h3>
+        <p>Select a country to view details.</p>
+    </div>
+
+    <div id="controls">
+        <div id="year-display">Loading...</div>
+        <input type="range" id="timeline" min="0" max="0" value="0" />
+    </div>
+
+    <div class="legend">
+        <div class="legend-header">LEGEND</div>
+        <br />
+        <hr />
+        <p><strong>Source</strong>: Crisis Group</p>
+    </div>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw'; // Replace with your actual Mapbox token
+
+            const sidebar = document.getElementById('sidebar');
+            const timeline = document.getElementById('timeline');
+            const yearDisplay = document.getElementById('year-display');
+
+            if (!sidebar || !timeline || !yearDisplay) {
+                console.error('Required DOM elements (sidebar, timeline, or year-display) are missing.');
+                return;
+            }
+
+            const map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/daltonwb/cm7ma0xep013601qo52eiai4i',
+                center: [0, 20],
+                zoom: 1.5,
+                attributionControl: false
+            });
+
+            map.addControl(new mapboxgl.AttributionControl({
+                customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod'
+            }));
+
+            fetch('data/countries.geojson')
+                .then((response) => response.json())
+                .then((data) => {
+                    map.on('load', () => {
+                        map.addSource('countries', {
+                            type: 'geojson',
+                            data: data,
+                        });
+
+                        map.addLayer({
+                            id: 'countries-fill',
+                            type: 'fill',
+                            source: 'countries',
+                            paint: {
+                                'fill-color': [
+                                    'case',
+                                    ['boolean', ['feature-state', 'highlight'], false],
+                                    '#ee7143',
+                                    '#cccccc',
+                                ],
+                                'fill-opacity': [
+                                    'case',
+                                    ['boolean', ['feature-state', 'highlight'], false],
+                                    1,
+                                    0.6,
+                                ],
+                            },
+                        });
+
+                        map.addLayer({
+                            id: 'countries-outline',
+                            type: 'line',
+                            source: 'countries',
+                            paint: {
+                                'line-color': [
+                                    'case',
+                                    ['boolean', ['feature-state', 'highlight'], false],
+                                    '#ffffff',
+                                    '#333333',
+                                ],
+                                'line-width': [
+                                    'case',
+                                    ['boolean', ['feature-state', 'highlight'], false],
+                                    1,
+                                    0.5,
+                                ],
+                            },
+                        });
+
+                        const years = [...new Set(data.features.map((f) => f.properties.first_date))].sort();
+
+                        if (years.length > 0) {
+                            timeline.max = years.length - 1;
+                            timeline.value = 0;
+                            yearDisplay.textContent = years[0];
+
+                            const updateMap = (year) => {
+                                data.features.forEach((feature) => {
+                                    map.setFeatureState(
+                                        { source: 'countries', id: feature.id },
+                                        { highlight: feature.properties.first_date <= year }
+                                    );
+                                });
+                            };
+
+                            timeline.addEventListener('input', (event) => {
+                                const year = years[parseInt(event.target.value, 10)];
+                                yearDisplay.textContent = year;
+                                updateMap(year);
+                            });
+
+                            updateMap(years[0]);
+                        } else {
+                            yearDisplay.textContent = 'No Data';
+                        }
+
+                        map.on('click', 'countries-fill', (e) => {
+                            const properties = e.features[0].properties;
+                            sidebar.innerHTML = `
+                <h3>${properties.name}</h3>
+                <p><strong>First Date:</strong> ${properties.first_date}</p>
+                <p><strong>Articles:</strong></p>
+                <ul>${properties.title
+                                    .split(' ; ')
+                                    .map(
+                                        (title, index) => `
+                      <li>
+                        <a href="${properties.links.split(' ; ')[index]}" target="_blank">${title}</a> (${properties.dates.split(' , ')[index]})
+                      </li>
+                    `
+                                    )
+                                    .join('')}</ul>
+              `;
+                        });
+
+                        map.on('mouseenter', 'countries-fill', () => {
+                            map.getCanvas().style.cursor = 'pointer';
+                        });
+
+                        map.on('mouseleave', 'countries-fill', () => {
+                            map.getCanvas().style.cursor = '';
+                        });
+                    });
+                })
+                .catch((error) => console.error('Error loading GeoJSON:', error));
+        });
+    </script>
+</body>
+
+</html>
