@@ -24,6 +24,7 @@
 
     <div class="legend">
         <div class="legend-header">LEGEND</div>
+        <p><i style="background-color: #ee7143; border: solid 0.5px #fff;"></i>Crisis Group research on Gender and Conflict</p>
         <br />
         <hr />
         <p><strong>Source</strong>: Crisis Group</p>
@@ -47,8 +48,12 @@
                 style: 'mapbox://styles/daltonwb/cm7ma0xep013601qo52eiai4i',
                 center: [0, 20],
                 zoom: 1.5,
-                attributionControl: false
+                attributionControl: false,
+                maxZoom: 4,
+                maxBounds: [[-180, -85], [180, 85]]
             });
+
+            map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
             map.addControl(new mapboxgl.AttributionControl({
                 customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod'
