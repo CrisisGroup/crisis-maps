@@ -13,14 +13,37 @@ body {
 }
 
 #sidebar {
-    flex: 1;
+    position: fixed;
+    top: 0;
+    right: -300px; /* Start off-screen */
+    width: 300px; /* Set total width */
+    height: 100%;
     background-color: #f9f9f9;
     padding: 16px;
     overflow-y: auto;
     border-left: 1px solid #ddd;
+    box-shadow: -4px 0 6px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    box-sizing: border-box; /* Ensures padding doesn't expand total width */
   }
+  
+  #sidebar.open {
+    right: 0; /* Slide into view */
+  }
+  
 
-  #controls {
+#sidebar .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+#controls {
     position: absolute;
     bottom: 30px;
     background: none;
@@ -28,31 +51,74 @@ body {
     border-radius: 8px;
     margin: 0 50% 0 50%;
     width: 400px;
-  }
+}
 
-  #year-display {
+#year-display {
     font-size: 36px;
     font-weight: bold;
     text-align: center;
     margin-bottom: 8px;
-  }
+}
 
-  input[type="range"] {
+input[type="range"] {
     width: 100%;
-  }
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: linear-gradient(to right, #1993c3 0%, #1993c3 var(--progress, 100%), #ee7143 var(--progress, 100%), #ee7143 100%);
+    border-radius: 3px;
+    outline: none;
+    border: 2px solid white;
+}
 
-  ul {
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 8px;
+    /* Narrow width to resemble a vertical pipe */
+    height: 36px;
+    /* Three times the height of the 6px slider track */
+    background: black;
+    /* White pipe appearance */
+    border: 0.5px solid white;
+    /* Thin white stroke */
+    border-radius: 0;
+    /* Remove rounded edges */
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 8px;
+    height: 36px;
+    background: black;
+    border: 0.5px solid white;
+    border-radius: 0;
+    cursor: pointer;
+}
+
+ul {
     padding-left: 20px;
-  }
+}
 
-  li a {
+li a {
     text-decoration: none;
     color: #007acc;
-  }
+}
 
-  li a:hover {
+li a:hover {
     text-decoration: underline;
-  }
+}
 
 .legend {
     background-color: #cecfd1;
@@ -141,52 +207,4 @@ body {
     white-space: nowrap;
     margin-left: 20px;
     align-self: center;
-}
-
-#slideout-panel {
-    position: fixed;
-    top: 0;
-    right: -440px; /* Start hidden */
-    width: 400px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-    transition: right 0.3s ease-in-out;
-    padding: 20px;
-    overflow-y: auto;
-    z-index: 9999;
-}
-
-#slideout-panel.show {
-    right: 0; /* Slide into view */
-}
-
-#close-panel {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-/* Media Query for Viewports ≤ 425px */
-@media screen and (max-width: 425px) {
-    #slideout-panel {
-        width: calc(100% - 40px); /* Full width minus padding */
-        right: -100%; /* Adjust hiding position */
-        padding: 15px; /* Reduce padding slightly for small screens */
-    }
-    
-    #slideout-panel.show {
-        right: 0;
-    }
-
-    #close-panel {
-        left: auto;
-        right: 15px; /* Move inside the panel */
-        top: 15px; /* Adjust for smaller padding */
-        font-size: 24px; /* Slightly larger for better tap usability */
-    }
 }

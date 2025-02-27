@@ -12,9 +12,22 @@
 
 <body>
     <div id="map"></div>
+    <script>// Function to close sidebar
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+        }
+
+        // Click outside to close sidebar
+        document.addEventListener('click', (event) => {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('open') && !sidebar.contains(event.target) && !event.target.closest('.mapboxgl-canvas')) {
+                closeSidebar();
+            }
+        });</script>
     <div id="sidebar">
-        <h3>Country Info</h3>
-        <p>Select a country to view details.</p>
+        <button class="close-btn" onclick="closeSidebar()">✖</button>
+        <h3 id="sidebar-title">Country Info</h3>
+        <p id="sidebar-content">Select a country to view details.</p>
     </div>
 
     <div id="controls">
@@ -24,7 +37,8 @@
 
     <div class="legend">
         <div class="legend-header">LEGEND</div>
-        <p><i style="background-color: #ee7143; border: solid 0.5px #fff;"></i>Crisis Group research on Gender and Conflict</p>
+        <p><i style="background-color: #ee7143; border: solid 0.5px #fff;"></i>Crisis Group research on Gender and
+            Conflict</p>
         <br />
         <hr />
         <p><strong>Source</strong>: Crisis Group</p>
@@ -43,6 +57,18 @@
                 return;
             }
 
+            function updateSliderBackground() {
+                const progress = ((timeline.value - timeline.min) / (timeline.max - timeline.min)) * 100 + '%';
+                timeline.style.background = `linear-gradient(to right, #ee7143 0%, #ee7143 ${progress}, #1993c3 ${progress}, #1993c3 100%)`;
+            }
+
+            // Attach event listener
+            timeline.addEventListener('input', updateSliderBackground);
+
+            // Call function once to set initial state
+            updateSliderBackground();
+
+
             const map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/daltonwb/cm7ma0xep013601qo52eiai4i',
@@ -53,7 +79,7 @@
                 maxBounds: [[-180, -85], [180, 85]]
             });
 
-            map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+            map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
 
             map.addControl(new mapboxgl.AttributionControl({
                 customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod'
@@ -136,22 +162,37 @@
                         }
 
                         map.on('click', 'countries-fill', (e) => {
+                            if (!e.features || e.features.length === 0) {
+                                console.warn('No features found on click.');
+                                return;
+                            }
+
                             const properties = e.features[0].properties;
-                            sidebar.innerHTML = `
-                <h3>${properties.name}</h3>
-                <p><strong>First Year of Publication:</strong> ${properties.first_date}</p>
-                <p><strong>Articles:</strong></p>
-                <ul>${properties.title
+                            const isHighlighted = map.getFeatureState({ source: 'countries', id: e.features[0].id }).highlight;
+                            if (!isHighlighted) {
+                                console.warn('Clicked country is not highlighted.');
+                                return;
+                            }
+
+                            // Update sidebar content
+                            document.getElementById('sidebar-title').textContent = properties.name;
+                            document.getElementById('sidebar-content').innerHTML = `
+    <p><strong>First Date:</strong> ${properties.first_date}</p>
+    <p><strong>Articles:</strong></p>
+    <ul>${properties.title
                                     .split(' ; ')
                                     .map(
                                         (title, index) => `
-                      <li>
-                        <a href="${properties.links.split(' ; ')[index]}" target="_blank">${title}</a> (${properties.dates.split(' , ')[index]})
-                      </li>
-                    `
+          <li>
+            <a href="${properties.links.split(' ; ')[index]}" target="_blank">${title}</a> (${properties.dates.split(' , ')[index]})
+          </li>
+        `
                                     )
                                     .join('')}</ul>
-              `;
+  `;
+
+                            // Open sidebar
+                            document.getElementById('sidebar').classList.add('open');
                         });
 
                         map.on('mouseenter', 'countries-fill', () => {
