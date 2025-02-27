@@ -5,6 +5,13 @@ body {
     overflow: hidden;
 }
 
+hr {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
+}
+
+
 #map {
     position: absolute;
     top: 0;
@@ -15,8 +22,10 @@ body {
 #sidebar {
     position: fixed;
     top: 0;
-    right: -300px; /* Start off-screen */
-    width: 300px; /* Set total width */
+    right: -300px;
+    /* Start off-screen */
+    width: 300px;
+    /* Set total width */
     height: 100%;
     background-color: #f9f9f9;
     padding: 16px;
@@ -24,13 +33,15 @@ body {
     border-left: 1px solid #ddd;
     box-shadow: -4px 0 6px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease-in-out;
-    box-sizing: border-box; /* Ensures padding doesn't expand total width */
-  }
-  
-  #sidebar.open {
-    right: 0; /* Slide into view */
-  }
-  
+    box-sizing: border-box;
+    /* Ensures padding doesn't expand total width */
+}
+
+#sidebar.open {
+    right: 0;
+    /* Slide into view */
+}
+
 
 #sidebar .close-btn {
     position: absolute;
@@ -46,10 +57,11 @@ body {
 #controls {
     position: absolute;
     bottom: 30px;
+    left: 50%; /* Move to the center */
+    transform: translateX(-50%); /* Shift it back by half its own width */
     background: none;
     padding: 10px;
     border-radius: 8px;
-    margin: 0 50% 0 50%;
     width: 400px;
 }
 
@@ -136,14 +148,15 @@ li a:hover {
 
 .legend p {
     margin: 0;
+    width: 200px;
 }
 
 .legend-header {
     font-size: 18px;
     margin-bottom: 8px;
-    color: #333;
+    color: #7c7e81;
     text-align: left;
-    font-weight: bold;
+    font-weight: lighter;
 }
 
 .legend i {
