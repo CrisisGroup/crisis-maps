@@ -32,9 +32,7 @@ hr {
     position: fixed;
     top: 0;
     right: -300px;
-
     width: 300px;
-
     height: 100%;
     background-color: #f9f9f9;
     padding: 16px;
@@ -43,7 +41,7 @@ hr {
     box-shadow: -4px 0 6px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease-in-out;
     box-sizing: border-box;
-
+    z-index:100000;
 }
 
 #sidebar.open {
@@ -134,7 +132,7 @@ li a:hover {
 }
 
 .legend {
-    background-color: #cecfd1;
+    background-color: #e8e8e8;
     border-radius: 15px;
     border: solid 1px #fff;
     bottom: 110px;
