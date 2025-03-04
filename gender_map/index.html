@@ -38,12 +38,14 @@
 
     <div class="legend">
         <div class="legend-header">LEGEND</div>
-        <p><i style="background-color: #ee7143; border: solid 0.5px #fff;"></i><strong>Crisis Group research on Gender and
-            Conflict</strong></p>
+        <p><i style="background-color: #ee7143; border: solid 0.5px #fff;"></i><strong>Crisis Group research on Gender
+                and
+                Conflict</strong></p>
         <br />
         <hr />
         <p><strong>Source</strong>: Crisis Group</p>
-        <a href="https://www.crisisgroup.org/gender-and-conflict" target="_blank">Read more on our Gender & Conflict work</a>
+        <a href="https://www.crisisgroup.org/gender-and-conflict" target="_blank">Read more on our Gender & Conflict
+            work</a>
     </div>
     <script>
 
@@ -136,12 +138,19 @@
                             },
                         });
 
+                        // Extract unique years and sort them
                         const years = [...new Set(data.features.map((f) => f.properties.first_date))].sort();
 
                         if (years.length > 0) {
                             timeline.max = years.length - 1;
-                            timeline.value = 0;
-                            yearDisplay.textContent = years[0];
+
+                            // Find index of 2016 in sorted years
+                            const initialIndex = years.indexOf(2016);
+                            timeline.value = initialIndex !== -1 ? initialIndex : 0; // Set slider to 2016 or min year
+                            yearDisplay.textContent = years[timeline.value];
+
+                            // Ensure the slider background is correct on load
+                            updateSliderBackground();
 
                             const updateMap = (year) => {
                                 data.features.forEach((feature) => {
@@ -158,11 +167,12 @@
                                 updateMap(year);
                             });
 
-                            updateMap(years[0]);
+                            updateMap(years[timeline.value]); // Initialize map at 2016 or min year
                         } else {
                             yearDisplay.textContent = 'No Data';
                         }
 
+                        // Click event for country selection
                         map.on('click', 'countries-fill', (e) => {
                             if (!e.features || e.features.length === 0) {
                                 console.warn('No features found on click.');
@@ -179,24 +189,25 @@
                             // Update sidebar content
                             document.getElementById('sidebar-title').textContent = properties.name;
                             document.getElementById('sidebar-content').innerHTML = `
-    <p><strong>First Date:</strong> ${properties.first_date}</p>
-    <p><strong>Articles:</strong></p>
-    <ul>${properties.title
+                    <p class="first-pub">First Date: ${properties.first_date}</p>
+                    <p class="article-byline"><strong>Articles:</strong></p>
+                    <ul>${properties.title
                                     .split(' ; ')
                                     .map(
                                         (title, index) => `
-          <li>
-            <a href="${properties.links.split(' ; ')[index]}" target="_blank">${title}</a> (${properties.dates.split(' , ')[index]})
-          </li>
-        `
+                                <li>
+                                    <a href="${properties.links.split(' ; ')[index]}" target="_blank">${title}</a> (${properties.dates.split(' , ')[index]})
+                                </li>
+                            `
                                     )
                                     .join('')}</ul>
-  `;
+                `;
 
                             // Open sidebar
                             document.getElementById('sidebar').classList.add('open');
                         });
 
+                        // Change cursor on hover
                         map.on('mouseenter', 'countries-fill', () => {
                             map.getCanvas().style.cursor = 'pointer';
                         });
@@ -207,6 +218,7 @@
                     });
                 })
                 .catch((error) => console.error('Error loading GeoJSON:', error));
+
         });
     </script>
 </body>

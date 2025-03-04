@@ -7,7 +7,7 @@ body {
 
 hr {
     border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
     margin-bottom: 15px;
 }
 
@@ -24,18 +24,18 @@ hr {
     z-index: 9999;
     top: 40px;
     right: 40px;   
-    height: 100px;
-    width: 100px; 
+    height: 120px;
+    width: 120px; 
 }
 
 #sidebar {
     position: fixed;
     top: 0;
-    right: -300px;
-    width: 300px;
+    right: -400px;
+    width: 400px;
     height: 100%;
     background-color: #f9f9f9;
-    padding: 16px;
+    padding: 48px;
     overflow-y: auto;
     border-left: 1px solid #ddd;
     box-shadow: -4px 0 6px rgba(0, 0, 0, 0.2);
@@ -56,6 +56,35 @@ hr {
     border: none;
     font-size: 18px;
     cursor: pointer;
+}
+
+#sidebar-content {
+    margin-top: 0;
+}
+
+#sidebar-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.first-pub {
+    color: #7e7e7e;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.article-byline {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#sidebar a {
+    color: #ee7143;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    line-height: 1.75em;
 }
 
 #controls {
@@ -135,7 +164,7 @@ li a:hover {
     background-color: #e8e8e8;
     border-radius: 15px;
     border: solid 1px #fff;
-    bottom: 110px;
+    bottom: 100px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     padding: 10px 15px;
     position: absolute;
@@ -148,6 +177,14 @@ li a:hover {
 .legend p {
     margin: 0;
     width: 200px;
+}
+
+.legend a {
+    color: #717C7D;
+}
+
+.legend a:visited {
+    color: #000;
 }
 
 .legend-header {
