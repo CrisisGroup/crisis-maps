@@ -186,22 +186,31 @@
                                 return;
                             }
 
-                            // Update sidebar content
-                            document.getElementById('sidebar-title').textContent = properties.name;
-                            document.getElementById('sidebar-content').innerHTML = `
-                    <p class="first-pub">First Date: ${properties.first_date}</p>
-                    <p class="article-byline"><strong>Articles:</strong></p>
-                    <ul>${properties.title
-                                    .split(' ; ')
-                                    .map(
-                                        (title, index) => `
-                                <li>
-                                    <a href="${properties.links.split(' ; ')[index]}" target="_blank">${title}</a> (${properties.dates.split(' , ')[index]})
-                                </li>
-                            `
-                                    )
-                                    .join('')}</ul>
-                `;
+                                // Extract articles, links, and dates
+    const titles = properties.title.split(' ; ');
+    const links = properties.links.split(' ; ');
+    const dates = properties.dates.split(' , ').map(date => parseInt(date, 10)); // Convert to numbers for sorting
+
+    // Combine into an array of objects and sort by date (ascending order)
+    const sortedArticles = titles.map((title, index) => ({
+        title,
+        link: links[index],
+        date: dates[index]
+    })).sort((a, b) => a.date - b.date); // Sort by earliest date first
+
+    const articlesList = sortedArticles.map(article => `
+        <li>
+            <a href="${article.link}" target="_blank">${article.title}</a> (${article.date})
+        </li>
+    `).join('');
+
+    // Update sidebar content with sorted articles
+    document.getElementById('sidebar-title').textContent = properties.name;
+    document.getElementById('sidebar-content').innerHTML = `
+        <p><strong>First Date:</strong> ${properties.first_date}</p>
+        <p><strong>Articles:</strong></p>
+        <ul>${articlesList}</ul>
+    `;
 
                             // Open sidebar
                             document.getElementById('sidebar').classList.add('open');
