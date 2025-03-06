@@ -189,9 +189,11 @@
                             // Extract articles, links, and dates
                             const titles = properties.title.split(' ; ');
                             const links = properties.links.split(' ; ');
-                            const dates = (properties.dates && typeof properties.dates === 'string') 
-    ? properties.dates.split(' , ').map(date => parseInt(date, 10)) 
-    : Array(titles.length).fill(null); // Default to null if no date exists
+                            const dates = Array.isArray(properties.dates) 
+    ? properties.dates.map(date => parseInt(date, 10)) // If already an array, parse it
+    : (typeof properties.dates === 'string' 
+        ? properties.dates.split(' , ').map(date => parseInt(date.trim(), 10)) // If a string, split and parse
+        : [parseInt(properties.dates, 10)]); // If a single number, wrap it in an array
 
                             // Combine into an array of objects and sort by date (ascending order)
                             const sortedArticles = titles.map((title, index) => ({
