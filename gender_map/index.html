@@ -50,11 +50,25 @@
     <script>
 
         document.addEventListener('DOMContentLoaded', () => {
+
             mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw'; // Replace with your actual Mapbox token
 
             const sidebar = document.getElementById('sidebar');
             const timeline = document.getElementById('timeline');
             const yearDisplay = document.getElementById('year-display');
+
+            const sliderHint = document.createElement("div");
+            sliderHint.id = "slider-hint";
+            sliderHint.innerText = "Slide to explore ⬇";
+            document.body.appendChild(sliderHint);
+
+            setTimeout(() => {
+                sliderHint.classList.add("hidden"); // Auto-hide after a few seconds
+            }, 4000);
+
+            timeline.addEventListener("input", () => {
+                sliderHint.classList.add("hidden"); // Hide when user interacts
+            });
 
             if (!sidebar || !timeline || !yearDisplay) {
                 console.error('Required DOM elements (sidebar, timeline, or year-display) are missing.');
@@ -189,11 +203,11 @@
                             // Extract articles, links, and dates
                             const titles = properties.title.split(' ; ');
                             const links = properties.links.split(' ; ');
-                            const dates = Array.isArray(properties.dates) 
-    ? properties.dates.map(date => parseInt(date, 10)) // If already an array, parse it
-    : (typeof properties.dates === 'string' 
-        ? properties.dates.split(' , ').map(date => parseInt(date.trim(), 10)) // If a string, split and parse
-        : [parseInt(properties.dates, 10)]); // If a single number, wrap it in an array
+                            const dates = Array.isArray(properties.dates)
+                                ? properties.dates.map(date => parseInt(date, 10)) // If already an array, parse it
+                                : (typeof properties.dates === 'string'
+                                    ? properties.dates.split(' , ').map(date => parseInt(date.trim(), 10)) // If a string, split and parse
+                                    : [parseInt(properties.dates, 10)]); // If a single number, wrap it in an array
 
                             // Combine into an array of objects and sort by date (ascending order)
                             const sortedArticles = titles.map((title, index) => ({
