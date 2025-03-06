@@ -28,6 +28,15 @@ hr {
     width: 120px; 
 }
 
+@media (max-width: 1024px) {
+    #yearlogo {
+        height: 80px;
+        width: 80px;
+        top: 20px;
+        right: 20px;
+    }
+}
+
 #sidebar {
     position: fixed;
     top: 0;
@@ -172,6 +181,14 @@ li a:hover {
     width: 250px;
     font-family: 'franklin-gothic-urw', sans-serif;
     z-index: 1;
+}
+
+@media (max-width: 1024px) {
+    .legend {
+        bottom: 115px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 .legend p {
