@@ -42,11 +42,17 @@
             style: 'mapbox://styles/daltonwb/cm8rhon7q000e01r26te7f4d7',
             center: [17.39, 1.65], // Centroid of Africa
             zoom: 4,
+            pitchWithRotate: false,
+            dragRotate: false,
+            maxZoom: 6,
             attributionControl: false
         });
 
         // Add navigation controls
-        map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+        map.addControl(
+            new mapboxgl.NavigationControl({ showCompass: false }),
+            'top-left'
+        );
 
 
         const africaBounds = [
