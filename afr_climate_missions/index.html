@@ -39,7 +39,7 @@
 
         const map = new mapboxgl.Map({
             container: 'map', // The HTML container ID
-            style: 'mapbox://styles/daltonwb/cm7azqiw1006o01s4aup11tuy',
+            style: 'mapbox://styles/daltonwb/cm8rhon7q000e01r26te7f4d7',
             center: [17.39, 1.65], // Centroid of Africa
             zoom: 4,
             attributionControl: false
@@ -71,14 +71,14 @@
 
             map.addSource('crisis-points', {
                 type: 'vector',
-                url: 'mapbox://daltonwb.6p1l0zzf' // Your Tileset ID
+                url: 'mapbox://daltonwb.drugmhci' // Your Tileset ID
             });
 
             map.addLayer({
                 'id': 'points-layer',
                 'type': 'symbol',  // Change from 'circle' to 'symbol'
                 'source': 'crisis-points',
-                'source-layer': 'Edited_UN_Missions_Map__-_She-9kc5kq',
+                'source-layer': 'UN_missions_032025-241nrt',
                 'layout': {
                     'icon-image': [
                         'match',
@@ -109,7 +109,7 @@
                 map.flyTo({
                     center: coordinates,
                     speed: 0.2,
-                    zoom: 3, // Adjust zoom level as needed
+                    zoom: 4, // Adjust zoom level as needed
                     essential: true
                 });
 
@@ -117,8 +117,31 @@
                 const panel = document.getElementById('slideout-panel');
                 const content = document.getElementById('panel-content');
 
-                content.innerHTML = `<h2>${properties["Full Name"]}</h2>
-<h3>${properties.type}</h3><p>${properties.description}</p><p>${properties.climate_lang}</p>`;
+                let html = `
+        <h2>${properties["Full Name"]}</h2>
+        <h3>${properties.type}</h3>
+        <p>${properties.description}</p>
+    `;
+
+                if (properties.preamble && properties.preamble.trim() !== '') {
+                    html += `
+            <h3>Preamble</h3>
+            <p>${properties.preamble}</p>
+        `;
+                }
+
+                if (properties.mandate && properties.mandate.trim() !== '') {
+                    html += `
+            <h3>Mandate</h3>
+            <p>${properties.mandate}</p>
+        `;
+                }
+
+                if (properties.other && properties.other.trim() !== '') {
+                    html += `<p>${properties.other}</p>`;
+                }
+
+                content.innerHTML = html;
 
                 // Show the panel
                 panel.classList.add('show');
