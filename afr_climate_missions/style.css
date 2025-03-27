@@ -5,6 +5,12 @@ body {
     overflow: hidden;
 }
 
+.blue-icon {
+    filter: invert(28%) sepia(21%) saturate(1000%) hue-rotate(170deg) brightness(93%) contrast(90%);
+  }
+  
+  
+
 #map {
     position: absolute;
     top: 0;
