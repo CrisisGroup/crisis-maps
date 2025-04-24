@@ -20,7 +20,8 @@
         <div class="legend-header">LEGEND</div>
         <p><img src="circle.svg" style="height: 25px; width: 25px;"></i>Special Political Mission</p>
         <p><img src="diamond.svg" style="height: 25px; width: 25px;"></i>Peace Keeping Operation</p>
-        <p><img src="circle_gr.svg" style="height: 25px; width: 25px;"></i><img src="diamond_gr.svg" style="height: 25px; width: 25px;"></i>Has Climate Security Advisor</p>
+        <p><img src="circle_gr.svg" style="height: 25px; width: 25px;"></i><img src="diamond_gr.svg"
+                style="height: 25px; width: 25px;"></i>Has Climate Security Advisor</p>
         <br />
         <hr />
         <p><strong>Source</strong>: United Nations</p>
@@ -40,7 +41,7 @@
 
         const map = new mapboxgl.Map({
             container: 'map', // The HTML container ID
-            style: 'mapbox://styles/daltonwb/cm9vcn2fb016201s5gejm63cj',
+            style: 'mapbox://styles/daltonwb/cm9veovk600kg01qsgappgpnk',
             center: [17.39, 1.65], // Centroid of Africa
             zoom: 4,
             pitchWithRotate: false,
@@ -90,25 +91,41 @@
                     'icon-image': [
                         'case',
                         ['==', ['get', 'advisor'], true],
-                        // If climate is TRUE
                         [
                             'match',
                             ['get', 'type'],
                             'Peace Keeping Operation', 'diamond_gr',
                             'Special Political Mission', 'circle_gr',
-                            'marker'  // Default fallback icon when climate is TRUE
+                            'marker'
                         ],
-                        // Else (climate is FALSE)
                         [
                             'match',
                             ['get', 'type'],
                             'Peace Keeping Operation', 'diamond',
                             'Special Political Mission', 'circle',
-                            'marker'  // Default fallback icon when climate is FALSE
+                            'marker'
                         ]
                     ],
-                    'icon-size': 1,
+                    'icon-size': 1.25,
+                    'text-field': ['to-string', ['get', 'name']],
+                    'text-font': ['Franklin Gothic Demi Regular', 'Arial Unicode MS Regular'],
+                    'text-offset': [-0.5, -0.5],
+                    'text-anchor': 'bottom-right',
+                    'text-size': 18,
+                    'text-allow-overlap': true,
                     'icon-allow-overlap': true
+                },
+                'paint': {
+                    'icon-opacity': 1,  // hides icon if you only want labels shown
+                    'text-color': [
+                        'case',
+                        ['==', ['get', 'advisor'], true],
+                        '#64d585',  // green for advisor: true
+                        '#288bb8'   // blue for advisor: false
+                    ],
+                    'text-halo-color': '#000000',
+                    'text-halo-width': 1,
+                    'text-halo-blur': 1
                 }
             });
 
