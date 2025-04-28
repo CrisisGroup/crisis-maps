@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>U.S. Military Presence in East Asia</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
+    <link rel="stylesheet" href="style.css">
+
+<body>
+    <div id="map"></div>
+    <div id="slideout-panel">
+        <button id="close-panel">&times;</button>
+        <div id="panel-content">Click on a point to see details</div>
+    </div>
+    <div class="legend">
+        <div class="legend-header">LEGEND</div>
+        <p>
+            <span style="display:inline-block; width:18px; height:18px; border-radius:50%; background:#5392f9; margin-right:8px;"></span>
+            Enduring U.S. presence
+        </p>
+        <p>
+            <span style="display:inline-block; width:18px; height:18px; border-radius:50%; background:#cc0000; margin-right:8px;"></span>
+            Rotational/episodic U.S. presence
+        </p>
+        <br />
+        <hr />
+        <p><strong>Source</strong>: United Nations</p>
+    </div>
+    <script>
+
+        function scroolZoomEnable() {
+            const width = window.innerWidth;
+            if (width < 1024) {
+                return false; // Disable scrollwheel on smaller devices
+            } else {
+                return true; // Enable it
+            }
+        }
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+
+        const map = new mapboxgl.Map({
+            container: 'map', // The HTML container ID
+            style: 'mapbox://styles/daltonwb/cma17rw2x012601s58onwg7jk',
+            center: [132.99, 2.99],
+            zoom: 3,
+            pitchWithRotate: false,
+            dragRotate: false,
+            maxZoom: 12,
+            attributionControl: false
+        });
+
+        // Add navigation controls
+        map.addControl(
+            new mapboxgl.NavigationControl({ showCompass: false }),
+            'top-left'
+        );
+
+
+        const mapBounds = [
+            [60.74996, -37.09177],
+            [205.22646, 43.07471]
+        ];
+
+        // Load map and add Tileset points
+        map.on('load', () => {
+
+            // Fit the map to the specified bounding box on initial load
+            map.fitBounds([
+                [60.74996, -37.09177],
+                [205.22646, 43.07471]
+            ], {
+                padding: { top: 20, bottom: 20, left: 20, right: 20 }, // Optional: Adds padding around the bounds
+                maxZoom: 8, // Optional: Prevents zooming in too far
+                linear: true // Optional: Makes the camera movement linear rather than easing
+            });
+
+            map.setMaxBounds(mapBounds); // Restrict panning to Africa
+
+            map.addSource('crisis-points', {
+                type: 'vector',
+                url: 'mapbox://daltonwb.40kvg593' // Your Tileset ID
+            });
+
+            map.addLayer({
+                'id': 'points-layer',
+                'type': 'circle',
+                'source': 'crisis-points',
+                'source-layer': 'us_asia_littoral_geocoded-5082c1',
+                'paint': {
+                    'circle-radius': 8,
+                    'circle-color': [
+                        'match',
+                        ['get', 'type'],
+                        'perm', '#5392f9',  // blue
+                        'temp', '#cc0000',  // red
+                        '#000000'           // fallback black
+                    ],
+                    'circle-stroke-color': '#ffffff',
+                    'circle-stroke-width': 1
+                }
+            });
+
+            // Create a styled popup but don't add it to the map yet
+            const hoverPopup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false,
+                className: 'hover-popup'  // We'll define custom CSS below
+            });
+
+            map.on('mouseenter', 'points-layer', (e) => {
+                map.getCanvas().style.cursor = 'pointer';
+
+                const coordinates = e.features[0].geometry.coordinates.slice();
+                const name = e.features[0].properties.name;
+
+                // Fix if hovering near antimeridian
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                hoverPopup
+                    .setLngLat(coordinates)
+                    .setHTML(`<div class="hover-popup-content">${name}</div>`)
+                    .addTo(map);
+            });
+
+            map.on('mouseleave', 'points-layer', () => {
+                map.getCanvas().style.cursor = '';
+                hoverPopup.remove();
+            });
+
+
+            map.addControl(new mapboxgl.AttributionControl({
+                customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod'
+            }));
+        });
+
+    </script>
+</body>
+
+</html>
