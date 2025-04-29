@@ -19,11 +19,13 @@
     <div class="legend">
         <div class="legend-header">LEGEND</div>
         <p>
-            <span style="display:inline-block; width:18px; height:18px; border-radius:50%; background:#5392f9; margin-right:8px;"></span>
+            <span
+                style="display:inline-block; width:18px; height:18px; border-radius:50%; background:#a71e0f; margin-right:8px;"></span>
             Enduring U.S. presence
         </p>
         <p>
-            <span style="display:inline-block; width:18px; height:18px; border-radius:50%; background:#cc0000; margin-right:8px;"></span>
+            <span
+                style="display:inline-block; width:18px; height:18px; border-radius:50%; background:#e57834; margin-right:8px;"></span>
             Rotational/episodic U.S. presence
         </p>
         <br />
@@ -45,9 +47,9 @@
 
         const map = new mapboxgl.Map({
             container: 'map', // The HTML container ID
-            style: 'mapbox://styles/daltonwb/cma1aw5cz008101s55j78d5jp',
+            style: 'mapbox://styles/daltonwb/cma2m4ata005n01qn6v44dyfg',
             center: [132.99, 2.99],
-            zoom: 3,
+            zoom: 1.5,
             pitchWithRotate: false,
             dragRotate: false,
             maxZoom: 12,
@@ -62,8 +64,8 @@
 
 
         const mapBounds = [
-            [60.74996, -37.09177],
-            [205.22646, 43.07471]
+            [50.63312, -33.89581],
+            [247.42249, 48.72086]
         ];
 
         // Load map and add Tileset points
@@ -71,11 +73,10 @@
 
             // Fit the map to the specified bounding box on initial load
             map.fitBounds([
-                [60.74996, -37.09177],
-                [205.22646, 43.07471]
+                [50.63312, -33.89581],
+                [247.42249, 48.72086]
             ], {
                 padding: { top: 20, bottom: 20, left: 20, right: 20 }, // Optional: Adds padding around the bounds
-                maxZoom: 8, // Optional: Prevents zooming in too far
                 linear: true // Optional: Makes the camera movement linear rather than easing
             });
 
@@ -92,16 +93,43 @@
                 'source': 'crisis-points',
                 'source-layer': 'us_asia_littoral_geocoded-5082c1',
                 'paint': {
-                    'circle-radius': 8,
+                    'circle-radius': 7,
                     'circle-color': [
                         'match',
                         ['get', 'type'],
-                        'perm', '#5392f9',  // blue
-                        'temp', '#cc0000',  // red
+                        'perm', '#a71e0f',  // blue
+                        'temp', '#e57834',  // red
                         '#000000'           // fallback black
                     ],
+                    'circle-opacity': .7,
                     'circle-stroke-color': '#ffffff',
-                    'circle-stroke-width': 1
+                    'circle-stroke-width': 2,
+                    'circle-stroke-opacity': .8
+                }
+
+
+            });
+
+            map.addLayer({
+                id: 'bases_labels_coded',
+                type: 'symbol',
+                source: 'crisis-points',  // <- CHANGE THIS from "composite" to your actual source
+                'source-layer': 'us_asia_littoral_geocoded-5082c1',
+                layout: {
+                    'text-field': ['get', 'name'],
+                    'text-font': ['Gill Sans Bold', 'Arial Unicode MS Regular'],
+                    'text-anchor': 'top-left',
+                    'text-offset': [0.7, 0.7],
+                    'text-pitch-alignment': 'viewport',
+                    'text-letter-spacing': 0.1,
+                    'text-justify': 'left'
+                },
+                paint: {
+                    'text-halo-width': 2,
+                    'text-halo-blur': 1,
+                    'text-halo-color': '#55afaf',
+                    'text-color': '#173f49',
+                    'text-opacity': 1
                 }
             });
 
