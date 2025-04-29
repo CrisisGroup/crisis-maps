@@ -48,8 +48,8 @@
         const map = new mapboxgl.Map({
             container: 'map', // The HTML container ID
             style: 'mapbox://styles/daltonwb/cma2m4ata005n01qn6v44dyfg',
-            center: [132.99, 2.99],
-            zoom: 1.5,
+            center: [123.43068, 19.19328],
+            zoom: 3,
             pitchWithRotate: false,
             dragRotate: false,
             maxZoom: 12,
@@ -75,15 +75,6 @@
 
         // Load map and add Tileset points
         map.on('load', () => {
-
-            // Fit the map to the specified bounding box on initial load
-            map.fitBounds([
-                [30, -65],  // [westLng, southLat] => slightly west of Horn of Africa
-                [245, 70]
-            ], {
-                padding: { top: 20, bottom: 20, left: 20, right: 20 }, // Optional: Adds padding around the bounds
-                linear: true // Optional: Makes the camera movement linear rather than easing
-            });
 
             map.setMaxBounds(mapBounds); // Restrict panning to Africa
 
