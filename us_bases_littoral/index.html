@@ -110,57 +110,37 @@
 
             });
 
-            map.addLayer({
-                id: 'bases_labels_coded',
-                type: 'symbol',
-                source: 'crisis-points',  // <- CHANGE THIS from "composite" to your actual source
-                'source-layer': 'us_asia_littoral_geocoded-5082c1',
-                layout: {
-                    'text-field': ['get', 'name'],
-                    'text-font': ['Gill Sans Bold', 'Arial Unicode MS Regular'],
-                    'text-anchor': 'top-left',
-                    'text-offset': [0.7, 0.7],
-                    'text-pitch-alignment': 'viewport',
-                    'text-letter-spacing': 0.1,
-                    'text-justify': 'left'
-                },
-                paint: {
-                    'text-halo-width': 2,
-                    'text-halo-blur': 1,
-                    'text-halo-color': '#55afaf',
-                    'text-color': '#173f49',
-                    'text-opacity': 1
-                }
-            });
-
-            // Create a styled popup but don't add it to the map yet
-            const hoverPopup = new mapboxgl.Popup({
-                closeButton: false,
-                closeOnClick: false,
-                className: 'hover-popup'  // We'll define custom CSS below
-            });
-
-            map.on('mouseenter', 'points-layer', (e) => {
+            // Pointer cursor only on hover
+            map.on('mouseenter', 'points-layer', () => {
                 map.getCanvas().style.cursor = 'pointer';
+            });
 
+            map.on('mouseleave', 'points-layer', () => {
+                map.getCanvas().style.cursor = '';
+            });
+
+            // Click popup
+            const clickPopup = new mapboxgl.Popup({
+                closeButton: true,
+                closeOnClick: true,
+                className: 'hover-popup'  // optional: styled version
+            });
+
+            map.on('click', 'points-layer', (e) => {
                 const coordinates = e.features[0].geometry.coordinates.slice();
                 const name = e.features[0].properties.name;
 
-                // Fix if hovering near antimeridian
+                // Antimeridian fix
                 while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
                     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                 }
 
-                hoverPopup
+                clickPopup
                     .setLngLat(coordinates)
                     .setHTML(`<div class="hover-popup-content">${name}</div>`)
                     .addTo(map);
             });
 
-            map.on('mouseleave', 'points-layer', () => {
-                map.getCanvas().style.cursor = '';
-                hoverPopup.remove();
-            });
 
 
             map.addControl(new mapboxgl.AttributionControl({
