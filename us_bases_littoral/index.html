@@ -53,7 +53,12 @@
             pitchWithRotate: false,
             dragRotate: false,
             maxZoom: 12,
-            attributionControl: false
+            attributionControl: false,
+            dragPan: {
+                linearity: 0.3,   // makes panning feel a little more elastic
+                maxSpeed: 1400,
+                deceleration: 2500,
+            }
         });
 
         // Add navigation controls
@@ -64,8 +69,8 @@
 
 
         const mapBounds = [
-            [50.63312, -33.89581],
-            [247.42249, 48.72086]
+            [30, -65],  // [westLng, southLat] => slightly west of Horn of Africa
+            [245, 70]
         ];
 
         // Load map and add Tileset points
@@ -73,8 +78,8 @@
 
             // Fit the map to the specified bounding box on initial load
             map.fitBounds([
-                [50.63312, -33.89581],
-                [247.42249, 48.72086]
+                [30, -65],  // [westLng, southLat] => slightly west of Horn of Africa
+                [245, 70]
             ], {
                 padding: { top: 20, bottom: 20, left: 20, right: 20 }, // Optional: Adds padding around the bounds
                 linear: true // Optional: Makes the camera movement linear rather than easing
@@ -135,6 +140,19 @@
                     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                 }
 
+                // Calculate offset: we move a little "up" (north) relative to the screen
+                const offsetLng = coordinates[0];
+                const offsetLat = coordinates[1] + 2.0; // About 2 degrees latitude north
+
+                // Smooth pan to the offset coordinates
+                map.easeTo({
+                    center: [offsetLng, offsetLat],
+                    zoom: map.getZoom(),  // Keep current zoom
+                    duration: 1000,       // 1 second
+                    easing: (t) => t      // Linear easing
+                });
+
+                // Then place the popup exactly on the point
                 clickPopup
                     .setLngLat(coordinates)
                     .setHTML(`<div class="hover-popup-content">${name}</div>`)
