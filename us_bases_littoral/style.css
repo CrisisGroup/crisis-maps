@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'franklin-gothic-urw', sans-serif;
+    font-family: gill-sans-nova, sans-serif;
     overflow: hidden;
 }
 
@@ -21,12 +21,34 @@ body {
     position: absolute;
     left: 10px;
     width: auto;
-    font-family: 'franklin-gothic-urw', sans-serif;
+    font-family: gill-sans-nova, sans-serif;
+    font-weight: 700;
+    font-style: normal;
     z-index: 1;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;  /* Aligns text and circle vertically */
+    font-family: gill-sans-nova, sans-serif;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.legend-circle {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 2px solid #fff;
 }
 
 .legend p {
     margin: 0;
+    font-family: gill-sans-nova, sans-serif;
+    font-weight: 600;
+    font-style: normal;
 }
 
 .legend-header {
@@ -90,16 +112,26 @@ body {
     font-family: gill-sans-nova, sans-serif;
     font-weight: 600;
     font-style: normal;
-    font-weight: 700;
     font-size: 16px;
-    padding: 6px 10px;
+    padding: 6px;
     border-radius: 6px;
-    border: 1px solid #fff;
-    letter-spacing: 0.1em;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
     text-align: center;
     opacity: 0;
     animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Conditional border overrides */
+.mapboxgl-popup.popup-perm .mapboxgl-popup-content {
+    border: 1px solid #a71e0f; /* blue */
+}
+
+.mapboxgl-popup.popup-temp .mapboxgl-popup-content {
+    border: 1px solid #e57834; /* red */
+}
+
+.mapboxgl-popup.popup-default .mapboxgl-popup-content {
+    border: 1px solid #999999; /* gray fallback */
 }
 
 /* The little tip/arrow */

@@ -18,16 +18,17 @@
     </div>
     <div class="legend">
         <div class="legend-header">LEGEND</div>
-        <p>
-            <span
-                style="display:inline-block; width:18px; height:18px; border-radius:50%; background:#a71e0f; margin-right:8px;"></span>
+    
+        <div class="legend-item">
+            <span class="legend-circle" style="background:#a71e0f;"></span>
             Enduring U.S. presence
-        </p>
-        <p>
-            <span
-                style="display:inline-block; width:18px; height:18px; border-radius:50%; background:#e57834; margin-right:8px;"></span>
+        </div>
+    
+        <div class="legend-item">
+            <span class="legend-circle" style="background:#e57834;"></span>
             Rotational/episodic U.S. presence
-        </p>
+        </div>
+    
         <br />
         <hr />
         <p><strong>Source</strong>: U.S. Congressional Research Service (CRS)</p>
@@ -47,12 +48,13 @@
 
         const map = new mapboxgl.Map({
             container: 'map', // The HTML container ID
-            style: 'mapbox://styles/daltonwb/cma2m4ata005n01qn6v44dyfg',
+            style: 'mapbox://styles/daltonwb/cma45j11r003l01s1bv0ccgmo',
             center: [123.43068, 19.19328],
-            zoom: 3,
+            zoom: 3.2,
             pitchWithRotate: false,
             dragRotate: false,
             maxZoom: 12,
+            minZoom: 3,
             attributionControl: false,
             dragPan: {
                 linearity: 0.3,   // makes panning feel a little more elastic
@@ -125,6 +127,17 @@
             map.on('click', 'points-layer', (e) => {
                 const coordinates = e.features[0].geometry.coordinates.slice();
                 const name = e.features[0].properties.name;
+                const type = e.features[0].properties.type; // "perm", "temp", etc.
+
+                const typeClass = type === 'perm' ? 'popup-perm' :
+                    type === 'temp' ? 'popup-temp' : 'popup-default';
+
+                // Recreate popup with dynamic class
+                const dynamicPopup = new mapboxgl.Popup({
+                    closeButton: true,
+                    closeOnClick: true,
+                    className: `hover-popup ${typeClass}`
+                });
 
                 // Antimeridian fix
                 while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
@@ -144,7 +157,7 @@
                 });
 
                 // Then place the popup exactly on the point
-                clickPopup
+                dynamicPopup
                     .setLngLat(coordinates)
                     .setHTML(`<div class="hover-popup-content">${name}</div>`)
                     .addTo(map);
