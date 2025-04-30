@@ -85,15 +85,16 @@ body {
 }
 
 .mapboxgl-popup.hover-popup .mapboxgl-popup-content {
-    background-color: #1a1a2e; /* Dark background */
-    color: #ffffff;            /* White text */
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 700;           /* Bold */
-    font-size: 14px;
+    background-color: #173f49;
+    color: #ffffff;
+    font-family: 'Gill', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
     padding: 6px 10px;
     border-radius: 6px;
-    border: 1px solid #64d585; /* Optional border color */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    border: 1px solid #fff;
+    letter-spacing: 0.1em;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
     text-align: center;
     opacity: 0;
     animation: fadeIn 0.3s ease-out forwards;
@@ -102,6 +103,10 @@ body {
 /* The little tip/arrow */
 .mapboxgl-popup.hover-popup .mapboxgl-popup-tip {
     display: none; /* Hide it, optional */
+}
+
+.mapboxgl-popup-close-button {
+    display: none;
 }
 
 /* Fade-in animation */

@@ -7,7 +7,7 @@
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
-    <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
+    <link rel="stylesheet" href="https://use.typekit.net/tiz6shb.css">
     <link rel="stylesheet" href="style.css">
 
 <body>
@@ -133,13 +133,13 @@
 
                 // Calculate offset: we move a little "up" (north) relative to the screen
                 const offsetLng = coordinates[0];
-                const offsetLat = coordinates[1] + 2.0; // About 2 degrees latitude north
+                const offsetLat = coordinates[1]; // About 2 degrees latitude north
 
                 // Smooth pan to the offset coordinates
                 map.easeTo({
                     center: [offsetLng, offsetLat],
                     zoom: map.getZoom(),  // Keep current zoom
-                    duration: 1000,       // 1 second
+                    duration: 250,       // 1 second
                     easing: (t) => t      // Linear easing
                 });
 
