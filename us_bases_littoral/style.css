@@ -87,7 +87,9 @@ body {
 .mapboxgl-popup.hover-popup .mapboxgl-popup-content {
     background-color: #173f49;
     color: #ffffff;
-    font-family: 'Gill', sans-serif;
+    font-family: gill-sans-nova, sans-serif;
+    font-weight: 600;
+    font-style: normal;
     font-weight: 700;
     font-size: 16px;
     padding: 6px 10px;
