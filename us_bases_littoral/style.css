@@ -5,6 +5,18 @@ body {
     overflow: hidden;
 }
 
+a {
+    color: #3c8287;
+}
+
+a:hover {
+    color: #53afaf;
+}
+
+a:visited {
+    color: #000;
+}
+
 #map {
     position: absolute;
     top: 0;
