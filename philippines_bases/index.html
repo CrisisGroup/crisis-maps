@@ -111,7 +111,7 @@
 
         const map = new mapboxgl.Map({
             container: 'map', // The HTML container ID
-            style: 'mapbox://styles/daltonwb/cmdq1qrza00kd01s23te5598n',
+            style: 'mapbox://styles/daltonwb/cmdq4lrm900l101s2104bek8f',
             center: [118.49612, 12.22356],
             zoom: 5,
             pitchWithRotate: false,
@@ -146,6 +146,11 @@
                 url: 'mapbox://daltonwb.am3c9zcd'
             });
 
+            map.addSource('misc-points', {
+                type: 'vector',
+                url: 'mapbox://daltonwb.d3oziuja'
+            });
+
             map.addLayer({
                 'id': 'points-layer1',
                 'type': 'circle',
@@ -176,8 +181,23 @@
                 }
             });
 
+            map.addLayer({
+                'id': 'points-layer3',
+                'type': 'circle',
+                'source': 'misc-points',
+                'source-layer': 'Miscellaneous',
+                'paint': {
+                    'circle-radius': 7,
+                    'circle-color': '#163f49',
+                    'circle-opacity': 1,
+                    'circle-stroke-color': '#9fc9ca',
+                    'circle-stroke-width': 2,
+                    'circle-stroke-opacity': 1
+                }
+            });
+
             // Interactive layers list
-            const interactiveLayers = ['points-layer1', 'points-layer2'];
+            const interactiveLayers = ['points-layer1', 'points-layer2', 'points-layer3'];
 
             // Pointer cursor on hover
             interactiveLayers.forEach(layerId => {
