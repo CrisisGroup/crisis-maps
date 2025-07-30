@@ -56,23 +56,16 @@
         </div>
         <br />
         <hr style="margin-top:0;" />
-        <p>Read our full report on militarisation in Asia <a id="reportlink"
+        <p>Read our full report on the Philippines militarisation efforts <a id="reportlink"
                 href="https://www.crisisgroup.org/asia/north-east-asia/china-united-states/347-asia-flux-us-china-and-search-new-equilibrium"
                 target="_blank">here</a>.</p>
-        <p>Source: U.S. Congressional Research Service (CRS)</p>
+        <p>Source: Crisis Group</p>
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <p><strong>U.S. Key Defence Infrastructure and Assets in the Indo-Pacific</strong></p>
-                <p>The bases and facilities include co-hosting and cooperation from a number of allies and partners in
-                    the region. This defence infrastructure network serves a range of purposes, including deterring
-                    strategic attacks or aggression against the U.S., allies and partners, defending the U.S. homeland,
-                    as well as more logistical purposes like support for training and exercises, storage, maintenance
-                    and repair, etc.</p>
-                <p>The bases forming together the so-called “First Island Chain” represent the legacy of geopolitical
-                    construct from the Cold War era, where it originally sought to surround adversarial China and USSR
-                    and limit their access to the sea. Today, the First Island Chain remains a robust regional basing
-                    posture to deter China as well as enhance multi-domain awareness.</p>
+                <p><strong>More Info Goes Here</strong></p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti mollitia velit itaque officia sapiente assumenda minima, reprehenderit necessitatibus optio adipisci fugiat eos quaerat perferendis quo quod dignissimos pariatur. Eligendi, cupiditate.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni magnam voluptatum ipsam facilis commodi blanditiis reprehenderit veritatis. Minus numquam molestiae sit, delectus commodi, maxime, perspiciatis in ipsam dolores expedita ut.</p>
             </div>
         </div>
     </div>
@@ -108,13 +101,13 @@
         mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
 
         const bounds = [
-  [75.0, -11.0],  // Further west, into the central Indian Ocean
-  [165.0, 35.0]   // Further east, into the Pacific near Micronesia
-];
+            [75.0, -11.0],  // Further west, into the central Indian Ocean
+            [165.0, 35.0]   // Further east, into the Pacific near Micronesia
+        ];
 
         const map = new mapboxgl.Map({
             container: 'map', // The HTML container ID
-            style: 'mapbox://styles/daltonwb/cmdoa34cp00bg01s8c1ge9ep8',
+            style: 'mapbox://styles/daltonwb/cmdq1qrza00kd01s23te5598n',
             center: [123.43068, 19.19328],
             zoom: 3,
             pitchWithRotate: false,
@@ -139,95 +132,99 @@
         // Load map and add Tileset points
         map.on('load', () => {
 
-            map.addSource('crisis-points', {
-                type: 'vector',
-                url: 'mapbox://daltonwb.40kvg593' // Your Tileset ID
-            });
+    map.addSource('cmd-points', {
+        type: 'vector',
+        url: 'mapbox://daltonwb.90ikdv7d'
+    });
 
-            map.addLayer({
-                'id': 'points-layer',
-                'type': 'circle',
-                'source': 'crisis-points',
-                'source-layer': 'us_asia_littoral_geocoded-5082c1',
-                'paint': {
-                    'circle-radius': 7,
-                    'circle-color': [
-                        'match',
-                        ['get', 'type'],
-                        'perm', '#a71e0f',  // blue
-                        'temp', '#e57834',  // red
-                        '#000000'           // fallback black
-                    ],
-                    'circle-opacity': .7,
-                    'circle-stroke-color': '#ffffff',
-                    'circle-stroke-width': 2,
-                    'circle-stroke-opacity': .8
-                }
+    map.addSource('ecda-points', {
+        type: 'vector',
+        url: 'mapbox://daltonwb.am3c9zcd'
+    });
 
+    map.addLayer({
+        'id': 'points-layer1',
+        'type': 'circle',
+        'source': 'cmd-points',
+        'source-layer': 'Regional_Unified_Commands_of_the_PH_military',
+        'paint': {
+            'circle-radius': 7,
+            'circle-color': '#e5a47f',
+            'circle-opacity': .7,
+            'circle-stroke-color': '#d15b28',
+            'circle-stroke-width': 2,
+            'circle-stroke-opacity': .8
+        }
+    });
 
-            });
+    map.addLayer({
+        'id': 'points-layer2',
+        'type': 'circle',
+        'source': 'ecda-points',
+        'source-layer': 'ECDA_Sites',
+        'paint': {
+            'circle-radius': 7,
+            'circle-color': '#921a1c',
+            'circle-opacity': .7,
+            'circle-stroke-color': '#bd3e27',
+            'circle-stroke-width': 2,
+            'circle-stroke-opacity': .8
+        }
+    });
 
-            // Pointer cursor only on hover
-            map.on('mouseenter', 'points-layer', () => {
-                map.getCanvas().style.cursor = 'pointer';
-            });
+    // Interactive layers list
+    const interactiveLayers = ['points-layer1', 'points-layer2'];
 
-            map.on('mouseleave', 'points-layer', () => {
-                map.getCanvas().style.cursor = '';
-            });
+    // Pointer cursor on hover
+    interactiveLayers.forEach(layerId => {
+        map.on('mouseenter', layerId, () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
 
-            // Click popup
-            const clickPopup = new mapboxgl.Popup({
+        map.on('mouseleave', layerId, () => {
+            map.getCanvas().style.cursor = '';
+        });
+
+        map.on('click', layerId, (e) => {
+            const coordinates = e.features[0].geometry.coordinates.slice();
+            const props = e.features[0].properties;
+            const name = props.Name || 'Unnamed';
+            const type = props.type || 'default';
+
+            const typeClass = type === 'perm' ? 'popup-perm' :
+                              type === 'temp' ? 'popup-temp' : 'popup-default';
+
+            const popup = new mapboxgl.Popup({
                 closeButton: true,
                 closeOnClick: true,
-                className: 'hover-popup'  // optional: styled version
+                className: `hover-popup ${typeClass}`
             });
 
-            map.on('click', 'points-layer', (e) => {
-                const coordinates = e.features[0].geometry.coordinates.slice();
-                const name = e.features[0].properties.name;
-                const type = e.features[0].properties.type; // "perm", "temp", etc.
+            // Antimeridian fix
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
 
-                const typeClass = type === 'perm' ? 'popup-perm' :
-                    type === 'temp' ? 'popup-temp' : 'popup-default';
-
-                // Recreate popup with dynamic class
-                const dynamicPopup = new mapboxgl.Popup({
-                    closeButton: true,
-                    closeOnClick: true,
-                    className: `hover-popup ${typeClass}`
-                });
-
-                // Antimeridian fix
-                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                }
-
-                // Calculate offset: we move a little "up" (north) relative to the screen
-                const offsetLng = coordinates[0];
-                const offsetLat = coordinates[1]; // About 2 degrees latitude north
-
-                // Smooth pan to the offset coordinates
-                map.easeTo({
-                    center: [offsetLng, offsetLat],
-                    zoom: map.getZoom(),  // Keep current zoom
-                    duration: 250,       // 1 second
-                    easing: (t) => t      // Linear easing
-                });
-
-                // Then place the popup exactly on the point
-                dynamicPopup
-                    .setLngLat(coordinates)
-                    .setHTML(`<div class="hover-popup-content">${name}</div>`)
-                    .addTo(map);
+            // Smooth pan
+            map.easeTo({
+                center: coordinates,
+                zoom: map.getZoom(),
+                duration: 250,
+                easing: t => t
             });
 
-
-
-            map.addControl(new mapboxgl.AttributionControl({
-                customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and <a href="https://www.linkedin.com/in/claireboccongibod/" target="_blank">Claire Boccon-Gibod</a>'
-            }));
+            popup
+                .setLngLat(coordinates)
+                .setHTML(`<div class="hover-popup-content">${name}</div>`)
+                .addTo(map);
         });
+    });
+
+    map.addControl(new mapboxgl.AttributionControl({
+        customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and <a href="https://www.linkedin.com/in/claireboccongibod/" target="_blank">Claire Boccon-Gibod</a>'
+    }));
+});
+
 
     </script>
 </body>
