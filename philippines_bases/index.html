@@ -37,12 +37,12 @@
         <div class="legend-header">LEGEND</div>
 
         <div class="legend-item">
-            <span class="legend-circle" style="background:#921a1c;"></span>
+            <span class="legend-circle" style="background:#921a1c; border-color: #bd3e27"></span>
             ECDA sites
         </div>
 
         <div class="legend-item">
-            <span class="legend-circle" style="background:#fff;"></span>
+            <span class="legend-circle" style="background:#e5a47f; border-color: #d15b28"></span>
             Regional Unified Commands of the Filipino military
         </div>
 
@@ -64,8 +64,12 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <p><strong>More Info Goes Here</strong></p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti mollitia velit itaque officia sapiente assumenda minima, reprehenderit necessitatibus optio adipisci fugiat eos quaerat perferendis quo quod dignissimos pariatur. Eligendi, cupiditate.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni magnam voluptatum ipsam facilis commodi blanditiis reprehenderit veritatis. Minus numquam molestiae sit, delectus commodi, maxime, perspiciatis in ipsam dolores expedita ut.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti mollitia velit itaque officia
+                    sapiente assumenda minima, reprehenderit necessitatibus optio adipisci fugiat eos quaerat
+                    perferendis quo quod dignissimos pariatur. Eligendi, cupiditate.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni magnam voluptatum ipsam facilis
+                    commodi blanditiis reprehenderit veritatis. Minus numquam molestiae sit, delectus commodi, maxime,
+                    perspiciatis in ipsam dolores expedita ut.</p>
             </div>
         </div>
     </div>
@@ -108,12 +112,12 @@
         const map = new mapboxgl.Map({
             container: 'map', // The HTML container ID
             style: 'mapbox://styles/daltonwb/cmdq1qrza00kd01s23te5598n',
-            center: [123.43068, 19.19328],
-            zoom: 3,
+            center: [118.49612, 12.22356],
+            zoom: 5,
             pitchWithRotate: false,
             dragRotate: false,
             maxZoom: 12,
-            minZoom: 2.5,
+            minZoom: 5,
             maxBounds: bounds,
             attributionControl: false,
             dragPan: {
@@ -132,98 +136,98 @@
         // Load map and add Tileset points
         map.on('load', () => {
 
-    map.addSource('cmd-points', {
-        type: 'vector',
-        url: 'mapbox://daltonwb.90ikdv7d'
-    });
-
-    map.addSource('ecda-points', {
-        type: 'vector',
-        url: 'mapbox://daltonwb.am3c9zcd'
-    });
-
-    map.addLayer({
-        'id': 'points-layer1',
-        'type': 'circle',
-        'source': 'cmd-points',
-        'source-layer': 'Regional_Unified_Commands_of_the_PH_military',
-        'paint': {
-            'circle-radius': 7,
-            'circle-color': '#e5a47f',
-            'circle-opacity': .7,
-            'circle-stroke-color': '#d15b28',
-            'circle-stroke-width': 2,
-            'circle-stroke-opacity': .8
-        }
-    });
-
-    map.addLayer({
-        'id': 'points-layer2',
-        'type': 'circle',
-        'source': 'ecda-points',
-        'source-layer': 'ECDA_Sites',
-        'paint': {
-            'circle-radius': 7,
-            'circle-color': '#921a1c',
-            'circle-opacity': .7,
-            'circle-stroke-color': '#bd3e27',
-            'circle-stroke-width': 2,
-            'circle-stroke-opacity': .8
-        }
-    });
-
-    // Interactive layers list
-    const interactiveLayers = ['points-layer1', 'points-layer2'];
-
-    // Pointer cursor on hover
-    interactiveLayers.forEach(layerId => {
-        map.on('mouseenter', layerId, () => {
-            map.getCanvas().style.cursor = 'pointer';
-        });
-
-        map.on('mouseleave', layerId, () => {
-            map.getCanvas().style.cursor = '';
-        });
-
-        map.on('click', layerId, (e) => {
-            const coordinates = e.features[0].geometry.coordinates.slice();
-            const props = e.features[0].properties;
-            const name = props.Name || 'Unnamed';
-            const type = props.type || 'default';
-
-            const typeClass = type === 'perm' ? 'popup-perm' :
-                              type === 'temp' ? 'popup-temp' : 'popup-default';
-
-            const popup = new mapboxgl.Popup({
-                closeButton: true,
-                closeOnClick: true,
-                className: `hover-popup ${typeClass}`
+            map.addSource('cmd-points', {
+                type: 'vector',
+                url: 'mapbox://daltonwb.90ikdv7d'
             });
 
-            // Antimeridian fix
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-            }
-
-            // Smooth pan
-            map.easeTo({
-                center: coordinates,
-                zoom: map.getZoom(),
-                duration: 250,
-                easing: t => t
+            map.addSource('ecda-points', {
+                type: 'vector',
+                url: 'mapbox://daltonwb.am3c9zcd'
             });
 
-            popup
-                .setLngLat(coordinates)
-                .setHTML(`<div class="hover-popup-content">${name}</div>`)
-                .addTo(map);
-        });
-    });
+            map.addLayer({
+                'id': 'points-layer1',
+                'type': 'circle',
+                'source': 'cmd-points',
+                'source-layer': 'Regional_Unified_Commands_of_the_PH_military',
+                'paint': {
+                    'circle-radius': 7,
+                    'circle-color': '#e5a47f',
+                    'circle-opacity': 1,
+                    'circle-stroke-color': '#d15b28',
+                    'circle-stroke-width': 2,
+                    'circle-stroke-opacity': 1
+                }
+            });
 
-    map.addControl(new mapboxgl.AttributionControl({
-        customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and <a href="https://www.linkedin.com/in/claireboccongibod/" target="_blank">Claire Boccon-Gibod</a>'
-    }));
-});
+            map.addLayer({
+                'id': 'points-layer2',
+                'type': 'circle',
+                'source': 'ecda-points',
+                'source-layer': 'ECDA_Sites',
+                'paint': {
+                    'circle-radius': 7,
+                    'circle-color': '#921a1c',
+                    'circle-opacity': 1,
+                    'circle-stroke-color': '#bd3e27',
+                    'circle-stroke-width': 2,
+                    'circle-stroke-opacity': 1
+                }
+            });
+
+            // Interactive layers list
+            const interactiveLayers = ['points-layer1', 'points-layer2'];
+
+            // Pointer cursor on hover
+            interactiveLayers.forEach(layerId => {
+                map.on('mouseenter', layerId, () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                map.on('mouseleave', layerId, () => {
+                    map.getCanvas().style.cursor = '';
+                });
+
+                map.on('click', layerId, (e) => {
+                    const coordinates = e.features[0].geometry.coordinates.slice();
+                    const props = e.features[0].properties;
+                    const name = props.Name || 'Unnamed';
+                    const type = props.type || 'default';
+
+                    const typeClass = type === 'perm' ? 'popup-perm' :
+                        type === 'temp' ? 'popup-temp' : 'popup-default';
+
+                    const popup = new mapboxgl.Popup({
+                        closeButton: true,
+                        closeOnClick: true,
+                        className: `hover-popup ${typeClass}`
+                    });
+
+                    // Antimeridian fix
+                    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                    }
+
+                    // Smooth pan
+                    map.easeTo({
+                        center: coordinates,
+                        zoom: map.getZoom(),
+                        duration: 250,
+                        easing: t => t
+                    });
+
+                    popup
+                        .setLngLat(coordinates)
+                        .setHTML(`<div class="hover-popup-content">${name}</div>`)
+                        .addTo(map);
+                });
+            });
+
+            map.addControl(new mapboxgl.AttributionControl({
+                customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and <a href="https://www.linkedin.com/in/claireboccongibod/" target="_blank">Claire Boccon-Gibod</a>'
+            }));
+        });
 
 
     </script>
