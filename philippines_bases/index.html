@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>U.S. Military Presence in East Asia</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/tiz6shb.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Tag Manager -->
+
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+
+        })(window, document, 'script', 'dataLayer', 'GTM-TD5NKJJ');
+    </script>
+
+<body>
+    <div id="map"></div>
+    <div id="slideout-panel">
+        <button id="close-panel">&times;</button>
+        <div id="panel-content">Click on a point to see details</div>
+    </div>
+    <div class="legend">
+        <div class="legend-header">LEGEND</div>
+
+        <div class="legend-item">
+            <span class="legend-circle" style="background:#921a1c;"></span>
+            ECDA sites
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-circle" style="background:#fff;"></span>
+            Regional Unified Commands of the Filipino military
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-circle" style="background:none;"></span>
+            Territorial Seas
+        </div>
+        <div class="flex-container">
+            <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon">i</a><span id="more-info-text">More
+                    Information</span></div>
+        </div>
+        <br />
+        <hr style="margin-top:0;" />
+        <p>Read our full report on militarisation in Asia <a id="reportlink"
+                href="https://www.crisisgroup.org/asia/north-east-asia/china-united-states/347-asia-flux-us-china-and-search-new-equilibrium"
+                target="_blank">here</a>.</p>
+        <p>Source: U.S. Congressional Research Service (CRS)</p>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p><strong>U.S. Key Defence Infrastructure and Assets in the Indo-Pacific</strong></p>
+                <p>The bases and facilities include co-hosting and cooperation from a number of allies and partners in
+                    the region. This defence infrastructure network serves a range of purposes, including deterring
+                    strategic attacks or aggression against the U.S., allies and partners, defending the U.S. homeland,
+                    as well as more logistical purposes like support for training and exercises, storage, maintenance
+                    and repair, etc.</p>
+                <p>The bases forming together the so-called “First Island Chain” represent the legacy of geopolitical
+                    construct from the Cold War era, where it originally sought to surround adversarial China and USSR
+                    and limit their access to the sea. Today, the First Island Chain remains a robust regional basing
+                    posture to deter China as well as enhance multi-domain awareness.</p>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        document.getElementById("infoLink").addEventListener('click', function (event) {
+            event.preventDefault();
+            var modal = document.getElementById("myModal");
+            modal.classList.add('show');
+        });
+
+        document.getElementsByClassName("close")[0].addEventListener('click', function () {
+            var modal = document.getElementById("myModal");
+            modal.classList.remove('show');
+        });
+
+        window.addEventListener('click', function (event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.classList.remove('show');
+            }
+        });
+
+        function scroolZoomEnable() {
+            const width = window.innerWidth;
+            if (width < 1024) {
+                return false; // Disable scrollwheel on smaller devices
+            } else {
+                return true; // Enable it
+            }
+        }
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+
+        const bounds = [
+  [75.0, -11.0],  // Further west, into the central Indian Ocean
+  [165.0, 35.0]   // Further east, into the Pacific near Micronesia
+];
+
+        const map = new mapboxgl.Map({
+            container: 'map', // The HTML container ID
+            style: 'mapbox://styles/daltonwb/cmdoa34cp00bg01s8c1ge9ep8',
+            center: [123.43068, 19.19328],
+            zoom: 3,
+            pitchWithRotate: false,
+            dragRotate: false,
+            maxZoom: 12,
+            minZoom: 2.5,
+            maxBounds: bounds,
+            attributionControl: false,
+            dragPan: {
+                linearity: 0.3,   // makes panning feel a little more elastic
+                maxSpeed: 1400,
+                deceleration: 2500,
+            }
+        });
+
+        // Add navigation controls
+        map.addControl(
+            new mapboxgl.NavigationControl({ showCompass: false }),
+            'top-left'
+        );
+
+        // Load map and add Tileset points
+        map.on('load', () => {
+
+            map.addSource('crisis-points', {
+                type: 'vector',
+                url: 'mapbox://daltonwb.40kvg593' // Your Tileset ID
+            });
+
+            map.addLayer({
+                'id': 'points-layer',
+                'type': 'circle',
+                'source': 'crisis-points',
+                'source-layer': 'us_asia_littoral_geocoded-5082c1',
+                'paint': {
+                    'circle-radius': 7,
+                    'circle-color': [
+                        'match',
+                        ['get', 'type'],
+                        'perm', '#a71e0f',  // blue
+                        'temp', '#e57834',  // red
+                        '#000000'           // fallback black
+                    ],
+                    'circle-opacity': .7,
+                    'circle-stroke-color': '#ffffff',
+                    'circle-stroke-width': 2,
+                    'circle-stroke-opacity': .8
+                }
+
+
+            });
+
+            // Pointer cursor only on hover
+            map.on('mouseenter', 'points-layer', () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            map.on('mouseleave', 'points-layer', () => {
+                map.getCanvas().style.cursor = '';
+            });
+
+            // Click popup
+            const clickPopup = new mapboxgl.Popup({
+                closeButton: true,
+                closeOnClick: true,
+                className: 'hover-popup'  // optional: styled version
+            });
+
+            map.on('click', 'points-layer', (e) => {
+                const coordinates = e.features[0].geometry.coordinates.slice();
+                const name = e.features[0].properties.name;
+                const type = e.features[0].properties.type; // "perm", "temp", etc.
+
+                const typeClass = type === 'perm' ? 'popup-perm' :
+                    type === 'temp' ? 'popup-temp' : 'popup-default';
+
+                // Recreate popup with dynamic class
+                const dynamicPopup = new mapboxgl.Popup({
+                    closeButton: true,
+                    closeOnClick: true,
+                    className: `hover-popup ${typeClass}`
+                });
+
+                // Antimeridian fix
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                // Calculate offset: we move a little "up" (north) relative to the screen
+                const offsetLng = coordinates[0];
+                const offsetLat = coordinates[1]; // About 2 degrees latitude north
+
+                // Smooth pan to the offset coordinates
+                map.easeTo({
+                    center: [offsetLng, offsetLat],
+                    zoom: map.getZoom(),  // Keep current zoom
+                    duration: 250,       // 1 second
+                    easing: (t) => t      // Linear easing
+                });
+
+                // Then place the popup exactly on the point
+                dynamicPopup
+                    .setLngLat(coordinates)
+                    .setHTML(`<div class="hover-popup-content">${name}</div>`)
+                    .addTo(map);
+            });
+
+
+
+            map.addControl(new mapboxgl.AttributionControl({
+                customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and <a href="https://www.linkedin.com/in/claireboccongibod/" target="_blank">Claire Boccon-Gibod</a>'
+            }));
+        });
+
+    </script>
+</body>
+
+</html>
