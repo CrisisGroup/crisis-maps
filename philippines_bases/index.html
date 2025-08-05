@@ -50,48 +50,14 @@
             <span class="legend-circle" style="background:none;"></span>
             Territorial Seas
         </div>
-        <div class="flex-container">
-            <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon">i</a><span id="more-info-text">More
-                    Information</span></div>
-        </div>
         <br />
         <hr style="margin-top:0;" />
         <p>Read our full report on the Philippines militarisation efforts <a id="reportlink"
                 href="https://www.crisisgroup.org/asia/north-east-asia/china-united-states/347-asia-flux-us-china-and-search-new-equilibrium"
                 target="_blank">here</a>.</p>
         <p>Source: Crisis Group</p>
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p><strong>More Info Goes Here</strong></p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti mollitia velit itaque officia
-                    sapiente assumenda minima, reprehenderit necessitatibus optio adipisci fugiat eos quaerat
-                    perferendis quo quod dignissimos pariatur. Eligendi, cupiditate.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni magnam voluptatum ipsam facilis
-                    commodi blanditiis reprehenderit veritatis. Minus numquam molestiae sit, delectus commodi, maxime,
-                    perspiciatis in ipsam dolores expedita ut.</p>
-            </div>
-        </div>
     </div>
     <script>
-
-        document.getElementById("infoLink").addEventListener('click', function (event) {
-            event.preventDefault();
-            var modal = document.getElementById("myModal");
-            modal.classList.add('show');
-        });
-
-        document.getElementsByClassName("close")[0].addEventListener('click', function () {
-            var modal = document.getElementById("myModal");
-            modal.classList.remove('show');
-        });
-
-        window.addEventListener('click', function (event) {
-            var modal = document.getElementById("myModal");
-            if (event.target == modal) {
-                modal.classList.remove('show');
-            }
-        });
 
         function scroolZoomEnable() {
             const width = window.innerWidth;
