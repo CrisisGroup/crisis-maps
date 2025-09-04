@@ -138,7 +138,7 @@
             center: [34.13290, 40.85174],
             zoom: 6.5,
             minZoom: 6,
-            maxZoom: 10,
+            maxZoom: 8,
             pitch: 0,
             bearing: 0,
             maxBounds: maxPanBounds
@@ -151,7 +151,6 @@
 
         // Disable everything except drag-to-pan
         map.on('load', () => {
-            map.scrollZoom.disable();
             map.boxZoom.disable();
             map.doubleClickZoom.disable();
             map.dragRotate.disable();
