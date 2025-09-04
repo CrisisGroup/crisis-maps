@@ -4,7 +4,7 @@
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
-    <link rel="stylesheet" href="https://use.typekit.net/tiz6shb.css">
+    <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
     <link rel="stylesheet" href="style.css">
 
     <!-- Google Tag Manager -->
@@ -34,26 +34,51 @@
     <div class="legend">
         <div class="legend-header">LEGEND</div>
 
+        <strong>Planned roads</strong>
+
         <div class="legend-item">
             <span class="legend-circle" style="background:#a71e0f;"></span>
-            Enduring U.S. presence
+            “Trump Route” (TTIP)
         </div>
 
         <div class="legend-item">
-            <span class="legend-circle" style="background:#e57834;"></span>
-            Rotational/episodic U.S. presence
+            <span class="legend-circle" style="background:#b3595c;"></span>
+            Suggested East-West Roads
         </div>
-        <div class="flex-container">
+
+        <strong>Current Infrastructure that connect or not Armenia and Azerbaijan</strong>
+
+        <div class="legend-item">
+            <span class="legend-circle" style="background:#0f8b7f;"></span>
+            Rize-Baku Road
+        </div>
+
+        <div class="legend-item">
+            <span class="double-line" style="color:#0f8b7f; --line-color:#0f8b7f;"></span>
+            Major connecting oil pipeline
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-circle dashed" style="color:#e57834; --line-color:#e57834;"></span>
+            Railways
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-circle" style="background:#8a9394;"></span>
+            Highways
+        </div>
+
+<!--         <div class="flex-container">
             <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon">i</a><span id="more-info-text">More
                     Information</span></div>
-        </div>
+        </div> -->
         <br />
         <hr style="margin-top:0;" />
-        <p>Read our full report on militarisation in Asia <a id="reportlink"
+        <p>Read our full report on infrastructure in the Caucasus <a id="reportlink"
                 href="https://www.crisisgroup.org/asia/north-east-asia/china-united-states/347-asia-flux-us-china-and-search-new-equilibrium"
                 target="_blank">here</a>.</p>
-        <p>Source: U.S. Congressional Research Service (CRS)</p>
-        <div id="myModal" class="modal">
+        <p>Source: OpenStreetMap, Azerbaijani and Armenian governments</p>
+<!--         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <p><strong>U.S. Key Defence Infrastructure and Assets in the Indo-Pacific</strong></p>
@@ -67,11 +92,11 @@
                     and limit their access to the sea. Today, the First Island Chain remains a robust regional basing
                     posture to deter China as well as enhance multi-domain awareness.</p>
             </div>
-        </div>
+        </div> -->
     </div>
     <script>
 
-        document.getElementById("infoLink").addEventListener('click', function (event) {
+/*         document.getElementById("infoLink").addEventListener('click', function (event) {
             event.preventDefault();
             var modal = document.getElementById("myModal");
             modal.classList.add('show');
@@ -87,29 +112,29 @@
             if (event.target == modal) {
                 modal.classList.remove('show');
             }
-        });
+        }); */
 
         mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
         const STYLE_URL = 'mapbox://styles/daltonwb/cmea3li1d000801s18cnu8m22';
 
-            const initialBBox = [
-      
-    [37.40824, 37.02397],
-    [51.15685, 44.19326]
+        const initialBBox = [
 
-    ];
+            [37.40824, 37.02397],
+            [51.15685, 44.19326]
 
-    // Pan limits (same general region; tweak as you like)
-    const maxPanBounds = [
-      [35.5, 30.0], // west/south
-      [74.0, 52.0]  // east/north
-    ];
+        ];
+
+        // Pan limits (same general region; tweak as you like)
+        const maxPanBounds = [
+            [35.5, 30.0], // west/south
+            [74.0, 52.0]  // east/north
+        ];
 
         const map = new mapboxgl.Map({
             container: 'map',
             style: STYLE_URL,
             bounds: initialBBox,
-            center: [34.13290, 40.85174], 
+            center: [34.13290, 40.85174],
             zoom: 6.5,
             pitch: 0,
             bearing: 0,
