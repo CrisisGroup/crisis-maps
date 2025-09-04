@@ -78,7 +78,7 @@
         <br />
         <hr style="margin-top:0;" />
         <p>Read our full report on infrastructure in the Caucasus <a id="reportlink"
-                href="https://www.crisisgroup.org/asia/north-east-asia/china-united-states/347-asia-flux-us-china-and-search-new-equilibrium"
+                href="https://www.crisisgroup.org/hy/europe-central-asia/caucasus/armenian-azerbaijani-conflict/98-armenia-and-azerbaijan-hard-road-lasting-peace"
                 target="_blank">here</a>.</p>
         <p>Source: OpenStreetMap, Azerbaijani and Armenian governments</p>
         <!--         <div id="myModal" class="modal">
@@ -127,8 +127,8 @@
 
         // Pan limits (same general region; tweak as you like)
         const maxPanBounds = [
-            [35.53222, 34.58814], // west/south
-            [53.12687, 44.70228]  // east/north
+            [35.78222, 34.83814], // west/south
+            [52.87687, 44.45228]  // east/north
         ];
 
         const map = new mapboxgl.Map({
@@ -137,10 +137,16 @@
             bounds: initialBBox,
             center: [34.13290, 40.85174],
             zoom: 6.5,
+            maxZoom: 10,
             pitch: 0,
             bearing: 0,
             maxBounds: maxPanBounds
         });
+
+        map.addControl(
+            new mapboxgl.NavigationControl({ showCompass: false }),
+            'top-right'
+        );
 
         // Disable everything except drag-to-pan
         map.on('load', () => {
