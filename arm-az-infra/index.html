@@ -59,7 +59,8 @@
         </div>
 
         <div class="legend-item">
-            <span class="legend-circle dashed" style="color:#e57834; --line-color:#e57834;"></span>
+            <span class="legend-circle dashed"
+                style="--line-color:#666; --edge-color:#666; --core-thickness:3px;"></span>
             Railways
         </div>
 
@@ -68,7 +69,7 @@
             Highways
         </div>
 
-<!--         <div class="flex-container">
+        <!--         <div class="flex-container">
             <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon">i</a><span id="more-info-text">More
                     Information</span></div>
         </div> -->
@@ -78,7 +79,7 @@
                 href="https://www.crisisgroup.org/asia/north-east-asia/china-united-states/347-asia-flux-us-china-and-search-new-equilibrium"
                 target="_blank">here</a>.</p>
         <p>Source: OpenStreetMap, Azerbaijani and Armenian governments</p>
-<!--         <div id="myModal" class="modal">
+        <!--         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <p><strong>U.S. Key Defence Infrastructure and Assets in the Indo-Pacific</strong></p>
@@ -96,38 +97,36 @@
     </div>
     <script>
 
-/*         document.getElementById("infoLink").addEventListener('click', function (event) {
-            event.preventDefault();
-            var modal = document.getElementById("myModal");
-            modal.classList.add('show');
-        });
-
-        document.getElementsByClassName("close")[0].addEventListener('click', function () {
-            var modal = document.getElementById("myModal");
-            modal.classList.remove('show');
-        });
-
-        window.addEventListener('click', function (event) {
-            var modal = document.getElementById("myModal");
-            if (event.target == modal) {
-                modal.classList.remove('show');
-            }
-        }); */
+        /*         document.getElementById("infoLink").addEventListener('click', function (event) {
+                    event.preventDefault();
+                    var modal = document.getElementById("myModal");
+                    modal.classList.add('show');
+                });
+        
+                document.getElementsByClassName("close")[0].addEventListener('click', function () {
+                    var modal = document.getElementById("myModal");
+                    modal.classList.remove('show');
+                });
+        
+                window.addEventListener('click', function (event) {
+                    var modal = document.getElementById("myModal");
+                    if (event.target == modal) {
+                        modal.classList.remove('show');
+                    }
+                }); */
 
         mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
         const STYLE_URL = 'mapbox://styles/daltonwb/cmea3li1d000801s18cnu8m22';
 
         const initialBBox = [
-
-            [37.40824, 37.02397],
-            [51.15685, 44.19326]
-
+            [37.98969, 37.13496],
+            [51.12020, 42.93337]
         ];
 
         // Pan limits (same general region; tweak as you like)
         const maxPanBounds = [
-            [35.5, 30.0], // west/south
-            [74.0, 52.0]  // east/north
+            [35.53222, 34.58814], // west/south
+            [53.12687, 44.70228]  // east/north
         ];
 
         const map = new mapboxgl.Map({

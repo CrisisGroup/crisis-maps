@@ -49,17 +49,36 @@ a:visited {
 }
 
 .legend .legend-circle {
-  width: 36px;       
-  height: 4px;       
-  border-radius: 2px;
+  width: 36px;
+  height: 4px;
   display: inline-block;
-  flex: 0 0 36px;    
+  background: var(--line-color, currentColor);
+  border-radius: 2px;
+  flex: 0 0 36px;
 }
 
+/* Dashed swatch: 1px rails + dashed center */
 .legend .legend-circle.dashed {
-  background: none !important;
-  height: 0;                          
-  border-top: 4px dashed var(--line-color, currentColor);
+  --line-color: currentColor;   /* center dash color */
+  --edge-color: #888;           /* top/bottom rail color */
+  --core-thickness: 3px;        /* center line thickness */
+  width: 36px;
+  height: 10px;                 /* room for the rails + center line */
+  flex: 0 0 36px;
+  display: inline-block;
+  position: relative;
+  background: none;
+  border-top: 1px solid var(--edge-color);
+  border-bottom: 1px solid var(--edge-color);
+}
+
+.legend .legend-circle.dashed::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: var(--core-thickness) dashed var(--line-color);
 }
 
 .legend p {
@@ -113,13 +132,13 @@ a:visited {
 
   .legend .double-line {
     --line-color: #000;         
-    --line-thickness: 2px;      
+    --line-thickness: 3px;      
     --line-gap: 4px;            
     position: relative;
     display: inline-block;
     width: 10px;                
     height: calc(var(--line-gap) + (2 * var(--line-thickness)));
-    flex: 0 0 40px;             
+    flex: 0 0 36px;             
   }
   .legend .double-line::before,
   .legend .double-line::after {
