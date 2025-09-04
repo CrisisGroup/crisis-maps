@@ -89,35 +89,31 @@
             }
         });
 
-        function scrollZoomEnable() {
-            const width = window.innerWidth;
-            if (width < 1024) {
-                return false; // Disable scrollwheel on smaller devices
-            } else {
-                return true; // Enable it
-            }
-        }
-
         mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
         const STYLE_URL = 'mapbox://styles/daltonwb/cmea3li1d000801s18cnu8m22';
 
-        // Pan bounds:
-        //   West ~ mid-Turkey (~35.5°E)
-        //   East ~ eastern Afghanistan (~74°E)
-        //   South/North chosen to keep the frame around Anatolia/Caucasus/South Russia
-        const bounds = [
-            [35.5, 30.0], // [minLng, minLat]
-            [74.0, 52.0]  // [maxLng, maxLat]
-        ];
+            const initialBBox = [
+      
+    [37.40824, 37.02397],
+    [51.15685, 44.19326]
+
+    ];
+
+    // Pan limits (same general region; tweak as you like)
+    const maxPanBounds = [
+      [35.5, 30.0], // west/south
+      [74.0, 52.0]  // east/north
+    ];
 
         const map = new mapboxgl.Map({
             container: 'map',
             style: STYLE_URL,
-            center: [41.58270, 40.71409], // Roughly Georgia/Armenia/Azerbaijan midpoint
-            zoom: 6,
+            bounds: initialBBox,
+            center: [34.13290, 40.85174], 
+            zoom: 6.5,
             pitch: 0,
             bearing: 0,
-            maxBounds: bounds
+            maxBounds: maxPanBounds
         });
 
         // Disable everything except drag-to-pan
