@@ -49,19 +49,17 @@ a:visited {
 }
 
 .legend .legend-circle {
-    width: 36px;
-    height: 4px;
-    border-radius: 2px;
-    display: inline-block;
-    flex: 0 0 36px;
+  width: 36px;       
+  height: 4px;       
+  border-radius: 2px;
+  display: inline-block;
+  flex: 0 0 36px;    
 }
 
 .legend .legend-circle.dashed {
-    background: none !important;
-    height: 0;
-    border-top: 4px dashed currentColor;
-
-    border-top-color: var(--line-color, #000);
+  background: none !important;
+  height: 0;                          
+  border-top: 4px dashed var(--line-color, currentColor);
 }
 
 .legend p {
@@ -115,7 +113,7 @@ a:visited {
 
   .legend .double-line {
     --line-color: #000;         
-    --line-thickness: 4px;      
+    --line-thickness: 2px;      
     --line-gap: 4px;            
     position: relative;
     display: inline-block;
