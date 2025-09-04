@@ -50,7 +50,7 @@ a:visited {
 
 .legend .legend-circle {
   width: 36px;
-  height: 4px;
+  height: 5px;
   display: inline-block;
   background: var(--line-color, currentColor);
   border-radius: 2px;
@@ -132,7 +132,7 @@ a:visited {
 
   .legend .double-line {
     --line-color: #000;         
-    --line-thickness: 3px;      
+    --line-thickness: 2px;      
     --line-gap: 4px;            
     position: relative;
     display: inline-block;
