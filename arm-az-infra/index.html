@@ -1,0 +1,137 @@
+<head>
+    <meta charset="utf-8">
+    <title>Armenia - Azerbaijan Infrastructure</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/tiz6shb.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Tag Manager -->
+
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+
+        })(window, document, 'script', 'dataLayer', 'GTM-TD5NKJJ');
+    </script>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="slideout-panel">
+        <button id="close-panel">&times;</button>
+        <div id="panel-content">Click on a point to see details</div>
+    </div>
+    <div class="legend">
+        <div class="legend-header">LEGEND</div>
+
+        <div class="legend-item">
+            <span class="legend-circle" style="background:#a71e0f;"></span>
+            Enduring U.S. presence
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-circle" style="background:#e57834;"></span>
+            Rotational/episodic U.S. presence
+        </div>
+        <div class="flex-container">
+            <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon">i</a><span id="more-info-text">More
+                    Information</span></div>
+        </div>
+        <br />
+        <hr style="margin-top:0;" />
+        <p>Read our full report on militarisation in Asia <a id="reportlink"
+                href="https://www.crisisgroup.org/asia/north-east-asia/china-united-states/347-asia-flux-us-china-and-search-new-equilibrium"
+                target="_blank">here</a>.</p>
+        <p>Source: U.S. Congressional Research Service (CRS)</p>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p><strong>U.S. Key Defence Infrastructure and Assets in the Indo-Pacific</strong></p>
+                <p>The bases and facilities include co-hosting and cooperation from a number of allies and partners in
+                    the region. This defence infrastructure network serves a range of purposes, including deterring
+                    strategic attacks or aggression against the U.S., allies and partners, defending the U.S. homeland,
+                    as well as more logistical purposes like support for training and exercises, storage, maintenance
+                    and repair, etc.</p>
+                <p>The bases forming together the so-called “First Island Chain” represent the legacy of geopolitical
+                    construct from the Cold War era, where it originally sought to surround adversarial China and USSR
+                    and limit their access to the sea. Today, the First Island Chain remains a robust regional basing
+                    posture to deter China as well as enhance multi-domain awareness.</p>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        document.getElementById("infoLink").addEventListener('click', function (event) {
+            event.preventDefault();
+            var modal = document.getElementById("myModal");
+            modal.classList.add('show');
+        });
+
+        document.getElementsByClassName("close")[0].addEventListener('click', function () {
+            var modal = document.getElementById("myModal");
+            modal.classList.remove('show');
+        });
+
+        window.addEventListener('click', function (event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.classList.remove('show');
+            }
+        });
+
+        function scrollZoomEnable() {
+            const width = window.innerWidth;
+            if (width < 1024) {
+                return false; // Disable scrollwheel on smaller devices
+            } else {
+                return true; // Enable it
+            }
+        }
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+        const STYLE_URL = 'mapbox://styles/daltonwb/cmea3li1d000801s18cnu8m22';
+
+        // Pan bounds:
+        //   West ~ mid-Turkey (~35.5°E)
+        //   East ~ eastern Afghanistan (~74°E)
+        //   South/North chosen to keep the frame around Anatolia/Caucasus/South Russia
+        const bounds = [
+            [35.5, 30.0], // [minLng, minLat]
+            [74.0, 52.0]  // [maxLng, maxLat]
+        ];
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: STYLE_URL,
+            center: [41.58270, 40.71409], // Roughly Georgia/Armenia/Azerbaijan midpoint
+            zoom: 6,
+            pitch: 0,
+            bearing: 0,
+            maxBounds: bounds
+        });
+
+        // Disable everything except drag-to-pan
+        map.on('load', () => {
+            map.scrollZoom.disable();
+            map.boxZoom.disable();
+            map.doubleClickZoom.disable();
+            map.dragRotate.disable();
+            map.keyboard.disable();
+            map.touchZoomRotate.disable();   // disables pinch-zoom & rotate
+            if (map.touchPitch && map.touchPitch.disable) map.touchPitch.disable(); // if supported
+            // Leave dragPan enabled (default) for click-and-drag panning
+        });
+    </script>
+</body>
+
+</html>
