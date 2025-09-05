@@ -48,6 +48,15 @@ a:visited {
     margin: 6px 0;
 }
 
+.legend .legend-round {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    margin: 0 8px 0 6px;
+    border: 2px solid #fff;
+}
+
 .legend .legend-circle {
   width: 36px;
   height: 5px;
@@ -57,13 +66,13 @@ a:visited {
   flex: 0 0 36px;
 }
 
-/* Dashed swatch: 1px rails + dashed center */
+
 .legend .legend-circle.dashed {
-  --line-color: currentColor;   /* center dash color */
-  --edge-color: #888;           /* top/bottom rail color */
-  --core-thickness: 3px;        /* center line thickness */
+  --line-color: currentColor;  
+  --edge-color: #888;          
+  --core-thickness: 3px;       
   width: 36px;
-  height: 10px;                 /* room for the rails + center line */
+  height: 10px;                
   flex: 0 0 36px;
   display: inline-block;
   position: relative;
