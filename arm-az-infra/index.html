@@ -71,7 +71,7 @@
             Highways
         </div>
 
-         <div class="legend-item">
+        <div class="legend-item">
             <span class="legend-round" style="background:none; border-color: #bb676b"></span>
             Border Crossings
         </div>
@@ -126,8 +126,8 @@
         const STYLE_URL = 'mapbox://styles/daltonwb/cmf5pwzr8000g01s0f69fgx5e';
 
         const initialBBox = [
-            [37.98969, 37.13496],
-            [51.12020, 42.93337]
+            [39.25768, 38.45827],
+            [50.43750, 42.86278]
         ];
 
         // Pan limits (same general region; tweak as you like)
@@ -161,9 +161,8 @@
             map.doubleClickZoom.disable();
             map.dragRotate.disable();
             map.keyboard.disable();
-            map.touchZoomRotate.disable();   // disables pinch-zoom & rotate
-            if (map.touchPitch && map.touchPitch.disable) map.touchPitch.disable(); // if supported
-            // Leave dragPan enabled (default) for click-and-drag panning
+            map.touchZoomRotate.disable();
+            if (map.touchPitch && map.touchPitch.disable) map.touchPitch.disable(); 
         });
     </script>
 </body>
