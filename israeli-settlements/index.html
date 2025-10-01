@@ -68,7 +68,7 @@
         <label for="year-slider">
             <h2>BY YEAR &nbsp;&nbsp;<span id="selected-year">1967</span></h2>
         </label>
-        <input id="year-slider" type="range" min="1967" max="2020" step="1" value="1967"
+        <input id="year-slider" type="range" min="1967" max="2025" step="1" value="1967"
             oninput="document.getElementById('selected-year').textContent = this.value">
     </div>
 
@@ -179,54 +179,67 @@
         }));
 
 
-        map.on('load', function () {
-            map.addSource('settlements', {
-                type: 'vector',
-                url: 'mapbox://daltonwb.b5xx5phj'
-            });
+        map.on('load', () => {
+  // 1) Use the custom vector source you added
+  map.addSource('settlements', {
+    type: 'vector',
+    url: 'mapbox://daltonwb.afyqoeoq'
+  });
 
-            var initialYear = 1967;
+  const initialYear = 1967;
 
-            map.addLayer({
-                "id": "settlements-layer-settlement",
-                "type": "circle",
-                "source": "composite",
-                "source-layer": "IL_PA_Settlements_-_il_settle-69skx2",
-                "filter": [
-                    "all",
-                    ["<=", ["get", "year"], initialYear],
-                    ["match", ["get", "type"], ["Settlement"], true, false]
-                ],
-                "paint": {
-                    "circle-color": "#6399ae",
-                    "circle-stroke-color": "#ffffff",
-                    "circle-stroke-width": 0.5
-                }
-            });
+  // 2) Ensure this source-layer EXACTLY matches your tileset’s layer name
+  const layerName = 'IL_PA_Settlements_-_10_2025_P-cmydfu';
 
-            map.addLayer({
-                "id": "settlements-layer-outpost",
-                "type": "circle",
-                "source": "composite",
-                "source-layer": "IL_PA_Settlements_-_il_settle-69skx2",
-                "filter": [
-                    "all",
-                    ["<=", ["get", "year"], initialYear],
-                    ["match", ["get", "type"], ["Outpost"], true, false]
-                ],
-                "paint": {
-                    "circle-color": "#a4343a",
-                    "circle-stroke-color": "#ffffff",
-                    "circle-stroke-width": 0.5
-                }
-            });
+  map.addLayer({
+    id: 'settlements-layer-settlement',
+    type: 'circle',
+    source: 'settlements',
+    'source-layer': layerName,
+    filter: [
+      'all',
+      ['<=', ['to-number', ['get', 'year']], initialYear],   // 3) numeric compare
+      ['==', ['get', 'type'], 'Settlement']                  // 4) simple equality
+    ],
+    paint: {
+      'circle-color': '#6399ae',
+      'circle-stroke-color': '#ffffff',
+      'circle-stroke-width': 0.5
+    }
+  });
 
-            document.getElementById('year-slider').addEventListener('input', function (e) {
-                var year = parseInt(e.target.value, 10);
-                map.setFilter('settlements-layer-settlement', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Settlement"], true, false]]);
-                map.setFilter('settlements-layer-outpost', ["all", ["<=", ["get", "year"], year], ["match", ["get", "type"], ["Outpost"], true, false]]);
-            });
-        });
+  map.addLayer({
+    id: 'settlements-layer-outpost',
+    type: 'circle',
+    source: 'settlements',
+    'source-layer': layerName,
+    filter: [
+      'all',
+      ['<=', ['to-number', ['get', 'year']], initialYear],
+      ['==', ['get', 'type'], 'Outpost']
+    ],
+    paint: {
+      'circle-color': '#a4343a',
+      'circle-stroke-color': '#ffffff',
+      'circle-stroke-width': 0.5
+    }
+  });
+
+  // 5) Slider handler
+  const slider = document.getElementById('year-slider');
+  if (slider) {
+    slider.addEventListener('input', (e) => {
+      const year = parseInt(e.target.value, 10);
+      const yearFilter = ['<=', ['to-number', ['get', 'year']], year];
+
+      map.setFilter('settlements-layer-settlement', ['all', yearFilter, ['==', ['get', 'type'], 'Settlement']]);
+      map.setFilter('settlements-layer-outpost',    ['all', yearFilter, ['==', ['get', 'type'], 'Outpost']]);
+    });
+  } else {
+    console.warn('Missing #year-slider element');
+  }
+});
+
     </script>
 </body>
 
