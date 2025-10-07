@@ -1,251 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
-    <link rel="alternate" hreflang="en" href="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
-    <link rel="icon" type="image/x-icon"
-        href="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/favicon.ico">
-        <link rel="canonical" href="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
+  <meta charset="UTF-8" />
+  <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+  <link rel="alternate" hreflang="en" href="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
+  <link rel="icon" type="image/x-icon" href="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/favicon.ico" />
+  <link rel="canonical" href="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title"
-        content="[Visual] Mapping Israeli Settlement Expansion in the Occupied West Bank | International Crisis Group" />
-    <meta name="twitter:description"
-        content="Explore Israeli settlement expansion in this map of the occupied West Bank and its role in the broader Israel-Palestine conflict." />
-    <meta name="twitter:site" content="@crisisgroup" />
-    <meta name="twitter:image"
-        content="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/israel_social.jpg" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title"
-        content="[Visual] Mapping Israeli Settlement Expansion in the Occupied West Bank | International Crisis Group" />
-    <meta property="og:description"
-        content="Explore Israeli settlement expansion in this map of the occupied West Bank and its role in the broader Israel-Palestine conflict." />
-    <meta property="og:url" content="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
-    <meta property="og:site_name" content="International Crisis Group" />
-    <meta property="article:publisher" content="https://www.facebook.com/crisisgroup" />
-    <meta property="og:image"
-        content="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/israel_social.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="[Visual] Mapping Israeli Settlement Expansion in the Occupied West Bank | International Crisis Group" />
+  <meta name="twitter:description" content="Explore Israeli settlement expansion in this map of the occupied West Bank and its role in the broader Israel-Palestine conflict." />
+  <meta name="twitter:site" content="@crisisgroup" />
+  <meta name="twitter:image" content="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/israel_social.jpg" />
 
-    <title>[Visual] Mapping Israeli Settlement Expansion in the Occupied West Bank | International Crisis Group</title>
-    <meta name="description"
-        content="Explore Israeli settlement expansion in this map of the occupied West Bank and its role in the broader Israel-Palestine conflict." />
-    <meta name="author" content="International Crisis Group">
-    <meta property="article:published_time" content="2024-09-06T07:00:00+00:00" />
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[Visual] Mapping Israeli Settlement Expansion in the Occupied West Bank | International Crisis Group" />
+  <meta property="og:description" content="Explore Israeli settlement expansion in this map of the occupied West Bank and its role in the broader Israel-Palestine conflict." />
+  <meta property="og:url" content="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
+  <meta property="og:site_name" content="International Crisis Group" />
+  <meta property="article:publisher" content="https://www.facebook.com/crisisgroup" />
+  <meta property="og:image" content="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/israel_social.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-    <!-- Google Tag Manager -->
+  <title>[Visual] Mapping Israeli Settlement Expansion in the Occupied West Bank | International Crisis Group</title>
+  <meta name="description" content="Explore Israeli settlement expansion in this map of the occupied West Bank and its role in the broader Israel-Palestine conflict." />
+  <meta name="author" content="International Crisis Group" />
+  <meta property="article:published_time" content="2024-09-06T07:00:00+00:00" />
 
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-
-        })(window, document, 'script', 'dataLayer', 'GTM-TD5NKJJ');
-    </script>
-
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-TD5NKJJ');
+  </script>
 </head>
 
 <body>
+  <!-- Title + Year Slider -->
+  <div class="slider-container">
+    <h1>Mapping Israeli Settlement Expansion in the Occupied West Bank</h1>
+    <label for="year-slider">
+      <h2>BY YEAR &nbsp;&nbsp;<span id="selected-year">1967</span></h2>
+    </label>
+    <input id="year-slider" type="range" min="1967" max="2025" step="1" value="1967" />
+  </div>
 
-    <div class="slider-container">
-        <h1>Mapping Israeli Settlement Expansion in the Occupied West Bank </h1>
-        <label for="year-slider">
-            <h2>BY YEAR &nbsp;&nbsp;<span id="selected-year">1967</span></h2>
-        </label>
-        <input id="year-slider" type="range" min="1967" max="2025" step="1" value="1967"
-            oninput="document.getElementById('selected-year').textContent = this.value">
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-header"><h2>Map Legend</h2></div>
+
+    <div class="legend-list">
+      <p><i class="lg lg-settlements"></i>Settlements</p>
+      <p><i class="lg lg-outposts"></i>Outposts</p>
+      <p><i class="lg lg-areas-ab"></i>Areas A and B</p>
+      <p><i class="lg lg-area-c"></i>Area C</p>
+
+      <!-- Force this to end column 1 -->
+      <p class="break-after"><i class="lg lg-plan-e1"></i>Plan E1</p>
+
+      <p><i class="lg lg-line lg-road-israeli"></i>Planned Israeli-only roads</p>
+      <p><i class="lg lg-line lg-bypass-pal"></i>Planned bypass road for Palestinians</p>
+      <p><i class="lg lg-line lg-fence"></i>Fence</p>
+      <p><i class="lg lg-line lg-barriers"></i>Concrete barriers</p>
     </div>
 
-    <div class="legend">
-        <div class="legend-header">
-            <h2>Map Legend</h2>
-        </div>
-        <p><i style="background-color:rgba(163, 51, 57, 0.51); border: solid 0.5px #fff;"></i>Settlements</p>
-        <p><i style="background-color: rgb(164, 52, 58); border: solid 0.5px #fff;"></i>Outposts</p>
-        <p><i style="background-color: #b8b3ad; border-radius: 0; border: solid 0.5px #ccc;"></i>Areas A and B</p>
-        <p><i style="background-color: rgba(163, 51, 57, 0.04); border-radius: 0; border: solid 0.5px #ccc;"></i>Area C</p>
-        <p><i style="background-color: rgb(208, 204, 203); border-radius: 0; border: solid 2px #000;"></i>Plan E1</p>
-        <p><i class="line" style="background-color: #86a8b9; border-radius: 0; border: solid 0.5px #ccc;"></i>Planned Israeli-only roads</p>
-        <p><i class="line" style="border-radius: 0; border: dashed 2px #007367;"></i>Planned bypass road for Palestinians</p>
-        <p><i class="line" style="border-radius: 0; border: dashed 1px rgb(148, 148, 148);"></i>Fence</p>
-        <div class="flex-container">
-            <p><i class="line" style="border-radius: 0; border: solid 1px rgb(148, 148, 148);"></i>Concrete barriers</p>
-            <div id="morebox"><a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a><span
-                    id="more-info-text">More Information</span></div>
-        </div>
-        <hr />
-        <p>Read our full report on Israeli West Bank Annexation <a id="reportlink" href="https://www.crisisgroup.org/middle-east-north-africa/east-mediterranean-mena-israelpalestine/246-stemming-israeli-settler-violence" target="_blank">here</a>.</p>
-        
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p><span style="font-weight: bold; color: rgba(163, 51, 57, 0.51);">Settlements</span> in the West Bank that were
-                    officially established by the government (East Jerusalem excluded).</p>
-                <p><span style="font-weight: bold; color: #a4343a;">Outposts</span> are settlements that were
-                    established since the 1990's without government approval and are considered illegal according to
-                    Israeli law.</p>
-                <p><strong>Area A (18%)</strong>: Administered by Palestinian Authority</p>
-                <p><strong>Area B (22%)</strong>: Administered by Palestinian Authority, shared security control with
-                    Israel.</p>
-                <p><strong>Area C (60%)</strong>: Administered by Israel.</p>
-            </div>
-        </div>
+    <div id="morebox">
+      <a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a>
+      <span id="more-info-text">More Information</span>
     </div>
 
-    <script>
-        document.getElementById("infoLink").addEventListener('click', function (event) {
-            event.preventDefault();
-            var modal = document.getElementById("myModal");
-            modal.classList.add('show');
-        });
+    <hr />
+    <p>
+      Read our full report on Israeli West Bank Annexation
+      <a id="reportlink" href="https://www.crisisgroup.org/middle-east-north-africa/east-mediterranean-mena-israelpalestine/246-stemming-israeli-settler-violence" target="_blank">here</a>.
+    </p>
 
-        document.getElementsByClassName("close")[0].addEventListener('click', function () {
-            var modal = document.getElementById("myModal");
-            modal.classList.remove('show');
-        });
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p><strong style="color: rgba(163, 51, 57, 0.51);">Settlements</strong> in the West Bank that were officially established by the government (East Jerusalem excluded).</p>
+        <p><strong style="color: #a4343a;">Outposts</strong> are settlements that were established since the 1990's without government approval and are considered illegal according to Israeli law.</p>
+        <p><strong>Area A (18%)</strong>: Administered by Palestinian Authority</p>
+        <p><strong>Area B (22%)</strong>: Administered by Palestinian Authority, shared security control with Israel.</p>
+        <p><strong>Area C (60%)</strong>: Administered by Israel.</p>
+      </div>
+    </div>
+  </div>
 
-        window.addEventListener('click', function (event) {
-            var modal = document.getElementById("myModal");
-            if (event.target == modal) {
-                modal.classList.remove('show');
-            }
-        });
+  <!-- Map -->
+  <div id="map"></div>
 
-    </script>
+  <!-- App JS -->
+  <script>
+    // --- Slider UI logic (single DOMContentLoaded) ---
+    document.addEventListener('DOMContentLoaded', function () {
+      const range = document.getElementById('year-slider');
+      const selected = document.getElementById('selected-year');
 
-    <div id='map'></div>
-    <script>
+      const updateSlider = () => {
+        selected.textContent = range.value;
+        const pct = ((range.value - range.min) / (range.max - range.min)) * 100;
+        range.style.setProperty('--thumb-percentage', pct + '%');
+      };
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const range = document.getElementById('year-slider');
-            const updateSlider = () => {
-                const value = ((range.value - range.min) / (range.max - range.min) * 100);
-                range.style.setProperty('--thumb-percentage', `${value}%`);
-            };
-
-            range.addEventListener('input', updateSlider);
-            updateSlider();
-        });
-
-        function scroolZoomEnable() {
-            const width = window.innerWidth;
-            if (width < 1024) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const slider = document.getElementById('year-slider');
-            slider.addEventListener('mouseenter', () => {
-                slider.style.animation = 'flicker 1.5s ease-in-out 3';
-            });
-            slider.addEventListener('mouseleave', () => {
-                slider.style.animation = 'none';
-            });
-        });
-
-        mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/daltonwb/cmgfd8qwr00b801sbghmcgl70',
-            center: [35.030781, 31.891362],
-            zoom: 8,
-            maxZoom: 14,
-            minZoom: 7.5,
-            showZoom: true,
-            scrollZoom: scroolZoomEnable(),
-            maxBounds: [[33.40434, 30.92008], [37.29292, 32.89675]],
-            attributionControl: false
-        });
-
-        map.addControl(new mapboxgl.NavigationControl());
-        map.addControl(new mapboxgl.FullscreenControl());
-        map.addControl(new mapboxgl.AttributionControl({
-            compact: true,
-            customAttribution: 'International Crisis Group | Map: <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> & Claire Boccon-Gibod | Data: <a href="https://peacenow.org.il/en/settlements-watch/settlements-data/population" target="_blank">PeaceNow</a>, <a href="https://data.humdata.org/dataset/geoboundaries-admin-boundaries-for-state-of-palestine" target="_blank">HDX</a>'
-        }));
-
-
-        map.on('load', () => {
-  // 1) Use the custom vector source you added
-  map.addSource('settlements', {
-    type: 'vector',
-    url: 'mapbox://daltonwb.afyqoeoq'
-  });
-
-  const initialYear = 1967;
-
-  // 2) Ensure this source-layer EXACTLY matches your tileset’s layer name
-  const layerName = 'IL_PA_Settlements_-_10_2025_P-cmydfu';
-
-  map.addLayer({
-    id: 'settlements-layer-settlement',
-    type: 'circle',
-    source: 'settlements',
-    'source-layer': layerName,
-    filter: [
-      'all',
-      ['<=', ['to-number', ['get', 'year']], initialYear],   // 3) numeric compare
-      ['==', ['get', 'type'], 'Settlement']                  // 4) simple equality
-    ],
-    paint: {
-      'circle-color': 'rgba(163, 51, 57, 0.51)',
-      'circle-stroke-color': '#ffffff',
-      'circle-stroke-width': 0.5
-    }
-  });
-
-  map.addLayer({
-    id: 'settlements-layer-outpost',
-    type: 'circle',
-    source: 'settlements',
-    'source-layer': layerName,
-    filter: [
-      'all',
-      ['<=', ['to-number', ['get', 'year']], initialYear],
-      ['==', ['get', 'type'], 'Outpost']
-    ],
-    paint: {
-      'circle-color': '#a4343a',
-      'circle-stroke-color': '#ffffff',
-      'circle-stroke-width': 0.5
-    }
-  });
-
-  // 5) Slider handler
-  const slider = document.getElementById('year-slider');
-  if (slider) {
-    slider.addEventListener('input', (e) => {
-      const year = parseInt(e.target.value, 10);
-      const yearFilter = ['<=', ['to-number', ['get', 'year']], year];
-
-      map.setFilter('settlements-layer-settlement', ['all', yearFilter, ['==', ['get', 'type'], 'Settlement']]);
-      map.setFilter('settlements-layer-outpost',    ['all', yearFilter, ['==', ['get', 'type'], 'Outpost']]);
+      range.addEventListener('input', updateSlider);
+      range.addEventListener('mouseenter', () => (range.style.animation = 'flicker 1.5s ease-in-out 3'));
+      range.addEventListener('mouseleave', () => (range.style.animation = 'none'));
+      updateSlider();
     });
-  } else {
-    console.warn('Missing #year-slider element');
-  }
-});
 
-    </script>
+    // Scroll zoom gate (typo fixed)
+    function scrollZoomEnable() {
+      return window.innerWidth >= 1024;
+    }
+
+    // Modal handlers
+    document.addEventListener('DOMContentLoaded', function () {
+      const infoLink = document.getElementById('infoLink');
+      const modal = document.getElementById('myModal');
+      const closeBtn = modal.querySelector('.close');
+
+      infoLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.classList.add('show');
+      });
+      closeBtn.addEventListener('click', () => modal.classList.remove('show'));
+      window.addEventListener('click', (e) => e.target === modal && modal.classList.remove('show'));
+    });
+
+    // Map
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/daltonwb/cmgfd8qwr00b801sbghmcgl70',
+      center: [35.030781, 31.891362],
+      zoom: 8,
+      maxZoom: 14,
+      minZoom: 7.5,
+      scrollZoom: scrollZoomEnable(),
+      maxBounds: [[33.40434, 30.92008], [37.29292, 32.89675]],
+      attributionControl: false
+    });
+
+    map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.FullscreenControl());
+    map.addControl(
+      new mapboxgl.AttributionControl({
+        compact: true,
+        customAttribution:
+          'International Crisis Group | Map: <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> & Claire Boccon-Gibod | Data: <a href="https://peacenow.org.il/en/settlements-watch/settlements-data/population" target="_blank">PeaceNow</a>, <a href="https://data.humdata.org/dataset/geoboundaries-admin-boundaries-for-state-of-palestine" target="_blank">HDX</a>'
+      })
+    );
+
+    map.on('load', () => {
+      // Zoom-to-focus button
+      const zoomBtn = document.createElement('button');
+      zoomBtn.textContent = 'Zoom to Focus';
+      zoomBtn.className = 'mapbox-zoom-to-focus';
+      map.getContainer().appendChild(zoomBtn);
+
+      const focusBbox = [
+        [34.99609, 31.65357], // SW
+        [35.43890, 31.92372]  // NE
+      ];
+
+      zoomBtn.addEventListener('click', () => {
+        const cam = map.cameraForBounds(focusBbox, {
+          padding: { top: 40, right: 40, bottom: 40, left: 40 },
+          maxZoom: 12.5
+        });
+        map.easeTo({ ...cam, bearing: -24, pitch: 37, duration: 1200, essential: true });
+      });
+
+      // Data source + layers
+      map.addSource('settlements', { type: 'vector', url: 'mapbox://daltonwb.afyqoeoq' });
+      const layerName = 'IL_PA_Settlements_-_10_2025_P-cmydfu';
+      const initialYear = 1967;
+
+      map.addLayer({
+        id: 'settlements-layer-settlement',
+        type: 'circle',
+        source: 'settlements',
+        'source-layer': layerName,
+        filter: ['all', ['<=', ['to-number', ['get', 'year']], initialYear], ['==', ['get', 'type'], 'Settlement']],
+        paint: { 'circle-color': 'rgba(163, 51, 57, 0.51)', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 0.5 }
+      });
+
+      map.addLayer({
+        id: 'settlements-layer-outpost',
+        type: 'circle',
+        source: 'settlements',
+        'source-layer': layerName,
+        filter: ['all', ['<=', ['to-number', ['get', 'year']], initialYear], ['==', ['get', 'type'], 'Outpost']],
+        paint: { 'circle-color': '#a4343a', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 0.5 }
+      });
+
+      // Slider → filters
+      const slider = document.getElementById('year-slider');
+      slider.addEventListener('input', (e) => {
+        const year = parseInt(e.target.value, 10);
+        const yearFilter = ['<=', ['to-number', ['get', 'year']], year];
+        map.setFilter('settlements-layer-settlement', ['all', yearFilter, ['==', ['get', 'type'], 'Settlement']]);
+        map.setFilter('settlements-layer-outpost', ['all', yearFilter, ['==', ['get', 'type'], 'Outpost']]);
+      });
+    });
+  </script>
 </body>
-
 </html>
