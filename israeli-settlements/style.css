@@ -218,6 +218,14 @@ input[type="range"]::-moz-range-track {
     margin-top: 7px;
 }
 
+.legend i.line {
+  border-radius: 0;
+  height: 2px;
+  width: 12px;
+  margin-top: 0;
+  background: transparent; /* let the border or color show */
+}
+
 #size-adjust {
     height: 9px;
     width: 9px;
