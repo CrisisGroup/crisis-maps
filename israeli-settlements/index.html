@@ -122,7 +122,9 @@
           </p>
           <p>Planned bypass or “fabric of life” roads for Palestinians are
             solely
-            for West Bank Palestinians. On 29 March, 2025, the Israeli cabinet authorised <strong style="color: #007367;">a bypass road</strong> designated exclusively for West Bank Palestinians to allow seamless connection of Israel’s own road system in occupied
+            for West Bank Palestinians. On 29 March, 2025, the Israeli cabinet authorised <strong
+              style="color: #007367;">a bypass road</strong> designated exclusively for West Bank Palestinians to allow
+            seamless connection of Israel’s own road system in occupied
             territory and set the stage for the E1 settlement. Both the road and the east-west extension of Israeli
             settlements will in effect cleave the West Bank in two, making it easy for Israel to block Palestinians’
             travel between north and south, and further isolate both parts of the West Bank from the large Palestinian
@@ -242,9 +244,10 @@
       zoomBtn.className = 'mapbox-zoom-to-focus';
       document.querySelector('.slider-container').appendChild(zoomBtn);
 
+      // Updated bounding box
       const focusBbox = [
-        [35.12422, 31.70509],
-        [35.41299, 31.87650]
+        [35.19381, 31.73313], // SW corner
+        [35.37757, 31.84145]  // NE corner
       ];
 
       zoomBtn.addEventListener('click', () => {
@@ -252,8 +255,15 @@
           padding: { top: 10, right: 10, bottom: 10, left: 10 },
           maxZoom: 12.5
         });
-        map.easeTo({ ...cam, bearing: -24, pitch: 37, duration: 1200, essential: true });
+        map.easeTo({
+          ...cam,
+          bearing: -24,
+          pitch: 37,
+          duration: 1200,
+          essential: true
+        });
       });
+
 
       // Data source + layers
       map.addSource('settlements', { type: 'vector', url: 'mapbox://daltonwb.afyqoeoq' });
