@@ -70,15 +70,14 @@ input[type="range"] {
 /* WebKit track & thumb */
 input[type="range"]::-webkit-slider-runnable-track {
   height: 12px;
-  background: linear-gradient(
-    to right,
-    #fff 0%,
-    #fff var(--thumb-percentage, 0%),
-    #d5d1cc var(--thumb-percentage, 0%)
-  );
+  background: linear-gradient(to right,
+      #fff 0%,
+      #fff var(--thumb-percentage, 0%),
+      #d5d1cc var(--thumb-percentage, 0%));
   border: 1px solid #000;
   border-radius: 6px;
 }
+
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -97,15 +96,14 @@ input[type="range"]::-webkit-slider-thumb {
 /* Firefox track & thumb */
 input[type="range"]::-moz-range-track {
   height: 12px;
-  background: linear-gradient(
-    to right,
-    #fff 0%,
-    #fff var(--thumb-percentage, 0%),
-    #d5d1cc var(--thumb-percentage, 0%)
-  );
+  background: linear-gradient(to right,
+      #fff 0%,
+      #fff var(--thumb-percentage, 0%),
+      #d5d1cc var(--thumb-percentage, 0%));
   border: 1px solid #000;
   border-radius: 6px;
 }
+
 input[type="range"]::-moz-range-thumb {
   width: 20px;
   height: 20px;
@@ -118,8 +116,17 @@ input[type="range"]::-moz-range-thumb {
 }
 
 @keyframes flicker {
-  0%, 100% { background-color: #fff; border-color: #000; }
-  50% { background-color: #473729; border-color: #473729; }
+
+  0%,
+  100% {
+    background-color: #fff;
+    border-color: #000;
+  }
+
+  50% {
+    background-color: #473729;
+    border-color: #473729;
+  }
 }
 
 input[type="range"]::-webkit-slider-thumb:hover,
@@ -137,14 +144,23 @@ input[type="range"]::-moz-range-thumb:hover {
     width: 50%;
     top: 0;
   }
+
   .slider-container h1 {
     font-size: 26px;
     margin: 0;
   }
-  .mapboxgl-ctrl-top-right .mapboxgl-ctrl { display: none; }
+
+  .mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+    display: none;
+  }
 }
+
 @media (max-width: 768px) {
-  .slider-container { left: 2.5%; right: 2.5%; width: 95%; }
+  .slider-container {
+    left: 2.5%;
+    right: 2.5%;
+    width: 95%;
+  }
 }
 
 /* =========================================================
@@ -156,7 +172,7 @@ input[type="range"]::-moz-range-thumb:hover {
   bottom: 40px;
   z-index: 1;
   background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   padding: 10px 15px;
   font-family: 'franklin-gothic-urw', sans-serif;
 }
@@ -170,26 +186,34 @@ input[type="range"]::-moz-range-thumb:hover {
   letter-spacing: 0.05em;
 }
 
-.legend p { margin: 0; font-size: 22px; }
+.legend p {
+  margin: 0;
+  font-size: 22px;
+}
 
 .legend-list {
   columns: 2;
   column-gap: 32px;
 }
+
 .legend-list p {
   display: flex;
-  align-items: baseline;            /* fixes the first column (icons align to text baseline) */
+  align-items: baseline;
+  /* fixes the first column (icons align to text baseline) */
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
   margin: 4px 0;
-  gap: 10px;                        /* replaces manual icon margin-right */
+  gap: 10px;
+  /* replaces manual icon margin-right */
 }
 
 .legend i,
 .lg {
   flex-shrink: 0;
-  margin-right: 10px; /* slightly tighter spacing */
+  margin-right: 10px;
+  /* slightly tighter spacing */
 }
+
 .legend-list .break-after {
   break-after: column;
   -webkit-column-break-after: column;
@@ -208,7 +232,9 @@ input[type="range"]::-moz-range-thumb:hover {
   color: #717c7d;
 }
 
-a#reportlink { color: #165C7D; }
+a#reportlink {
+  color: #165C7D;
+}
 
 /* Legend icons */
 /* Base icon box: no vertical hacks */
@@ -217,33 +243,82 @@ a#reportlink { color: #165C7D; }
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  margin: 0;                        /* remove margin-top tweaks */
+  margin: 0;
+  /* remove margin-top tweaks */
 }
-.lg { height: 12px; width: 12px; border-radius: 50%; margin-top: 7px; }
+
+.lg {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  margin-top: 7px;
+}
 
 /* Area fills (squares) */
-.lg-areas-ab { border-radius: 0; background: #b8b3ad; border: .5px solid #ccc; }
-.lg-area-c   { border-radius: 0; background: rgba(163, 51, 57, 0.04); border: .5px solid #ccc; }
-.lg-plan-e1  { border-radius: 0; background: rgb(208,204,203); border: 1px solid #000; }
+.lg-areas-ab {
+  border-radius: 0;
+  background: #b8b3ad;
+  border: .5px solid #ccc;
+}
+
+.lg-area-c {
+  border-radius: 0;
+  background: rgba(163, 51, 57, 0.04);
+  border: .5px solid #ccc;
+}
+
+.lg-plan-e1 {
+  border-radius: 0;
+  background: rgb(208, 204, 203);
+  border: 1px solid #000;
+}
 
 /* Points */
-.lg-settlements { background: rgba(163,51,57,.51); border: .5px solid #fff; }
-.lg-outposts    { background: #a4343a; border: .5px solid #fff; }
+.lg-settlements {
+  background: rgba(163, 51, 57, .51);
+  border: .5px solid #fff;
+}
+
+.lg-outposts {
+  background: #a4343a;
+  border: .5px solid #fff;
+}
 
 /* Lines */
 .lg-line {
-  align-self: center;         /* overrides baseline for line items only */
+  align-self: center;
+  /* overrides baseline for line items only */
   width: 28px;
-  height: 1px;                  /* lets border-top sit exactly on the row’s vertical center */
+  height: 1px;
+  /* lets border-top sit exactly on the row’s vertical center */
   background: transparent;
-  border: 0;            
-  border-radius: 0;      /* reset: each variant sets its own border-top */
+  border: 0;
+  border-radius: 0;
+  /* reset: each variant sets its own border-top */
 }
 
-.lg-road-israeli { border-top: 2px solid #86a8b9; height:4px; }
-.lg-bypass-pal   { border-top: 2px dashed #007367; height:4px; }
-.lg-fence        { border-top: 1px dashed rgb(22, 22, 22); height:4px; }
-.lg-barriers     { border-top: 2px solid  rgb(148,148,148); border-bottom: 2px solid  rgb(148,148,148); height:4px; background: #ccc; }
+.lg-road-israeli {
+  border-top: 4px solid #86a8b9;
+  height: 4px;
+}
+
+.lg-bypass-pal {
+  border-top: 2px dashed #007367;
+  height: 4px;
+}
+
+.lg-fence {
+  border-top: 2px dashed rgb(22, 22, 22);
+  height: 4px;
+}
+
+.lg-barriers {
+  border-top: 1px solid rgb(148, 148, 148);
+  border-bottom: 1px solid rgb(148, 148, 148);
+  height: 5px;
+  background: #ccc;
+  margin-bottom: 4px;
+}
 
 /* Info icon */
 .info-icon {
@@ -264,13 +339,19 @@ a#reportlink { color: #165C7D; }
   transition: background-color .3s ease-in-out, box-shadow .3s ease-in-out, transform .3s ease-in-out;
   cursor: pointer;
 }
-.info-icon:hover { background-color: #484f4f; color: #fff; }
+
+.info-icon:hover {
+  background-color: #484f4f;
+  color: #fff;
+}
 
 /* Mobile legend */
 @media (max-width: 1024px) {
   .legend {
     position: fixed;
-    left: 0; right: 0; bottom: 60px;
+    left: 0;
+    right: 0;
+    bottom: 60px;
     width: 100%;
     max-width: none;
     padding: 5%;
@@ -282,38 +363,95 @@ a#reportlink { color: #165C7D; }
 /* =========================================================
    4) MODAL
    ========================================================= */
+/* Overlay */
 .modal {
   visibility: hidden;
   position: fixed;
-  z-index: 10;
   inset: 0;
-  background-color: rgba(0,0,0,0.4);
-  box-shadow: 0 2px 4px rgba(0,0,0,.7);
+  z-index: 1000;
+  background: rgba(0,0,0,.5);
   opacity: 0;
-  transition: visibility 0s linear .3s, opacity .3s linear;
+  transition: visibility 0s linear .2s, opacity .2s ease;
 }
 .modal.show {
   visibility: visible;
   opacity: 1;
-  transition: visibility 0s linear 0s, opacity .3s linear;
+  transition: visibility 0s linear 0s, opacity .2s ease;
 }
+
+/* Dialog */
 .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 600px;
+  box-sizing: border-box;
+  background: #fff;
+  width: min(820px, 92vw);
+  max-height: min(90vh, 780px);
+  margin: 6vh auto;
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+  border: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  outline: none; /* we’ll manage focus ring via :focus-visible */
 }
-.modal-content p { margin-bottom: 10px; }
+
+/* Sticky header */
+.modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: .02em;
+}
+
+/* Scroll area */
+.modal-scroll {
+  padding: 16px 18px 20px;
+  overflow: auto;                 /* KEY: scrolls when content overflows */
+  overscroll-behavior: contain;   /* prevent scroll chaining */
+}
+.modal-scroll p { margin: 0 0 10px; line-height: 1.5; }
+
+/* Close button */
 .close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+  border: 1px solid #ccc;
+  background: #000;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
   cursor: pointer;
 }
-.close:hover, .close:focus { color: #000; text-decoration: none; }
+.close:hover { background: #fff; color: #000; border-color: #000; }
+.close:focus-visible { outline: 2px solid #165C7D; outline-offset: 2px; }
+
+/* Body scroll lock while modal open */
+.body-lock { overflow: hidden; }
+
+/* Mobile: full-height sheet */
+@media (max-width: 640px) {
+  .modal-content {
+    width: 100vw;
+    max-height: 100vh;
+    margin: 0;
+    border-radius: 0;
+  }
+  .modal-header { padding: 14px 16px; }
+  .modal-scroll { padding: 12px 16px 20px; }
+}
+
 
 /* =========================================================
    5) CUSTOM MAP CONTROL (BUTTON)
@@ -334,4 +472,8 @@ a#reportlink { color: #165C7D; }
   letter-spacing: .5px;
   transition: background-color .2s ease, color .2s ease;
 }
-.mapbox-zoom-to-focus:hover { background-color: #fff; color: #000; }
+
+.mapbox-zoom-to-focus:hover {
+  background-color: #fff;
+  color: #000;
+}
