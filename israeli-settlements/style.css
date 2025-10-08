@@ -177,8 +177,18 @@ input[type="range"]::-moz-range-thumb:hover {
   column-gap: 32px;
 }
 .legend-list p {
+  display: flex;
+  align-items: baseline;            /* fixes the first column (icons align to text baseline) */
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
+  margin: 4px 0;
+  gap: 10px;                        /* replaces manual icon margin-right */
+}
+
+.legend i,
+.lg {
+  flex-shrink: 0;
+  margin-right: 10px; /* slightly tighter spacing */
 }
 .legend-list .break-after {
   break-after: column;
@@ -201,7 +211,14 @@ input[type="range"]::-moz-range-thumb:hover {
 a#reportlink { color: #165C7D; }
 
 /* Legend icons */
-.lg { display: inline-block; vertical-align: middle; margin-right: 30px; }
+/* Base icon box: no vertical hacks */
+.lg {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0;                        /* remove margin-top tweaks */
+}
 .lg { height: 12px; width: 12px; border-radius: 50%; margin-top: 7px; }
 
 /* Area fills (squares) */
@@ -214,11 +231,19 @@ a#reportlink { color: #165C7D; }
 .lg-outposts    { background: #a4343a; border: .5px solid #fff; }
 
 /* Lines */
-.lg-line     { border-radius: 0; height: 2px; width: 28px; margin-top: 0; background: transparent; }
-.lg-road-israeli { border: .5px solid #ccc; background: #86a8b9; }
-.lg-bypass-pal  { border: 2px dashed #007367; }
-.lg-fence       { border: 1px dashed rgb(148,148,148); }
-.lg-barriers    { border: 1px solid  rgb(148,148,148); }
+.lg-line {
+  align-self: center;         /* overrides baseline for line items only */
+  width: 28px;
+  height: 1px;                  /* lets border-top sit exactly on the row’s vertical center */
+  background: transparent;
+  border: 0;            
+  border-radius: 0;      /* reset: each variant sets its own border-top */
+}
+
+.lg-road-israeli { border-top: 2px solid #86a8b9; height:4px; }
+.lg-bypass-pal   { border-top: 2px dashed #007367; height:4px; }
+.lg-fence        { border-top: 1px dashed rgb(22, 22, 22); height:4px; }
+.lg-barriers     { border-top: 2px solid  rgb(148,148,148); border-bottom: 2px solid  rgb(148,148,148); height:4px; background: #ccc; }
 
 /* Info icon */
 .info-icon {
