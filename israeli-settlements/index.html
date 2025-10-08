@@ -105,38 +105,43 @@
 
     <!-- Modal -->
     <div id="myModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="modal-content" tabindex="-1">
-    <div class="modal-header">
-      <h3 id="modal-title">About This Map</h3>
-      <button type="button" class="close" aria-label="Close modal">&times;</button>
-    </div>
+      <div class="modal-content" tabindex="-1">
+        <div class="modal-header">
+          <h3 id="modal-title">About This Map</h3>
+          <button type="button" class="close" aria-label="Close modal">&times;</button>
+        </div>
 
-    <div class="modal-scroll">
-      <p><strong style="color: #000;">Plan E1</strong> is a settlement construction project in an area east of
-        Jerusalem inside the West Bank, whose construction was approved in August 2025, after being frozen for decades
-        due to U.S. objections.</p>
-      <p><strong style="color: #86a8b9;">Israeli bypass roads</strong> are the ones which only Israeli-licensed
-        vehicles (including vehicles belonging to Palestinians with Jerusalem residence permits) are allowed to drive.
-      </p>
-      <p><strong style="color: #007367;">Planned bypass</strong> or “fabric of life” roads for Palestinians are solely
-        for West Bank Palestinians. On 29 March, 2025, the Israeli cabinet authorised a bypass road designated
-        exclusively for West Bank Palestinians to allow seamless connection of Israel’s own road system in occupied
-        territory and set the stage for the E1 settlement. Both the road and the east-west extension of Israeli
-        settlements will in effect cleave the West Bank in two, making it easy for Israel to block Palestinians’
-        travel between north and south, and further isolate both parts of the West Bank from the large Palestinian
-        population of East Jerusalem.</p>
-      <p><strong style="color: rgba(163, 51, 57, 0.51);">Settlements</strong> in the West Bank that were officially
-        established by the government (East Jerusalem excluded).</p>
-      <p><strong style="color: #a4343a;">Outposts</strong> are settlements that were established since the 1990's
-        without government approval and are considered illegal according to Israeli law.</p>
-      <p><strong>Area A (18%)</strong>: Administered by Palestinian Authority</p>
-      <p><strong>Area B (22%)</strong>: Administered by Palestinian Authority, shared security control with Israel.
-      </p>
-      <p><strong>Area C (60%)</strong>: Administered by Israel.</p>
-      <p><strong>Source</strong>: <a href="https://docs.mapbox.com/data/tilesets/reference/mapbox-streets-v8/" target="_blank" rel="noopener">Mapbox Streets v8</a>, August 2025 / CRISIS GROUP</p>
+        <div class="modal-scroll">
+          <p><strong style="color: #000;">Plan E1</strong> is a settlement construction project in an area east of
+            Jerusalem inside the West Bank, whose construction was approved in August 2025, after being frozen for
+            decades
+            due to U.S. objections.</p>
+          <p><strong style="color: #86a8b9;">Israeli bypass roads</strong> are the ones which only Israeli-licensed
+            vehicles (including vehicles belonging to Palestinians with Jerusalem residence permits) are allowed to
+            drive.
+          </p>
+          <p><strong style="color: #007367;">Planned bypass</strong> or “fabric of life” roads for Palestinians are
+            solely
+            for West Bank Palestinians. On 29 March, 2025, the Israeli cabinet authorised a bypass road designated
+            exclusively for West Bank Palestinians to allow seamless connection of Israel’s own road system in occupied
+            territory and set the stage for the E1 settlement. Both the road and the east-west extension of Israeli
+            settlements will in effect cleave the West Bank in two, making it easy for Israel to block Palestinians’
+            travel between north and south, and further isolate both parts of the West Bank from the large Palestinian
+            population of East Jerusalem.</p>
+          <p><strong style="color: rgba(163, 51, 57, 0.51);">Settlements</strong> in the West Bank that were officially
+            established by the government (East Jerusalem excluded).</p>
+          <p><strong style="color: #a4343a;">Outposts</strong> are settlements that were established since the 1990's
+            without government approval and are considered illegal according to Israeli law.</p>
+          <p><strong>Area A (18%)</strong>: Administered by Palestinian Authority</p>
+          <p><strong>Area B (22%)</strong>: Administered by Palestinian Authority, shared security control with Israel.
+          </p>
+          <p><strong>Area C (60%)</strong>: Administered by Israel.</p>
+          <p><strong>Source</strong>: <a id="reportlink"
+              href="https://docs.mapbox.com/data/tilesets/reference/mapbox-streets-v8/" target="_blank"
+              rel="noopener">Mapbox Streets v8</a>, August 2025 / CRISIS GROUP</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
   </div>
 
@@ -168,18 +173,44 @@
     }
 
     // Modal handlers
-    document.addEventListener('DOMContentLoaded', function () {
+    (function () {
       const infoLink = document.getElementById('infoLink');
       const modal = document.getElementById('myModal');
+      const dialog = modal.querySelector('.modal-content');
       const closeBtn = modal.querySelector('.close');
 
-      infoLink.addEventListener('click', (e) => {
-        e.preventDefault();
+      let lastFocused;
+
+      function openModal(e) {
+        if (e) e.preventDefault();
+        lastFocused = document.activeElement;
+        document.body.classList.add('body-lock');
         modal.classList.add('show');
+        // Move focus into dialog for a11y
+        requestAnimationFrame(() => dialog.focus());
+      }
+
+      function closeModal() {
+        modal.classList.remove('show');
+        document.body.classList.remove('body-lock');
+        // Return focus
+        if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+      }
+
+      infoLink.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+
+      // Click backdrop to close
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
       });
-      closeBtn.addEventListener('click', () => modal.classList.remove('show'));
-      window.addEventListener('click', (e) => e.target === modal && modal.classList.remove('show'));
-    });
+
+      // Escape to close
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+      });
+    })();
+
 
     // Map
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
@@ -208,14 +239,14 @@
     map.on('load', () => {
       // Zoom-to-focus button
       const zoomBtn = document.createElement('button');
-      zoomBtn.textContent = 'Zoom to Focus';
+      zoomBtn.textContent = 'Zoom to Plan E1 Area';
       zoomBtn.className = 'mapbox-zoom-to-focus';
       map.getContainer().appendChild(zoomBtn);
 
       const focusBbox = [
-    [35.12422, 31.70509],
-    [35.41299, 31.87650]
-];
+        [35.12422, 31.70509],
+        [35.41299, 31.87650]
+      ];
 
       zoomBtn.addEventListener('click', () => {
         const cam = map.cameraForBounds(focusBbox, {
