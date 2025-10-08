@@ -469,3 +469,13 @@ a#reportlink {
   .modal-scroll { padding: 12px 16px 20px; }
 }
 
+.mapboxgl-ctrl-home button {
+  font-size: 16px;
+  line-height: 1;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+}
+.mapboxgl-ctrl-home button:hover {
+  background: #f0f0f0;
+}
