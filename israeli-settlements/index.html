@@ -230,50 +230,50 @@
     const initialView = {};
 
     map.once('load', () => {
-  initialView.center  = map.getCenter().toArray();    // [lng, lat]
-  initialView.zoom    = map.getZoom();
-  initialView.bearing = map.getBearing();
-  initialView.pitch   = map.getPitch();
+      initialView.center = map.getCenter().toArray();    // [lng, lat]
+      initialView.zoom = map.getZoom();
+      initialView.bearing = map.getBearing();
+      initialView.pitch = map.getPitch();
 
-  // If you ever call map.setPadding(...) elsewhere, also capture:
-  if (typeof map.getPadding === 'function') {
-    initialView.padding = map.getPadding(); // {top,right,bottom,left}
-  }
-});
+      // If you ever call map.setPadding(...) elsewhere, also capture:
+      if (typeof map.getPadding === 'function') {
+        initialView.padding = map.getPadding(); // {top,right,bottom,left}
+      }
+    });
 
 
     class HomeControl {
-  onAdd(map) {
-    this._map = map;
-    const container = document.createElement('div');
-    container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+      onAdd(map) {
+        this._map = map;
+        const container = document.createElement('div');
+        container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
 
-    const btn = document.createElement('button');
-    btn.className = 'mapboxgl-ctrl-icon';
-    btn.type = 'button';
-    btn.title = 'Reset view';
-    btn.innerHTML = '🏠';
-    container.appendChild(btn);
+        const btn = document.createElement('button');
+        btn.className = 'mapboxgl-ctrl-icon';
+        btn.type = 'button';
+        btn.title = 'Reset view';
+        btn.innerHTML = '↩️';
+        container.appendChild(btn);
 
-    btn.addEventListener('click', () => {
-      // Fallback to your desired defaults if initialView isn't populated yet
-      const target = Object.keys(initialView).length
-        ? initialView
-        : { center: [35.030781, 31.891362], zoom: 8, bearing: 0, pitch: 0 };
+        btn.addEventListener('click', () => {
+          // Fallback to your desired defaults if initialView isn't populated yet
+          const target = Object.keys(initialView).length
+            ? initialView
+            : { center: [35.030781, 31.891362], zoom: 8, bearing: 0, pitch: 0 };
 
-      map.easeTo({
-        ...target,
-        // Ensure padding resets if you were using fitBounds/camera padding earlier
-        padding: target.padding || { top: 0, right: 0, bottom: 0, left: 0 },
-        duration: 800,
-        essential: true
-      });
-    });
+          map.easeTo({
+            ...target,
+            // Ensure padding resets if you were using fitBounds/camera padding earlier
+            padding: target.padding || { top: 0, right: 0, bottom: 0, left: 0 },
+            duration: 800,
+            essential: true
+          });
+        });
 
-    return container;
-  }
-  onRemove() { this._map = undefined; }
-}
+        return container;
+      }
+      onRemove() { this._map = undefined; }
+    }
 
     // Add to the map alongside your nav control
     map.addControl(new HomeControl(), 'top-right');
