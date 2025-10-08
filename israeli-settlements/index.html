@@ -227,6 +227,42 @@
       attributionControl: false
     });
 
+    class HomeControl {
+      onAdd(map) {
+        this._map = map;
+
+        const btn = document.createElement('button');
+        btn.className = 'mapboxgl-ctrl-icon';
+        btn.type = 'button';
+        btn.title = 'Reset view';
+        btn.innerHTML = '🏠'; // you can swap for an SVG icon
+
+        btn.addEventListener('click', () => {
+          map.easeTo({
+            center: [35.030781, 31.891362],
+            zoom: 8,
+            bearing: 0,
+            pitch: 0,
+            duration: 800,
+            essential: true
+          });
+        });
+
+        const container = document.createElement('div');
+        container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+        container.appendChild(btn);
+        return container;
+      }
+
+      onRemove() {
+        this._map = undefined;
+      }
+    }
+
+    // Add to the map alongside your nav control
+    map.addControl(new HomeControl(), 'top-right');
+
+
     map.addControl(new mapboxgl.NavigationControl());
     map.addControl(new mapboxgl.FullscreenControl());
     map.addControl(
