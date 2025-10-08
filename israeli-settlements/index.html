@@ -98,7 +98,7 @@
     <hr />
     <p>
       Read our full report on Israeli West Bank Annexation
-      <a id="reportlink"
+      <a class="reportlink"
         href="https://www.crisisgroup.org/middle-east-north-africa/east-mediterranean-mena-israelpalestine/246-stemming-israeli-settler-violence"
         target="_blank">here</a>.
     </p>
@@ -137,9 +137,10 @@
           <p><strong>Area B (22%)</strong>: Administered by Palestinian Authority, shared security control with Israel.
           </p>
           <p><strong>Area C (60%)</strong>: Administered by Israel.</p>
-          <p><strong>Source</strong>: <a id="reportlink"
+          <p><strong>Source</strong>: <a class="reportlink"
               href="https://docs.mapbox.com/data/tilesets/reference/mapbox-streets-v8/" target="_blank"
               rel="noopener">Mapbox Streets v8</a>, August 2025 / CRISIS GROUP</p>
+              <p>This map is an update from an earlier database Crisis Group built in 2024. <a class="reportlink" href="2024.html" target="_blank">You can look at the archive here.</a></p>
         </div>
       </div>
     </div>
@@ -167,11 +168,6 @@
       range.addEventListener('mouseleave', () => (range.style.animation = 'none'));
       updateSlider();
     });
-
-    // Scroll zoom gate (typo fixed)
-    function scrollZoomEnable() {
-      return window.innerWidth >= 1024;
-    }
 
     // Modal handlers
     (function () {
@@ -222,10 +218,49 @@
       zoom: 8,
       maxZoom: 14,
       minZoom: 7.5,
-      scrollZoom: scrollZoomEnable(),
       maxBounds: [[33.40434, 30.92008], [37.29292, 32.89675]],
       attributionControl: false
     });
+
+    // Disable scroll-zoom by default to avoid scroll jacking
+    map.scrollZoom.disable();
+
+    // Optional: a small hint overlay
+    const hint = document.createElement('div');
+    hint.className = 'hold-ctrl-hint';
+    hint.textContent = 'Hold Ctrl (⌘ on Mac) to zoom';
+    document.getElementById('map').appendChild(hint);
+
+    let enableTimeout;
+
+    // Listen to wheel with passive:false so we can preventDefault when zooming
+    document.getElementById('map').addEventListener('wheel', (evt) => {
+      const ctrl = evt.ctrlKey || evt.metaKey; // Ctrl on Windows/Linux, ⌘ on macOS
+
+      if (ctrl) {
+        // Use the wheel to zoom the map; prevent page scroll while zooming
+        evt.preventDefault();
+        if (!map.scrollZoom.isEnabled()) map.scrollZoom.enable();
+
+        // Hide the hint while user is actively using the modifier
+        hint.classList.remove('show');
+
+        // Re-disable shortly after the gesture stops
+        clearTimeout(enableTimeout);
+        enableTimeout = setTimeout(() => {
+          map.scrollZoom.disable();
+        }, 300); // tweak feel (200–500ms works well)
+      } else {
+        // Not holding Ctrl/⌘ → let the page scroll; show hint briefly
+        map.scrollZoom.disable(); // make sure it stays off
+        // Show the hint if the cursor is over the map
+        hint.classList.add('show');
+        // Auto-hide after a moment so it doesn't linger
+        clearTimeout(enableTimeout);
+        enableTimeout = setTimeout(() => hint.classList.remove('show'), 1200);
+      }
+    }, { passive: false });
+
 
     const initialView = {};
 

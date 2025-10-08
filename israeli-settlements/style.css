@@ -249,7 +249,7 @@ input[type="range"]::-moz-range-thumb:hover {
   color: #717c7d;
 }
 
-a#reportlink {
+a.reportlink {
   color: #165C7D;
 }
 
@@ -320,8 +320,10 @@ a#reportlink {
 }
 
 .lg-bypass-pal {
-  border-top: 2px dashed #007367;
+  border-top: 3px dashed #007367;
+  border-bottom: 3px dashed #007367;
   height: 4px;
+  margin-bottom: 2px;
 }
 
 .lg-fence {
@@ -478,4 +480,26 @@ a#reportlink {
 }
 .mapboxgl-ctrl-home button:hover {
   background: #f0f0f0;
+}
+
+.hold-ctrl-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  padding: 6px 8px;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.85);
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.2;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .15s ease, transform .15s ease;
+  z-index: 5; /* above map controls */
+}
+.hold-ctrl-hint.show {
+  opacity: 1;
+  transform: translateY(0);
 }
