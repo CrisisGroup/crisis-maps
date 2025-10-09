@@ -387,6 +387,13 @@ a.reportlink {
     padding-bottom: env(safe-area-inset-bottom, 0); /* safe for iOS */
   }
 
+  @media (max-width: 768px) {
+  .legend p {
+    font-size: 16px;
+  }
+}
+  
+
   .legend.open {
     transform: translateY(0); /* fully visible */
   }
