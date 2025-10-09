@@ -15,6 +15,8 @@ body {
   overflow: hidden;
 }
 
+*, *::before, *::after { box-sizing: border-box; }
+
 /* =========================================================
    2) SLIDER & HEADER
    ========================================================= */
@@ -364,20 +366,47 @@ a.reportlink {
   color: #fff;
 }
 
-/* Mobile legend */
-@media (max-width: 1024px) {
+/* Base mobile layout */
+@media (max-width: 768px) {
   .legend {
     position: fixed;
+    bottom: 0;
     left: 0;
     right: 0;
-    bottom: 60px;
-    width: 100%;
-    max-width: none;
-    padding: 5%;
-    transform: none;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+    border-top: 1px solid #ccc;
+    padding: 10px 15px;
+    max-height: 40vh;
+    overflow-y: auto;
+    transition: transform 0.3s ease, max-height 0.3s ease;
+    transform: translateY(calc(100% - 42px)); /* collapsed except for header */
+    z-index: 100;
     overflow: hidden;
   }
+
+  .legend.open {
+    transform: translateY(0); /* fully visible */
+  }
+
+  .legend-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding-bottom: 4px;
+  }
+
+  .legend-header::after {
+    content: '▲';
+    font-size: 12px;
+    transition: transform 0.3s ease;
+  }
+  .legend:not(.open) .legend-header::after {
+    content: '▼';
+  }
 }
+
 
 /* =========================================================
    4) MODAL
