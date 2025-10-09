@@ -73,10 +73,10 @@
   </div>
 
   <!-- Legend -->
- <div class="legend" id="legend">
-  <div class="legend-header" id="legendToggle">
-    <h2>Map Legend</h2>
-  </div>
+  <div class="legend" id="legend">
+    <div class="legend-header" id="legendToggle">
+      <h2>Map Legend</h2>
+    </div>
 
     <div class="legend-list">
       <p><i class="lg lg-settlements"></i>Settlements</p>
@@ -194,42 +194,29 @@
 
     // Modal handlers
     (function () {
-      const infoLink = document.getElementById('infoLink');
-      const modal = document.getElementById('myModal');
-      const dialog = modal.querySelector('.modal-content');
-      const closeBtn = modal.querySelector('.close');
+  const infoLink = document.getElementById('infoLink');
+  const modal = document.getElementById('myModal');
+  const dialog = modal.querySelector('.modal-content');
+  const closeBtn = modal.querySelector('.close');
+  let lastFocused;
 
-      let lastFocused;
+  function openModal(e){ if(e) e.preventDefault();
+    lastFocused = document.activeElement;
+    document.body.classList.add('body-lock');
+    modal.classList.add('show');
+    requestAnimationFrame(()=> dialog.focus());
+  }
+  function closeModal(){
+    modal.classList.remove('show');
+    document.body.classList.remove('body-lock');
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+  }
 
-      function openModal(e) {
-        if (e) e.preventDefault();
-        lastFocused = document.activeElement;
-        document.body.classList.add('body-lock');
-        modal.classList.add('show');
-        // Move focus into dialog for a11y
-        requestAnimationFrame(() => dialog.focus());
-      }
-
-      function closeModal() {
-        modal.classList.remove('show');
-        document.body.classList.remove('body-lock');
-        // Return focus
-        if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
-      }
-
-      infoLink.addEventListener('click', openModal);
-      closeBtn.addEventListener('click', closeModal);
-
-      // Click backdrop to close
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-      });
-
-      // Escape to close
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
-      });
-    })();
+  infoLink.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  window.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
+})();
 
     document.addEventListener('DOMContentLoaded', () => {
       const legend = document.querySelector('.legend');
@@ -238,6 +225,13 @@
       header.addEventListener('click', () => {
         legend.classList.toggle('open');
       });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('myModal');
+      if (modal && modal.parentElement !== document.body) {
+        document.body.appendChild(modal); // portal to body
+      }
     });
 
 
@@ -347,37 +341,37 @@
     map.addControl(new mapboxgl.NavigationControl());
     map.addControl(new mapboxgl.FullscreenControl());
     // === Responsive Mapbox Attribution (safe, no duplicates) ===
-  let attributionCtrl = null;
-  let currentCompact = null;
+    let attributionCtrl = null;
+    let currentCompact = null;
 
-  function installAttribution(compact) {
-    // Remove the existing control before adding a new one
-    if (attributionCtrl) map.removeControl(attributionCtrl);
+    function installAttribution(compact) {
+      // Remove the existing control before adding a new one
+      if (attributionCtrl) map.removeControl(attributionCtrl);
 
-    attributionCtrl = new mapboxgl.AttributionControl({
-      compact,
-      customAttribution:
-        'International Crisis Group | Map: <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> & Claire Boccon-Gibod | Data: <a href="https://peacenow.org.il/en/settlements-watch/settlements-data/population" target="_blank">PeaceNow</a>, <a href="https://data.humdata.org/dataset/geoboundaries-admin-boundaries-for-state-of-palestine" target="_blank">HDX</a>'
-    });
+      attributionCtrl = new mapboxgl.AttributionControl({
+        compact,
+        customAttribution:
+          'International Crisis Group | Map: <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> & Claire Boccon-Gibod | Data: <a href="https://peacenow.org.il/en/settlements-watch/settlements-data/population" target="_blank">PeaceNow</a>, <a href="https://data.humdata.org/dataset/geoboundaries-admin-boundaries-for-state-of-palestine" target="_blank">HDX</a>'
+      });
 
-    map.addControl(attributionCtrl);
-    currentCompact = compact;
-  }
-
-  // Initial install — check current map container width
-  const container = map.getContainer();
-  const compact = container.clientWidth <= 768;
-  installAttribution(compact);
-
-  // Watch for container resizes (no duplication)
-  const ro = new ResizeObserver(entries => {
-    const w = entries[0].contentRect.width;
-    const shouldCompact = w <= 768;
-    if (shouldCompact !== currentCompact) {
-      installAttribution(shouldCompact);
+      map.addControl(attributionCtrl);
+      currentCompact = compact;
     }
-  });
-  ro.observe(container);
+
+    // Initial install — check current map container width
+    const container = map.getContainer();
+    const compact = container.clientWidth <= 768;
+    installAttribution(compact);
+
+    // Watch for container resizes (no duplication)
+    const ro = new ResizeObserver(entries => {
+      const w = entries[0].contentRect.width;
+      const shouldCompact = w <= 768;
+      if (shouldCompact !== currentCompact) {
+        installAttribution(shouldCompact);
+      }
+    });
+    ro.observe(container);
 
 
     map.on('load', () => {

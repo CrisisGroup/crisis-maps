@@ -422,11 +422,11 @@ a.reportlink {
    ========================================================= */
 /* Overlay */
 .modal {
-  visibility: hidden;
-  position: fixed;
+  position: fixed;            /* key: fixed to the viewport */
   inset: 0;
-  z-index: 1000;
-  background: rgba(0,0,0,.5);
+  z-index: 10000;             /* higher than legend, controls, etc. */
+  background: rgba(0,0,0,0.5);
+  visibility: hidden;
   opacity: 0;
   transition: visibility 0s linear .2s, opacity .2s ease;
 }
@@ -439,16 +439,25 @@ a.reportlink {
 /* Dialog */
 .modal-content {
   box-sizing: border-box;
-  background: #fff;
   width: min(820px, 92vw);
-  max-height: min(90vh, 780px);
+  max-height: min(90dvh, 90vh);
   margin: 6vh auto;
+  background: #fff;
   border-radius: 8px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.25);
   border: 1px solid #e5e5e5;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
   display: flex;
   flex-direction: column;
-  outline: none; /* we’ll manage focus ring via :focus-visible */
+  outline: none;
+}
+
+@media (max-width: 640px) {
+  .modal-content {
+    width: 100vw;
+    max-height: 100dvh;
+    margin: 0;
+    border-radius: 0;
+  }
 }
 
 /* Sticky header */
@@ -474,8 +483,10 @@ a.reportlink {
 .modal-scroll {
   padding: 16px 18px 20px;
   overflow: auto;                 /* KEY: scrolls when content overflows */
-  overscroll-behavior: contain;   /* prevent scroll chaining */
+  overscroll-behavior: contain;
+  max-height: calc(min(90dvh,90vh) - 48px);   /* prevent scroll chaining */
 }
+
 .modal-scroll p { margin: 0 0 10px; line-height: 1.5; }
 
 /* Close button */
