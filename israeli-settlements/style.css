@@ -377,12 +377,14 @@ a.reportlink {
     box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
     border-top: 1px solid #ccc;
     padding: 10px 15px;
-    max-height: 40vh;
+    max-height: 55vh;
     overflow-y: auto;
     transition: transform 0.3s ease, max-height 0.3s ease;
     transform: translateY(calc(100% - 42px)); /* collapsed except for header */
     z-index: 100;
     overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: env(safe-area-inset-bottom, 0); /* safe for iOS */
   }
 
   .legend.open {
@@ -484,6 +486,12 @@ a.reportlink {
 }
 .close:hover { background: #fff; color: #000; border-color: #000; }
 .close:focus-visible { outline: 2px solid #165C7D; outline-offset: 2px; }
+
+.label-e1 { color: #000; }
+.label-bypass { color: #86a8b9; }
+.label-pal-road { color: #007367; }
+.label-settlement { color: rgba(163, 51, 57, 0.51); }
+.label-outpost { color: #a4343a; }
 
 /* Body scroll lock while modal open */
 .body-lock { overflow: hidden; }
