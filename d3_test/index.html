@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurdish Conflict Network Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        #container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        #network {
+            width: 100%;
+            height: 700px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+        
+        .legend {
+            margin-top: 20px;
+            padding: 20px;
+            background: #ffffff;
+            border: 2px solid #333;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .legend-line {
+            width: 50px;
+            height: 4px;
+            border-radius: 2px;
+        }
+        
+        .legend-node {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #333;
+        }
+        
+        .legend-section {
+            width: 100%;
+            border-top: 2px solid #ddd;
+            margin: 10px 0;
+        }
+        
+        .legend-title {
+            width: 100%;
+            text-align: center;
+            font-weight: 600;
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .node-label {
+            font-size: 12px;
+            font-weight: 600;
+            pointer-events: none;
+            text-anchor: middle;
+        }
+        
+        .node {
+            cursor: pointer;
+            stroke: #fff;
+            stroke-width: 2px;
+        }
+        
+        .node:hover {
+            stroke: #333;
+            stroke-width: 3px;
+        }
+        
+        .link {
+            stroke-opacity: 0.6;
+        }
+        
+        .link:hover {
+            stroke-opacity: 1;
+            stroke-width: 3px !important;
+        }
+        
+        .tooltip {
+            position: absolute;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            border-radius: 4px;
+            pointer-events: none;
+            font-size: 13px;
+            max-width: 300px;
+            z-index: 1000;
+        }
+        
+        .info-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .info-box h3 {
+            margin-top: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Network Analysis: Kurdish Conflict Actors</h1>
+        <div class="subtitle">Interactive visualization of alliances and conflicts in Iraq, Turkey, and Syria</div>
+        
+        <div id="network"></div>
+        
+        <div class="legend">
+            <div class="legend-title">RELATIONSHIP TYPES</div>
+            <div class="legend-item">
+                <div class="legend-line" style="background: #2ecc71;"></div>
+                <span><strong>Alliance/Support</strong></span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-line" style="background: #e74c3c;"></div>
+                <span><strong>Hostility/Opposition</strong></span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-line" style="background: #95a5a6; background-image: repeating-linear-gradient(90deg, #95a5a6, #95a5a6 5px, transparent 5px, transparent 10px);"></div>
+                <span><strong>Complex/Mixed/Tension</strong></span>
+            </div>
+            
+            <div class="legend-section"></div>
+            
+            <div class="legend-title">ACTOR TYPES</div>
+            <div class="legend-item">
+                <div class="legend-node" style="background: #3498db;"></div>
+                <span><strong>State Actor</strong></span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-node" style="background: #e67e22;"></div>
+                <span><strong>Kurdish Political Entity</strong></span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-node" style="background: #9b59b6;"></div>
+                <span><strong>Armed Group</strong></span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-node" style="background: #1abc9c;"></div>
+                <span><strong>Islamist Group</strong></span>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h3>Key Relationships:</h3>
+            <ul>
+                <li><strong>Turkey-KRG/KDP Alliance (2008-):</strong> Founded on shared hostility to PKK; economic integration in exchange for counter-PKK cooperation</li>
+                <li><strong>Turkey-PKK Conflict:</strong> Ongoing since 1980s; shifted to northern Iraq from 2019 onward</li>
+                <li><strong>US-YPG Partnership:</strong> Anti-ISIS coalition led to US backing of PKK's Syrian affiliate</li>
+                <li><strong>Turkey-PUK Tensions:</strong> Ankara accuses PUK of providing PKK political cover and support</li>
+                <li><strong>PKK-Iran-backed Groups:</strong> Tactical ties in Sinjar and border regions</li>
+                <li><strong>KDP-PKK Rivalry:</strong> KDP views PKK as threat to its rule in Kurdistan region</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Network data
+        const nodes = [
+            { id: 'turkey', label: 'Turkey', type: 'state', color: '#3498db' },
+            { id: 'iraq', label: 'Iraq (Baghdad)', type: 'state', color: '#3498db' },
+            { id: 'usa', label: 'United States', type: 'state', color: '#3498db' },
+            { id: 'iran', label: 'Iran', type: 'state', color: '#3498db' },
+            { id: 'krg', label: 'KRG/Kurdistan Region', type: 'kurdish', color: '#e67e22' },
+            { id: 'kdp', label: 'KDP', type: 'kurdish', color: '#e67e22' },
+            { id: 'puk', label: 'PUK', type: 'kurdish', color: '#e67e22' },
+            { id: 'pkk', label: 'PKK', type: 'armed', color: '#9b59b6' },
+            { id: 'ypg', label: 'YPG', type: 'armed', color: '#9b59b6' },
+            { id: 'sdf', label: 'SDF', type: 'armed', color: '#9b59b6' },
+            { id: 'isis', label: 'ISIS', type: 'islamist', color: '#1abc9c' },
+            { id: 'shiite', label: 'Iran-backed\nShiite Groups', type: 'armed', color: '#9b59b6' }
+        ];
+        
+        const links = [
+            // Alliances (green)
+            { source: 'turkey', target: 'krg', type: 'alliance', label: 'Economic integration & anti-PKK cooperation (2008+)', color: '#2ecc71' },
+            { source: 'turkey', target: 'kdp', type: 'alliance', label: 'Strategic partnership against PKK', color: '#2ecc71' },
+            { source: 'kdp', target: 'krg', type: 'alliance', label: 'Most powerful component of KRG', color: '#2ecc71' },
+            { source: 'puk', target: 'krg', type: 'alliance', label: 'Government partner of KDP', color: '#2ecc71' },
+            { source: 'usa', target: 'ypg', type: 'alliance', label: 'Anti-ISIS coalition support', color: '#2ecc71' },
+            { source: 'usa', target: 'sdf', type: 'alliance', label: 'Anti-ISIS coalition backing', color: '#2ecc71' },
+            { source: 'ypg', target: 'sdf', type: 'alliance', label: 'YPG is core component of SDF', color: '#2ecc71' },
+            { source: 'pkk', target: 'ypg', type: 'alliance', label: 'YPG is Syrian affiliate of PKK', color: '#2ecc71' },
+            { source: 'pkk', target: 'shiite', type: 'alliance', label: 'Tactical ties in Sinjar', color: '#2ecc71' },
+            { source: 'ypg', target: 'shiite', type: 'alliance', label: 'Tactical cooperation', color: '#2ecc71' },
+            { source: 'iran', target: 'shiite', type: 'alliance', label: 'Backing and support', color: '#2ecc71' },
+            
+            // Hostilities (red)
+            { source: 'turkey', target: 'pkk', type: 'conflict', label: 'Armed conflict since 1980s; intensified operations', color: '#e74c3c' },
+            { source: 'turkey', target: 'ypg', type: 'conflict', label: 'Views as long-term threat; frequent strikes', color: '#e74c3c' },
+            { source: 'turkey', target: 'sdf', type: 'conflict', label: 'Military operations against SDF infrastructure', color: '#e74c3c' },
+            { source: 'kdp', target: 'pkk', type: 'conflict', label: 'KDP views PKK as threat to its rule', color: '#e74c3c' },
+            { source: 'usa', target: 'isis', type: 'conflict', label: 'Anti-ISIS coalition', color: '#e74c3c' },
+            { source: 'ypg', target: 'isis', type: 'conflict', label: 'Fight against ISIS in Syria', color: '#e74c3c' },
+            { source: 'sdf', target: 'isis', type: 'conflict', label: 'Anti-ISIS operations', color: '#e74c3c' },
+            { source: 'iraq', target: 'isis', type: 'conflict', label: 'Fight against ISIS', color: '#e74c3c' },
+            { source: 'shiite', target: 'isis', type: 'conflict', label: 'Fought ISIS 2014+', color: '#e74c3c' },
+            
+            // Complex/Mixed relationships (gray)
+            { source: 'turkey', target: 'puk', type: 'tension', label: 'Ankara accuses PUK of supporting PKK; drone strikes', color: '#95a5a6' },
+            { source: 'puk', target: 'pkk', type: 'tension', label: 'Alleged political cover & support (PUK denies)', color: '#95a5a6' },
+            { source: 'puk', target: 'ypg', type: 'support', label: 'PUK acknowledged supporting YPG vs ISIS', color: '#95a5a6' },
+            { source: 'turkey', target: 'iraq', type: 'tension', label: 'Military presence in Iraq; cooperation then tensions', color: '#95a5a6' },
+            { source: 'turkey', target: 'shiite', type: 'tension', label: 'At times pitted against each other', color: '#95a5a6' },
+            { source: 'iraq', target: 'krg', type: 'tension', label: 'Federal arrangement; disputed territories', color: '#95a5a6' },
+            { source: 'usa', target: 'krg', type: 'support', label: 'Supported Kurdish safe zone (1991); institutionalization', color: '#95a5a6' }
+        ];
+        
+        // Set up SVG
+        const width = document.getElementById('network').clientWidth;
+        const height = 700;
+        
+        const svg = d3.select('#network')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height);
+        
+        // Add tooltip
+        const tooltip = d3.select('body')
+            .append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0);
+        
+        // Create force simulation
+        const simulation = d3.forceSimulation(nodes)
+            .force('link', d3.forceLink(links).id(d => d.id).distance(150))
+            .force('charge', d3.forceManyBody().strength(-800))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+            .force('collision', d3.forceCollide().radius(50));
+        
+        // Create links
+        const link = svg.append('g')
+            .selectAll('line')
+            .data(links)
+            .join('line')
+            .attr('class', 'link')
+            .attr('stroke', d => d.color)
+            .attr('stroke-width', d => d.type === 'alliance' ? 2.5 : d.type === 'conflict' ? 2.5 : 2)
+            .attr('stroke-dasharray', d => d.type === 'tension' ? '5,5' : '0')
+            .on('mouseover', function(event, d) {
+                tooltip.transition().duration(200).style('opacity', 1);
+                tooltip.html(`<strong>${d.label}</strong>`)
+                    .style('left', (event.pageX + 10) + 'px')
+                    .style('top', (event.pageY - 10) + 'px');
+            })
+            .on('mouseout', function() {
+                tooltip.transition().duration(200).style('opacity', 0);
+            });
+        
+        // Create nodes
+        const node = svg.append('g')
+            .selectAll('circle')
+            .data(nodes)
+            .join('circle')
+            .attr('class', 'node')
+            .attr('r', d => {
+                if (d.id === 'turkey' || d.id === 'usa' || d.id === 'pkk') return 22;
+                if (d.id === 'krg' || d.id === 'ypg' || d.id === 'isis') return 18;
+                return 16;
+            })
+            .attr('fill', d => d.color)
+            .on('mouseover', function(event, d) {
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .attr('r', function() { return +d3.select(this).attr('r') + 5; });
+                
+                tooltip.transition().duration(200).style('opacity', 1);
+                
+                let info = `<strong>${d.label}</strong><br>`;
+                if (d.type === 'state') info += 'Type: State Actor';
+                else if (d.type === 'kurdish') info += 'Type: Kurdish Political Entity';
+                else if (d.type === 'armed') info += 'Type: Armed Group';
+                else if (d.type === 'islamist') info += 'Type: Islamist Group';
+                
+                tooltip.html(info)
+                    .style('left', (event.pageX + 10) + 'px')
+                    .style('top', (event.pageY - 10) + 'px');
+            })
+            .on('mouseout', function(event, d) {
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .attr('r', function() { return +d3.select(this).attr('r') - 5; });
+                tooltip.transition().duration(200).style('opacity', 0);
+            })
+            .call(d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended));
+        
+        // Add labels
+        const labels = svg.append('g')
+            .selectAll('text')
+            .data(nodes)
+            .join('text')
+            .attr('class', 'node-label')
+            .attr('dy', d => {
+                if (d.label.includes('\n')) return -28;
+                return -25;
+            })
+            .style('font-size', d => {
+                if (d.id === 'turkey' || d.id === 'usa' || d.id === 'pkk') return '13px';
+                return '11px';
+            })
+            .each(function(d) {
+                const lines = d.label.split('\n');
+                const text = d3.select(this);
+                lines.forEach((line, i) => {
+                    text.append('tspan')
+                        .attr('x', 0)
+                        .attr('dy', i === 0 ? 0 : '1.1em')
+                        .text(line);
+                });
+            });
+        
+        // Update positions on tick
+        simulation.on('tick', () => {
+            link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+            
+            node
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+            
+            labels
+                .attr('x', d => d.x)
+                .attr('y', d => d.y);
+        });
+        
+        // Drag functions
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+        
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+        
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+    </script>
+</body>
+</html>
