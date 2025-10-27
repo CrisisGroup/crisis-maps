@@ -47,7 +47,7 @@
   <!-- CSS / JS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style_ar.css" />
   <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css" />
 
   <!-- Google Tag Manager -->
@@ -178,20 +178,31 @@
   <script>
     // --- Slider UI logic (single DOMContentLoaded) ---
     document.addEventListener('DOMContentLoaded', function () {
-      const range = document.getElementById('year-slider');
-      const selected = document.getElementById('selected-year');
+  const range = document.getElementById('year-slider');
+  const selected = document.getElementById('selected-year');
 
-      const updateSlider = () => {
-        selected.textContent = range.value;
-        const pct = ((range.value - range.min) / (range.max - range.min)) * 100;
-        range.style.setProperty('--thumb-percentage', pct + '%');
-      };
+  const updateSlider = () => {
+    selected.textContent = range.value;
 
-      range.addEventListener('input', updateSlider);
-      range.addEventListener('mouseenter', () => (range.style.animation = 'flicker 1.5s ease-in-out 3'));
-      range.addEventListener('mouseleave', () => (range.style.animation = 'none'));
-      updateSlider();
-    });
+    const htmlDir = document.documentElement.getAttribute('dir') || 'ltr';
+
+    const pctRaw =
+      ((range.value - range.min) / (range.max - range.min)) * 100;
+
+    const pct = (htmlDir.toLowerCase() === 'rtl')
+      ? (100 - pctRaw)
+      : pctRaw;
+
+    range.style.setProperty('--thumb-percentage', pct + '%');
+  };
+
+  range.addEventListener('input', updateSlider);
+  range.addEventListener('mouseenter', () => (range.style.animation = 'flicker 1.5s ease-in-out 3'));
+  range.addEventListener('mouseleave', () => (range.style.animation = 'none'));
+
+  updateSlider();
+});
+
 
     // Modal handlers
     (function () {

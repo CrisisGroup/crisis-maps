@@ -1,0 +1,609 @@
+/* =========================================================
+   1) BASE / LAYOUT
+   ========================================================= */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'franklin-gothic-urw', sans-serif;
+  overflow: hidden;
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* =========================================================
+   2) SLIDER & HEADER
+   ========================================================= */
+.slider-container {
+  position: absolute;
+  top: 3%;
+  left: 5%;
+  width: 20%;
+  z-index: 1;
+  text-align: left;
+  padding: 10px;
+}
+
+.slider-container .mapbox-zoom-to-focus {
+  display: inline-block;
+  margin-top: 25px;       /* space below the slider */
+  background-color: #000;
+  color: #fff;
+  border: 1.5px solid #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.slider-container .mapbox-zoom-to-focus:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+
+.slider-container h1 {
+  font-size: 34px;
+  margin-bottom: 5px;
+  color: #000;
+}
+
+h2 {
+  font-weight: 100;
+  font-size: 24px;
+  color: rgb(77, 77, 77);
+  text-align: left;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+#selected-year {
+  font-weight: bold;
+  font-size: 28px;
+  color: #000;
+}
+
+.slider-container label {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Slider input */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 97%;
+  height: 10px;
+  background: transparent;
+  outline: none;
+  opacity: 1;
+  transition: opacity .2s;
+}
+
+/* WebKit track & thumb */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 12px;
+  background: linear-gradient(to right,
+      #fff 0%,
+      #fff var(--thumb-percentage, 0%),
+      #d5d1cc var(--thumb-percentage, 0%));
+  border: 1px solid #000;
+  border-radius: 6px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+  transition: background .3s, border-color .3s;
+  animation: flicker 1.5s ease-in-out 3;
+  transform: translateZ(0);
+}
+
+/* Firefox track & thumb */
+input[type="range"]::-moz-range-track {
+  height: 12px;
+  background: linear-gradient(to right,
+      #fff 0%,
+      #fff var(--thumb-percentage, 0%),
+      #d5d1cc var(--thumb-percentage, 0%));
+  border: 1px solid #000;
+  border-radius: 6px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background .3s, border-color .3s;
+  animation: flicker 1.5s ease-in-out 3;
+}
+
+@keyframes flicker {
+
+  0%,
+  100% {
+    background-color: #fff;
+    border-color: #000;
+  }
+
+  50% {
+    background-color: #473729;
+    border-color: #473729;
+  }
+}
+
+input[type="range"]::-webkit-slider-thumb:hover,
+input[type="range"]::-moz-range-thumb:hover {
+  background: #473729;
+  border-color: #fff;
+  box-shadow: 0 0 2px 2px rgba(255, 255, 255, 1);
+}
+
+/* Mobile slider/layout tweaks */
+@media (max-width: 1024px) {
+  .slider-container {
+    left: 2.5%;
+    right: 2.5%;
+    width: 50%;
+    top: 0;
+  }
+
+  .slider-container h1 {
+    font-size: 26px;
+    margin: 0;
+  }
+
+  .mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .slider-container {
+    left: 2.5%;
+    right: 2.5%;
+    width: 95%;
+  }
+}
+
+/* =========================================================
+   3) LEGEND
+   ========================================================= */
+.legend {
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  padding: 10px 15px;
+  font-family: 'franklin-gothic-urw', sans-serif;
+}
+
+.legend-header h2 {
+  font-size: 20px;
+  margin: 0 0 8px 0;
+  color: #333;
+  text-align: left;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.legend p {
+  margin: 0;
+  font-size: 22px;
+}
+
+.legend-list {
+  columns: 2; 
+  column-gap: 0;
+}
+
+.legend-list p {
+  display: flex;
+  align-items: baseline;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+
+.legend i,
+.lg {
+  flex-shrink: 0;
+  margin-right: 10px;
+  /* slightly tighter spacing */
+}
+
+.legend-list .break-after {
+  break-after: column;
+  -webkit-column-break-after: column;
+}
+
+#morebox {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#more-info-text {
+  display: inline-block;
+  margin: 4px 10px 0 10px;
+  color: #717c7d;
+}
+
+a.reportlink {
+  color: #165C7D;
+}
+
+/* Legend icons */
+/* Base icon box: no vertical hacks */
+.lg {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0;
+  /* remove margin-top tweaks */
+}
+
+.lg {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  margin-top: 7px;
+}
+
+/* Area fills (squares) */
+.lg-areas-ab {
+  border-radius: 0;
+  background: #b8b3ad;
+  border: .5px solid #ccc;
+}
+
+.lg-area-c {
+  border-radius: 0;
+  background: rgba(163, 51, 57, 0.04);
+  border: .5px solid #ccc;
+}
+
+.lg-plan-e1 {
+  border-radius: 0;
+  background: rgb(208, 204, 203);
+  border: 1px solid #000;
+}
+
+/* Points */
+.lg-settlements {
+  background: rgba(163, 51, 57, .51);
+  border: .5px solid #fff;
+}
+
+.lg-outposts {
+  background: #a4343a;
+  border: .5px solid #fff;
+}
+
+/* Lines */
+.lg-line {
+  align-self: center;
+  /* overrides baseline for line items only */
+  width: 28px;
+  height: 1px;
+  /* lets border-top sit exactly on the row’s vertical center */
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  /* reset: each variant sets its own border-top */
+}
+
+.lg-road-israeli {
+  border-top: 4px solid #86a8b9;
+  height: 4px;
+}
+
+.lg-bypass-pal {
+  border-top: 3px dashed #007367;
+  border-bottom: 3px dashed #007367;
+  height: 4px;
+  margin-bottom: 2px;
+}
+
+.lg-fence {
+  border-top: 2px dashed rgb(22, 22, 22);
+  height: 4px;
+}
+
+.lg-barriers {
+  border-top: 1px solid rgb(148, 148, 148);
+  border-bottom: 1px solid rgb(148, 148, 148);
+  height: 5px;
+  background: #ccc;
+  margin-bottom: 4px;
+}
+
+/* Info icon */
+.info-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  background: none;
+  color: #717c7d;
+  border: 1px solid #717c7d;
+  text-align: center;
+  line-height: 18px;
+  border-radius: 50%;
+  font-style: normal;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color .3s ease-in-out, box-shadow .3s ease-in-out, transform .3s ease-in-out;
+  cursor: pointer;
+}
+
+.info-icon:hover {
+  background-color: #484f4f;
+  color: #fff;
+}
+
+/* Base mobile layout */
+@media (max-width: 768px) {
+  .legend {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+    border-top: 1px solid #ccc;
+    padding: 10px 15px;
+    max-height: 55vh;
+    overflow-y: auto;
+    transition: transform 0.3s ease, max-height 0.3s ease;
+    transform: translateY(calc(100% - 42px)); /* collapsed except for header */
+    z-index: 100;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: env(safe-area-inset-bottom, 0); /* safe for iOS */
+  }
+
+  @media (max-width: 768px) {
+  .legend p {
+    font-size: 16px;
+  }
+}
+  
+
+  .legend.open {
+    transform: translateY(0); /* fully visible */
+  }
+
+  .legend-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding-bottom: 4px;
+  }
+
+  .legend-header::after {
+    content: '▲';
+    font-size: 12px;
+    transition: transform 0.3s ease;
+  }
+  .legend:not(.open) .legend-header::after {
+    content: '▼';
+  }
+}
+
+
+/* =========================================================
+   4) MODAL
+   ========================================================= */
+/* Overlay */
+.modal {
+  position: fixed;            /* key: fixed to the viewport */
+  inset: 0;
+  z-index: 10000;             /* higher than legend, controls, etc. */
+  background: rgba(0,0,0,0.5);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear .2s, opacity .2s ease;
+}
+.modal.show {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity .2s ease;
+}
+
+/* Dialog */
+.modal-content {
+  box-sizing: border-box;
+  width: min(820px, 92vw);
+  max-height: min(90dvh, 90vh);
+  margin: 6vh auto;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+  display: flex;
+  flex-direction: column;
+  outline: none;
+}
+
+@media (max-width: 640px) {
+  .modal-content {
+    width: 100vw;
+    max-height: 100dvh;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+/* Sticky header */
+.modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: .02em;
+}
+
+/* Scroll area */
+.modal-scroll {
+  padding: 16px 18px 20px;
+  overflow: auto;                 /* KEY: scrolls when content overflows */
+  overscroll-behavior: contain;
+  max-height: calc(min(90dvh,90vh) - 48px);   /* prevent scroll chaining */
+}
+
+.modal-scroll p { margin: 0 0 10px; line-height: 1.5; }
+
+/* Close button */
+.close {
+  border: 1px solid #ccc;
+  background: #000;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  cursor: pointer;
+}
+.close:hover { background: #fff; color: #000; border-color: #000; }
+.close:focus-visible { outline: 2px solid #165C7D; outline-offset: 2px; }
+
+.label-e1 { color: #000; }
+.label-bypass { color: #86a8b9; }
+.label-pal-road { color: #007367; }
+.label-settlement { color: rgba(163, 51, 57, 0.51); }
+.label-outpost { color: #a4343a; }
+
+/* Body scroll lock while modal open */
+.body-lock { overflow: hidden; }
+
+/* Mobile: full-height sheet */
+@media (max-width: 640px) {
+  .modal-content {
+    width: 100vw;
+    max-height: 100vh;
+    margin: 0;
+    border-radius: 0;
+  }
+  .modal-header { padding: 14px 16px; }
+  .modal-scroll { padding: 12px 16px 20px; }
+}
+
+.mapboxgl-ctrl-home button {
+  font-size: 16px;
+  line-height: 1;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+}
+.mapboxgl-ctrl-home button:hover {
+  background: #f0f0f0;
+}
+
+.hold-ctrl-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  padding: 6px 8px;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.85);
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.2;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .15s ease, transform .15s ease;
+  z-index: 5; /* above map controls */
+}
+.hold-ctrl-hint.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === RTL overrides for Arabic version === */
+html[dir="rtl"] .slider-container {
+  left: auto;
+  right: 5%;
+  text-align: right;
+}
+
+html[dir="rtl"] h2,
+html[dir="rtl"] .slider-container h1,
+html[dir="rtl"] .slider-container label {
+  text-align: right;
+}
+
+html[dir="rtl"] #year-slider {
+  direction: rtl;
+}
+
+/* Flip the "progress fill" direction so it feels RTL */
+html[dir="rtl"] input[type="range"]::-webkit-slider-runnable-track,
+html[dir="rtl"] input[type="range"]::-moz-range-track {
+  background: linear-gradient(to left,
+      #fff 0%,
+      #fff var(--thumb-percentage, 0%),
+      #d5d1cc var(--thumb-percentage, 0%));
+}
+
+/* Legend tweaks */
+html[dir="rtl"] .legend-header h2 {
+  text-align: right;
+}
+
+html[dir="rtl"] .legend i,
+html[dir="rtl"] .lg {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+/* Modal text alignment */
+html[dir="rtl"] .modal-header h3,
+html[dir="rtl"] .modal-scroll p {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Optional: keep close button visually on the top-right in RTL */
+html[dir="rtl"] .modal-header {
+  flex-direction: row-reverse;
+}
