@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Robots: index this as the canonical page -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+  <!-- Canonical & icons -->
+  <link rel="canonical" href="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
+  <link rel="icon" type="image/x-icon"
+    href="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/favicon.ico" />
+
+  <!-- Primary SEO -->
+  <title>[مرئي] خريطة توسّع المستوطنات في الضفة الغربية المحتلة (تحديث 2025) | مجموعة الأزمات الدولية</title>
+  <meta name="description"
+    content="تحديث 2025 لشرحنا المرئي حول توسّع المستوطنات الإسرائيلية في الضفة الغربية وتأثيرها الجيوسياسي." />
+  <meta name="author" content="مجموعة الأزمات الدولية" />
+  <meta property="article:published_time" content="2025-10-08T07:00:00+00:00" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="ar_AR" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="مجموعة الأزمات الدولية" />
+  <meta property="og:title"
+    content="[مرئي] خريطة توسّع المستوطنات في الضفة الغربية المحتلة (تحديث 2025) | مجموعة الأزمات الدولية" />
+  <meta property="og:description"
+    content="استكشف نسخة 2025 من خريطتنا التفاعلية حول توسّع المستوطنات الإسرائيلية في الضفة الغربية المحتلة." />
+  <meta property="og:url" content="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
+  <meta property="og:image"
+    content="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/israel_social_2025.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@crisisgroup" />
+  <meta name="twitter:title"
+    content="[مرئي] خريطة توسّع المستوطنات في الضفة الغربية المحتلة (تحديث 2025) | مجموعة الأزمات الدولية" />
+  <meta name="twitter:description"
+    content="نسخة 2025 من شرحنا التفاعلي حول توسّع المستوطنات الإسرائيلية في الضفة الغربية المحتلة." />
+  <meta name="twitter:image"
+    content="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/israel_social_2025.jpg" />
+
+  <!-- CSS / JS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css" />
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-TD5NKJJ');
+  </script>
+</head>
+
+
+<body>
+  <!-- Title + Year Slider -->
+  <div class="slider-container">
+    <h1>خريطة توسّع المستوطنات في الضفة الغربية المحتلة</h1>
+    <label for="year-slider">
+      <h2>حسب السنة &nbsp;&nbsp;<span id="selected-year">1967</span></h2>
+    </label>
+    <input id="year-slider" type="range" min="1967" max="2025" step="1" value="1967" />
+  </div>
+
+  <!-- Legend -->
+  <div class="legend" id="legend">
+    <div class="legend-header" id="legendToggle">
+      <h2>مفتاح الخريطة</h2>
+    </div>
+
+    <div class="legend-list">
+      <p><i class="lg lg-settlements"></i>المستوطنات</p>
+      <p><i class="lg lg-outposts"></i>البؤر الاستيطانية</p>
+      <p><i class="lg lg-areas-ab"></i>المنطقة أ والمنطقة ب</p>
+      <p><i class="lg lg-area-c"></i>المنطقة ج</p>
+
+      <!-- Force this to end column 1 -->
+      <p class="break-after"><i class="lg lg-plan-e1"></i>مخطط منطقة E1/إي ١</p>
+
+      <p><i class="lg lg-line lg-road-israeli"></i>طرق مُخطط لها للإسرائيليين فقط</p>
+      <p><i class="lg lg-line lg-bypass-pal"></i>طريق التفافي مُخطط له للفلسطينيين</p>
+      <p><i class="lg lg-line lg-fence"></i>سياج مُخطط له</p>
+      <p><i class="lg lg-line lg-barriers"></i>سياج الحاجز الحالي</p>
+
+      <div id="morebox">
+        <a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a>
+        <span id="more-info-text">معلومات إضافية</span>
+      </div>
+    </div>
+
+    <hr />
+    <p>
+      اضغط هنا لقراءة التقرير الكامل حول ضم اسرائيل للضفة الغربية هنا.
+      <a class="reportlink"
+        href="https://www.crisisgroup.org/middle-east-north-africa/israelpalestine/252-sovereignty-all-name-israels-quickening-annexation-west-bank"
+        target="_blank">اضغط هنا</a>.
+    </p>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-content" tabindex="-1">
+        <div class="modal-header">
+          <h3 id="modal-title">حول هذه الخريطة</h3>
+          <button type="button" class="close" aria-label="إغلاق النافذة">&times;</button>
+        </div>
+
+        <div class="modal-scroll">
+          <p>
+            <strong class="label-e1">الخطة E1/إي ١</strong> هي مشروع استيطاني في منطقة شرق القدس داخل الضفة
+            الغربية. تمت الموافقة على بنائه في أغسطس/آب، بعد تجميده لعقود بسبب اعتراضات أمريكية.
+          </p>
+
+          <p>
+            <strong class="label-bypass">الطرق الالتفافية الاسرائيلية</strong>
+            هي الطرق التي يُسمح فقط للمركبات المرخصة إسرائيليًا (بما في ذلك المركبات التابعة
+            للفلسطينيين الحاصلين على تصاريح إقامة في القدس) باستخدامها.
+          </p>
+
+          <p>
+            <strong>الطرق الالتفافية المخطط لها، أو ما يُعرف بـ"طرق نسيج الحياة"</strong>، مخصصة حصريًا
+            لفلسطينيي الضفة الغربية. في 29 مارس/آذار، أقرّ مجلس الوزراء الإسرائيلي
+            <strong class="label-pal-road">طريقًا التفافيًا</strong>
+            مخصصًا حصريًا لفلسطينيي الضفة الغربية، وذلك للسماح بربط سلس لشبكة الطرق الإسرائيلية في الأراضي المحتلة،
+            وتمهيد الطريق لمستوطنة E1. سيؤدي هذا الطريق، بالإضافة إلى امتداد المستوطنات الإسرائيلية من الشرق
+            إلى الغرب، إلى شطر الضفة الغربية إلى قسمين، مما يُسهّل على إسرائيل منع الفلسطينيين من التنقل بين
+            الشمال والجنوب، بالإضافة إلى عزل كلا الجزأين من الضفة الغربية عن السكان الفلسطينيين في القدس الشرقية.
+          </p>
+
+          <p>
+            <strong class="label-settlement">المستوطنات</strong>
+            في الضفة الغربية التي أنشأتها الحكومة رسميًا (باستثناء القدس الشرقية).
+          </p>
+
+          <p>
+            <strong class="label-outpost">البؤر الاستيطانية</strong>
+            هي مستوطنات جديدة أُنشئت على نطاق واسع من قِبل مستوطنين متطرفين منذ تسعينيات القرن الماضي دون موافقة
+            حكومية، وتُعتبر غير قانونية حتى بموجب القانون الإسرائيلي.
+          </p>
+
+          <p><strong>المنطقة أ (18%)</strong>: تديرها السلطة الفلسطينية</p>
+          <p><strong>المنطقة ب (22%)</strong>: تديرها السلطة الفلسطينية، وتتقاسم السيطرة الأمنية مع إسرائيل.</p>
+          <p><strong>المنطقة ج (60%)</strong>: تديرها إسرائيل.</p>
+
+          <p>
+            <strong>المصدر:</strong>
+            <a class="reportlink" href="https://docs.mapbox.com/data/tilesets/reference/mapbox-streets-v8/"
+              target="_blank" rel="noopener">
+              Mapbox Streets v8
+            </a>,
+            آب / أغسطس 2025 &nbsp;/&nbsp; مجموعة الأزمات الدولية
+          </p>
+
+          <p>
+            هذه الخريطة مُحدّثة من قاعدة بيانات سابقة أنشأتها مجموعة الأزمات الدولية عام 2024.
+            <a class="reportlink" href="2024.html" target="_blank">يُمكنك الاطلاع على الأرشيف هنا.</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Map -->
+  <div id="map"></div>
+
+  <!-- App JS -->
+  <script>
+    // --- Slider UI logic (single DOMContentLoaded) ---
+    document.addEventListener('DOMContentLoaded', function () {
+      const range = document.getElementById('year-slider');
+      const selected = document.getElementById('selected-year');
+
+      const updateSlider = () => {
+        selected.textContent = range.value;
+        const pct = ((range.value - range.min) / (range.max - range.min)) * 100;
+        range.style.setProperty('--thumb-percentage', pct + '%');
+      };
+
+      range.addEventListener('input', updateSlider);
+      range.addEventListener('mouseenter', () => (range.style.animation = 'flicker 1.5s ease-in-out 3'));
+      range.addEventListener('mouseleave', () => (range.style.animation = 'none'));
+      updateSlider();
+    });
+
+    // Modal handlers
+    (function () {
+      const infoLink = document.getElementById('infoLink');
+      const modal = document.getElementById('myModal');
+      const dialog = modal.querySelector('.modal-content');
+      const closeBtn = modal.querySelector('.close');
+      let lastFocused;
+
+      function openModal(e) {
+        if (e) e.preventDefault();
+        lastFocused = document.activeElement;
+        document.body.classList.add('body-lock');
+        modal.classList.add('show');
+        requestAnimationFrame(() => dialog.focus());
+      }
+      function closeModal() {
+        modal.classList.remove('show');
+        document.body.classList.remove('body-lock');
+        if (lastFocused && lastFocused.focus) lastFocused.focus();
+      }
+
+      infoLink.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      window.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
+    })();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const legend = document.querySelector('.legend');
+      const header = legend.querySelector('.legend-header');
+
+      header.addEventListener('click', () => {
+        legend.classList.toggle('open');
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('myModal');
+      if (modal && modal.parentElement !== document.body) {
+        document.body.appendChild(modal); // portal to body
+      }
+    });
+
+
+    // Map
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/daltonwb/cmgfd8qwr00b801sbghmcgl70',
+      center: [35.030781, 31.891362],
+      zoom: 8,
+      maxZoom: 14,
+      minZoom: 7.5,
+      maxBounds: [[33.40434, 30.92008], [37.29292, 32.89675]],
+      attributionControl: false
+    });
+
+    // Disable scroll-zoom by default to avoid scroll jacking
+    map.scrollZoom.disable();
+
+    // Optional: a small hint overlay
+    const hint = document.createElement('div');
+    hint.className = 'hold-ctrl-hint';
+    hint.textContent = 'اضغط مع الاستمرار على Ctrl (أو ⌘ على ماك) للتكبير';
+    document.getElementById('map').appendChild(hint);
+
+    let enableTimeout;
+
+    // Listen to wheel with passive:false so we can preventDefault when zooming
+    document.getElementById('map').addEventListener('wheel', (evt) => {
+      const ctrl = evt.ctrlKey || evt.metaKey; // Ctrl on Windows/Linux, ⌘ on macOS
+
+      if (ctrl) {
+        // Use the wheel to zoom the map; prevent page scroll while zooming
+        evt.preventDefault();
+        if (!map.scrollZoom.isEnabled()) map.scrollZoom.enable();
+
+        // Hide the hint while user is actively using the modifier
+        hint.classList.remove('show');
+
+        // Re-disable shortly after the gesture stops
+        clearTimeout(enableTimeout);
+        enableTimeout = setTimeout(() => {
+          map.scrollZoom.disable();
+        }, 300); // tweak feel (200–500ms works well)
+      } else {
+        // Not holding Ctrl/⌘ → let the page scroll; show hint briefly
+        map.scrollZoom.disable(); // make sure it stays off
+        // Show the hint if the cursor is over the map
+        hint.classList.add('show');
+        // Auto-hide after a moment so it doesn't linger
+        clearTimeout(enableTimeout);
+        enableTimeout = setTimeout(() => hint.classList.remove('show'), 1200);
+      }
+    }, { passive: false });
+
+
+    const initialView = {};
+
+    map.once('load', () => {
+      initialView.center = map.getCenter().toArray();    // [lng, lat]
+      initialView.zoom = map.getZoom();
+      initialView.bearing = map.getBearing();
+      initialView.pitch = map.getPitch();
+
+      // If you ever call map.setPadding(...) elsewhere, also capture:
+      if (typeof map.getPadding === 'function') {
+        initialView.padding = map.getPadding(); // {top,right,bottom,left}
+      }
+    });
+
+
+    class HomeControl {
+      onAdd(map) {
+        this._map = map;
+        const container = document.createElement('div');
+        container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+
+        const btn = document.createElement('button');
+        btn.className = 'mapboxgl-ctrl-icon';
+        btn.type = 'button';
+        btn.title = 'إعادة ضبط العرض';
+        btn.innerHTML = '↩️';
+        container.appendChild(btn);
+
+        btn.addEventListener('click', () => {
+          // Fallback to your desired defaults if initialView isn't populated yet
+          const target = Object.keys(initialView).length
+            ? initialView
+            : { center: [35.030781, 31.891362], zoom: 8, bearing: 0, pitch: 0 };
+
+          map.easeTo({
+            ...target,
+            // Ensure padding resets if you were using fitBounds/camera padding earlier
+            padding: target.padding || { top: 0, right: 0, bottom: 0, left: 0 },
+            duration: 800,
+            essential: true
+          });
+        });
+
+        return container;
+      }
+      onRemove() { this._map = undefined; }
+    }
+
+    // Add to the map alongside your nav control
+    map.addControl(new HomeControl(), 'top-right');
+    map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.FullscreenControl());
+    // === Responsive Mapbox Attribution (safe, no duplicates) ===
+    let attributionCtrl = null;
+    let currentCompact = null;
+
+    function installAttribution(compact) {
+      // Remove the existing control before adding a new one
+      if (attributionCtrl) map.removeControl(attributionCtrl);
+
+      attributionCtrl = new mapboxgl.AttributionControl({
+        compact,
+        customAttribution:
+          'International Crisis Group | الخريطة: <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> &amp; Claire Boccon-Gibod | البيانات: <a href="https://peacenow.org.il/en/settlements-watch/settlements-data/population" target="_blank">PeaceNow</a> ، <a href="https://data.humdata.org/dataset/geoboundaries-admin-boundaries-for-state-of-palestine" target="_blank">HDX</a>'
+      });
+
+      map.addControl(attributionCtrl);
+      currentCompact = compact;
+    }
+
+    // Initial install — check current map container width
+    const container = map.getContainer();
+    const compact = container.clientWidth <= 768;
+    installAttribution(compact);
+
+    // Watch for container resizes (no duplication)
+    const ro = new ResizeObserver(entries => {
+      const w = entries[0].contentRect.width;
+      const shouldCompact = w <= 768;
+      if (shouldCompact !== currentCompact) {
+        installAttribution(shouldCompact);
+      }
+    });
+    ro.observe(container);
+
+
+    map.on('load', () => {
+      // Zoom-to-focus button
+      const zoomBtn = document.createElement('button');
+      zoomBtn.textContent = 'اضغط لتكبير تخطيط منطقة E1/إي ١';
+      zoomBtn.className = 'mapbox-zoom-to-focus';
+      document.querySelector('.slider-container').appendChild(zoomBtn);
+
+      // Updated bounding box
+      const focusBbox = [
+        [35.19381, 31.73313], // SW corner
+        [35.37757, 31.84145]  // NE corner
+      ];
+
+      zoomBtn.addEventListener('click', () => {
+        const cam = map.cameraForBounds(focusBbox, {
+          padding: { top: 10, right: 10, bottom: 10, left: 10 },
+          maxZoom: 12.5
+        });
+        map.easeTo({
+          ...cam,
+          bearing: -24,
+          pitch: 37,
+          duration: 1200,
+          essential: true
+        });
+      });
+
+
+      // Data source + layers
+      map.addSource('settlements', { type: 'vector', url: 'mapbox://daltonwb.afyqoeoq' });
+      const layerName = 'IL_PA_Settlements_-_10_2025_P-cmydfu';
+      const initialYear = 1967;
+
+      map.addLayer({
+        id: 'settlements-layer-settlement',
+        type: 'circle',
+        source: 'settlements',
+        'source-layer': layerName,
+        filter: ['all', ['<=', ['to-number', ['get', 'year']], initialYear], ['==', ['get', 'type'], 'Settlement']],
+        paint: { 'circle-color': 'rgba(163, 51, 57, 0.51)', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 0.5 }
+      });
+
+      map.addLayer({
+        id: 'settlements-layer-outpost',
+        type: 'circle',
+        source: 'settlements',
+        'source-layer': layerName,
+        filter: ['all', ['<=', ['to-number', ['get', 'year']], initialYear], ['==', ['get', 'type'], 'Outpost']],
+        paint: { 'circle-color': '#a4343a', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 0.5 }
+      });
+
+      // Slider → filters
+      const slider = document.getElementById('year-slider');
+      slider.addEventListener('input', (e) => {
+        const year = parseInt(e.target.value, 10);
+        const yearFilter = ['<=', ['to-number', ['get', 'year']], year];
+        map.setFilter('settlements-layer-settlement', ['all', yearFilter, ['==', ['get', 'type'], 'Settlement']]);
+        map.setFilter('settlements-layer-outpost', ['all', yearFilter, ['==', ['get', 'type'], 'Outpost']]);
+      });
+    });
+  </script>
+</body>
+
+</html>
