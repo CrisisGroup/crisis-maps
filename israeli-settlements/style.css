@@ -537,6 +537,15 @@ a.reportlink {
   background: #f0f0f0;
 }
 
+.arabic-link-ctrl button {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 3px 5px;
+  min-width: 32px; /* makes it not tiny */
+  font-family: 'franklin-gothic-urw', sans-serif;
+}
+
 .hold-ctrl-hint {
   position: absolute;
   bottom: 12px;

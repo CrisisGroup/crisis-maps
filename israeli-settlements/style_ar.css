@@ -559,6 +559,18 @@ a.reportlink {
   transform: translateY(0);
 }
 
+.english-link-ctrl button {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 3px 5px;
+  min-width: 32px; /* makes it not tiny */
+}
+
+html[dir="rtl"] .english-link-ctrl button {
+  font-family: 'franklin-gothic-urw', sans-serif;
+}
+
 /* === RTL overrides for Arabic version === */
 html[dir="rtl"] .slider-container {
   left: auto;

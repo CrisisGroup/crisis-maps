@@ -355,10 +355,45 @@
       onRemove() { this._map = undefined; }
     }
 
+    class EnglishLinkControl {
+  onAdd(map) {
+    this._map = map;
+
+    // Create a wrapper div that mimics Mapbox control styling
+    const container = document.createElement('div');
+    container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group english-link-ctrl';
+
+    // Create the actual button
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'mapboxgl-ctrl-icon';
+    btn.title = 'View English version';
+    btn.setAttribute('aria-label', 'View English version');
+
+    // Text label for the button
+    btn.textContent = 'EN';
+
+    // Clicking goes to English version (new tab or same tab — pick one)
+    btn.addEventListener('click', () => {
+      window.location.href = 'index.html'; // <-- change to your English URL
+      // or:
+      // window.open('index.html', '_blank');
+    });
+
+    container.appendChild(btn);
+    return container;
+  }
+
+  onRemove() {
+    this._map = undefined;
+  }
+}
+
     // Add to the map alongside your nav control
     map.addControl(new HomeControl(), 'top-right');
     map.addControl(new mapboxgl.NavigationControl());
     map.addControl(new mapboxgl.FullscreenControl());
+    map.addControl(new EnglishLinkControl(), 'top-right');
     // === Responsive Mapbox Attribution (safe, no duplicates) ===
     let attributionCtrl = null;
     let currentCompact = null;
