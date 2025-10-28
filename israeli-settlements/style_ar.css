@@ -246,9 +246,9 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 #more-info-text {
-  display: inline-block;
-  margin: 4px 10px 0 10px;
-  color: #717c7d;
+    display: inline-block;
+    margin: 4px 10px 4px 10px;
+    color: #717c7d;
 }
 
 a.reportlink {

@@ -258,7 +258,7 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/daltonwb/cmhak8rx8006e01sgg0lk11np',
+      style: 'mapbox://styles/daltonwb/cmhamy3mc000701qq2cvja1ii',
       center: [35.030781, 31.891362],
       zoom: 8,
       maxZoom: 14,
@@ -373,7 +373,7 @@
           'International Crisis Group | الخريطة: <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> &amp; Claire Boccon-Gibod | البيانات: <a href="https://peacenow.org.il/en/settlements-watch/settlements-data/population" target="_blank">PeaceNow</a> ، <a href="https://data.humdata.org/dataset/geoboundaries-admin-boundaries-for-state-of-palestine" target="_blank">HDX</a>'
       });
 
-      map.addControl(attributionCtrl);
+      map.addControl(attributionCtrl, 'bottom-right');
       currentCompact = compact;
     }
 
