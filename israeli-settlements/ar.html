@@ -247,12 +247,18 @@
       }
     });
 
+    mapboxgl.setRTLTextPlugin(
+  'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+  null,
+  true
+);
+
 
     // Map
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/daltonwb/cm0phb4u800lf01o3gg4oc2ph',
+      style: 'mapbox://styles/daltonwb/cmhak8rx8006e01sgg0lk11np',
       center: [35.030781, 31.891362],
       zoom: 8,
       maxZoom: 14,
