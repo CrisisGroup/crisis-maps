@@ -66,10 +66,6 @@
   <!-- Title + Year Slider -->
   <div class="slider-container">
     <h1>Japan’s Maritime Footprint</h1>
-<!--     <label for="year-slider">
-      <h2>BY YEAR &nbsp;&nbsp;<span id="selected-year">1967</span></h2>
-    </label>
-    <input id="year-slider" type="range" min="1967" max="2025" step="1" value="1967" /> -->
   </div>
 
   <!-- Legend -->
@@ -79,18 +75,17 @@
     </div>
 
     <div class="legend-list">
-      <p><i class="lg lg-settlements"></i>Settlements</p>
-      <p><i class="lg lg-outposts"></i>Outposts</p>
-      <p><i class="lg lg-areas-ab"></i>Areas A and B</p>
-      <p><i class="lg lg-area-c"></i>Area C</p>
+      <p><i class="lg lg-settlements"></i>Islands</p>
+      <p><i class="lg lg-outposts"></i>Cities</p>
+      <p><i class="lg lg-areas-ab"></i>Bases</p>
 
-      <!-- Force this to end column 1 -->
+      <!--  Force this to end column 1 
       <p class="break-after"><i class="lg lg-plan-e1"></i>Plan E1</p>
 
       <p><i class="lg lg-line lg-road-israeli"></i>Planned Israeli-only roads</p>
       <p><i class="lg lg-line lg-bypass-pal"></i>Planned bypass road for Palestinians</p>
       <p><i class="lg lg-line lg-fence"></i>Planned fence</p>
-      <p><i class="lg lg-line lg-barriers"></i>Current barrier fence</p>
+      <p><i class="lg lg-line lg-barriers"></i>Current barrier fence</p> -->
 
       <div id="morebox">
         <a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a>
@@ -175,48 +170,33 @@
 
   <!-- App JS -->
   <script>
-    // --- Slider UI logic (single DOMContentLoaded) ---
-    document.addEventListener('DOMContentLoaded', function () {
-      const range = document.getElementById('year-slider');
-      const selected = document.getElementById('selected-year');
-
-      const updateSlider = () => {
-        selected.textContent = range.value;
-        const pct = ((range.value - range.min) / (range.max - range.min)) * 100;
-        range.style.setProperty('--thumb-percentage', pct + '%');
-      };
-
-      range.addEventListener('input', updateSlider);
-      range.addEventListener('mouseenter', () => (range.style.animation = 'flicker 1.5s ease-in-out 3'));
-      range.addEventListener('mouseleave', () => (range.style.animation = 'none'));
-      updateSlider();
-    });
 
     // Modal handlers
     (function () {
-  const infoLink = document.getElementById('infoLink');
-  const modal = document.getElementById('myModal');
-  const dialog = modal.querySelector('.modal-content');
-  const closeBtn = modal.querySelector('.close');
-  let lastFocused;
+      const infoLink = document.getElementById('infoLink');
+      const modal = document.getElementById('myModal');
+      const dialog = modal.querySelector('.modal-content');
+      const closeBtn = modal.querySelector('.close');
+      let lastFocused;
 
-  function openModal(e){ if(e) e.preventDefault();
-    lastFocused = document.activeElement;
-    document.body.classList.add('body-lock');
-    modal.classList.add('show');
-    requestAnimationFrame(()=> dialog.focus());
-  }
-  function closeModal(){
-    modal.classList.remove('show');
-    document.body.classList.remove('body-lock');
-    if (lastFocused && lastFocused.focus) lastFocused.focus();
-  }
+      function openModal(e) {
+        if (e) e.preventDefault();
+        lastFocused = document.activeElement;
+        document.body.classList.add('body-lock');
+        modal.classList.add('show');
+        requestAnimationFrame(() => dialog.focus());
+      }
+      function closeModal() {
+        modal.classList.remove('show');
+        document.body.classList.remove('body-lock');
+        if (lastFocused && lastFocused.focus) lastFocused.focus();
+      }
 
-  infoLink.addEventListener('click', openModal);
-  closeBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-  window.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
-})();
+      infoLink.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      window.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
+    })();
 
     document.addEventListener('DOMContentLoaded', () => {
       const legend = document.querySelector('.legend');
@@ -239,7 +219,7 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/daltonwb/cmhc6fm9z005101qua95zgjsn',
+      style: 'mapbox://styles/daltonwb/cmhlk1zwz001701qs5yzu76gv',
       center: [130.63703, 30.27664],
       zoom: 4,
       maxZoom: 10,
@@ -320,7 +300,7 @@
           // Fallback to your desired defaults if initialView isn't populated yet
           const target = Object.keys(initialView).length
             ? initialView
-            : { center: [35.030781, 31.891362], zoom: 8, bearing: 0, pitch: 0 };
+            : { center: [130.63703, 30.27664], zoom: 4, bearing: 0, pitch: 0 };
 
           map.easeTo({
             ...target,
@@ -337,38 +317,38 @@
     }
 
     class ArabicLinkControl {
-  onAdd(map) {
-    this._map = map;
+      onAdd(map) {
+        this._map = map;
 
-    // Create a wrapper div that mimics Mapbox control styling
-    const container = document.createElement('div');
-    container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group arabic-link-ctrl';
+        // Create a wrapper div that mimics Mapbox control styling
+        const container = document.createElement('div');
+        container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group arabic-link-ctrl';
 
-    // Create the actual button
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'mapboxgl-ctrl-icon';
-    btn.title = 'View Arabic version';
-    btn.setAttribute('aria-label', 'View Arabic version');
+        // Create the actual button
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'mapboxgl-ctrl-icon';
+        btn.title = 'View Arabic version';
+        btn.setAttribute('aria-label', 'View Arabic version');
 
-    // Text label for the button
-    btn.textContent = 'AR';
+        // Text label for the button
+        btn.textContent = 'AR';
 
-    // Clicking goes to English version (new tab or same tab — pick one)
-    btn.addEventListener('click', () => {
-      window.location.href = '/ar/visual-explainers/israeli-settlements/'; // <-- change to your English URL
-      // or:
-      // window.open('index.html', '_blank');
-    });
+        // Clicking goes to English version (new tab or same tab — pick one)
+        btn.addEventListener('click', () => {
+          window.location.href = '/ar/visual-explainers/israeli-settlements/'; // <-- change to your English URL
+          // or:
+          // window.open('index.html', '_blank');
+        });
 
-    container.appendChild(btn);
-    return container;
-  }
+        container.appendChild(btn);
+        return container;
+      }
 
-  onRemove() {
-    this._map = undefined;
-  }
-}
+      onRemove() {
+        this._map = undefined;
+      }
+    }
 
     // Add to the map alongside your nav control
     map.addControl(new HomeControl(), 'top-right');
@@ -412,14 +392,14 @@
     map.on('load', () => {
       // Zoom-to-focus button
       const zoomBtn = document.createElement('button');
-      zoomBtn.textContent = 'Zoom to Plan E1 Area';
+      zoomBtn.textContent = 'Zoom to East China Sea';
       zoomBtn.className = 'mapbox-zoom-to-focus';
       document.querySelector('.slider-container').appendChild(zoomBtn);
 
       // Updated bounding box
       const focusBbox = [
-        [35.19381, 31.73313], // SW corner
-        [35.37757, 31.84145]  // NE corner
+        [121.13275, 23.91237],
+        [132.21579, 30.87390]
       ];
 
       zoomBtn.addEventListener('click', () => {
@@ -438,36 +418,40 @@
 
 
       // Data source + layers
-      map.addSource('settlements', { type: 'vector', url: 'mapbox://daltonwb.afyqoeoq' });
-      const layerName = 'IL_PA_Settlements_-_10_2025_P-cmydfu';
-      const initialYear = 1967;
+      map.addSource('jppts', { type: 'vector', url: 'mapbox://daltonwb.9pyzqxsc' });
+      const layerName = 'japan_maritime_locations_-_ja-6k0t7o';
 
       map.addLayer({
-        id: 'settlements-layer-settlement',
-        type: 'circle',
-        source: 'settlements',
-        'source-layer': layerName,
-        filter: ['all', ['<=', ['to-number', ['get', 'year']], initialYear], ['==', ['get', 'type'], 'Settlement']],
-        paint: { 'circle-color': 'rgba(163, 51, 57, 0.51)', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 0.5 }
-      });
+  id: 'jppts-dots',
+  type: 'circle',
+  source: 'jppts',
+  'source-layer': 'japan_maritime_locations_-_ja-6k0t7o',
+  paint: {
+    // Larger radius that scales smoothly with zoom
+    'circle-radius': [
+      'interpolate', ['linear'], ['zoom'],
+      3, 4,   // small dots at far zooms
+      6, 7,   // mid zooms
+      10, 10, // large dots at close zooms
+      14, 14  // very large at street zooms
+    ],
+    // Color by type
+    'circle-color': [
+      'match', ['get', 'type'],
+      'natural', '#2E8B57', // green
+      'island',  '#0077B6', // blue
+      'city',    '#E65100', // orange
+      'base',    '#7B1FA2', // purple
+      '#444'                 // fallback
+    ],
+    'circle-stroke-color': '#fff',
+    'circle-stroke-width': 1.5,
+    'circle-opacity': 0.9
+  }
+});
 
-      map.addLayer({
-        id: 'settlements-layer-outpost',
-        type: 'circle',
-        source: 'settlements',
-        'source-layer': layerName,
-        filter: ['all', ['<=', ['to-number', ['get', 'year']], initialYear], ['==', ['get', 'type'], 'Outpost']],
-        paint: { 'circle-color': '#a4343a', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 0.5 }
-      });
 
-      // Slider → filters
-      const slider = document.getElementById('year-slider');
-      slider.addEventListener('input', (e) => {
-        const year = parseInt(e.target.value, 10);
-        const yearFilter = ['<=', ['to-number', ['get', 'year']], year];
-        map.setFilter('settlements-layer-settlement', ['all', yearFilter, ['==', ['get', 'type'], 'Settlement']]);
-        map.setFilter('settlements-layer-outpost', ['all', yearFilter, ['==', ['get', 'type'], 'Outpost']]);
-      });
+
     });
   </script>
 </body>
