@@ -544,6 +544,7 @@ a.reportlink {
   padding: 3px 5px;
   min-width: 32px; /* makes it not tiny */
   font-family: 'franklin-gothic-urw', sans-serif;
+  display: none;
 }
 
 .hold-ctrl-hint {

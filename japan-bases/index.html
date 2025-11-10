@@ -219,8 +219,8 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/daltonwb/cmhlk1zwz001701qs5yzu76gv',
-      center: [130.63703, 30.27664],
+      style: 'mapbox://styles/daltonwb/cmhozk84a005s01rz7jsk90k2',
+      center: [133.22692, 36.84902],
       zoom: 4,
       maxZoom: 10,
       minZoom: 4,
@@ -282,7 +282,6 @@
       }
     });
 
-
     class HomeControl {
       onAdd(map) {
         this._map = map;
@@ -315,6 +314,8 @@
       }
       onRemove() { this._map = undefined; }
     }
+
+    /* ---------- TRANSLATION BUTTON ---------- */
 
     class ArabicLinkControl {
       onAdd(map) {
@@ -349,6 +350,8 @@
         this._map = undefined;
       }
     }
+
+    /* ---------- TRANSLATION END ---------- */
 
     // Add to the map alongside your nav control
     map.addControl(new HomeControl(), 'top-right');
@@ -422,33 +425,33 @@
       const layerName = 'japan_maritime_locations_-_ja-6k0t7o';
 
       map.addLayer({
-  id: 'jppts-dots',
-  type: 'circle',
-  source: 'jppts',
-  'source-layer': 'japan_maritime_locations_-_ja-6k0t7o',
-  paint: {
-    // Larger radius that scales smoothly with zoom
-    'circle-radius': [
-      'interpolate', ['linear'], ['zoom'],
-      3, 4,   // small dots at far zooms
-      6, 7,   // mid zooms
-      10, 10, // large dots at close zooms
-      14, 14  // very large at street zooms
-    ],
-    // Color by type
-    'circle-color': [
-      'match', ['get', 'type'],
-      'natural', '#2E8B57', // green
-      'island',  '#0077B6', // blue
-      'city',    '#E65100', // orange
-      'base',    '#7B1FA2', // purple
-      '#444'                 // fallback
-    ],
-    'circle-stroke-color': '#fff',
-    'circle-stroke-width': 1.5,
-    'circle-opacity': 0.9
-  }
-});
+        id: 'jppts-dots',
+        type: 'circle',
+        source: 'jppts',
+        'source-layer': 'japan_maritime_locations_-_ja-6k0t7o',
+        paint: {
+          // Larger radius that scales smoothly with zoom
+          'circle-radius': [
+            'interpolate', ['linear'], ['zoom'],
+            3, 4,   // small dots at far zooms
+            6, 7,   // mid zooms
+            10, 10, // large dots at close zooms
+            14, 14  // very large at street zooms
+          ],
+          // Color by type
+          'circle-color': [
+            'match', ['get', 'type'],
+            'natural', '#2E8B57', // green
+            'island', '#0077B6', // blue
+            'city', '#E65100', // orange
+            'base', '#7B1FA2', // purple
+            '#444'                 // fallback
+          ],
+          'circle-stroke-color': '#fff',
+          'circle-stroke-width': 1.5,
+          'circle-opacity': 0.9
+        }
+      });
 
 
 
