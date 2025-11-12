@@ -75,9 +75,8 @@
     </div>
 
     <div class="legend-list">
-      <p><i class="lg lg-settlements"></i>Islands</p>
+      <p><i class="lg lg-settlements"></i>Bases</p>
       <p><i class="lg lg-outposts"></i>Cities</p>
-      <p><i class="lg lg-areas-ab"></i>Bases</p>
 
       <!--  Force this to end column 1 
       <p class="break-after"><i class="lg lg-plan-e1"></i>Plan E1</p>
@@ -421,16 +420,22 @@
 
 
       // Data source + layers
-      map.addSource('jppts', { type: 'vector', url: 'mapbox://daltonwb.9pyzqxsc' });
-      const layerName = 'japan_maritime_locations_-_ja-6k0t7o';
+      map.addSource('jppts', { type: 'vector', url: 'mapbox://daltonwb.2wynqzdi' });
+      const layerName = 'japan_maritime_locations_-_ja-1f2nux';
 
       map.addLayer({
         id: 'jppts-dots',
         type: 'circle',
         source: 'jppts',
-        'source-layer': 'japan_maritime_locations_-_ja-6k0t7o',
+        'source-layer': 'japan_maritime_locations_-_ja-1f2nux',
         // Only include island, city, and base points
-        filter: ['in', ['get', 'type'], ['literal', ['island', 'city', 'base']]],
+        filter: [
+          "match",
+          ["get", "type"],
+          ["base"],
+          true,
+          false
+        ],
         paint: {
           'circle-radius': [
             "interpolate",
@@ -447,6 +452,66 @@
           'circle-opacity': 1
         }
       });
+
+      // Interactive layers list
+            const interactiveLayers = ['jppts-dots'];
+
+            // Pointer cursor on hover
+            interactiveLayers.forEach(layerId => {
+                map.on('mouseenter', layerId, () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                map.on('mouseleave', layerId, () => {
+                    map.getCanvas().style.cursor = '';
+                });
+
+                map.on('click', layerId, (e) => {
+                    const coordinates = e.features[0].geometry.coordinates.slice();
+                    const props = e.features[0].properties;
+
+                    let contentHTML = '';
+                    let type = props.type || 'default';
+
+                    // Special logic for points-layer1 (cmd-points)
+                    if (layerId === 'jppts-dots') {
+                        const command = props.command || 'Unknown Command';
+                        const city = props.city || 'Unknown City';
+                        contentHTML = `
+            <div class="hover-popup-content">
+                <strong>${name}</strong><br>
+            </div>`;
+                        type = 'perm'; // Optional: you can force type-based styling
+                    } else {
+                        const name = props.Name || 'Unnamed';
+                        contentHTML = `<div class="hover-popup-content">${name}</div>`;
+                    }
+
+                    const typeClass = type === 'perm' ? 'popup-perm' :
+                        type === 'temp' ? 'popup-temp' : 'popup-default';
+
+                    const popup = new mapboxgl.Popup({
+                        closeButton: true,
+                        closeOnClick: true,
+                        className: `hover-popup ${typeClass}`
+                    });
+
+                    // Antimeridian fix
+                    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                    }
+
+                    // Smooth pan
+                    map.easeTo({
+                        center: coordinates,
+                        zoom: map.getZoom(),
+                        duration: 250,
+                        easing: t => t
+                    });
+
+                    popup.setLngLat(coordinates).setHTML(contentHTML).addTo(map);
+                    });
+                    });
 
 
 

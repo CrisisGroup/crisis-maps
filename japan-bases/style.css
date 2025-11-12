@@ -294,13 +294,13 @@ a.reportlink {
 
 /* Points */
 .lg-settlements {
-  background: rgba(163, 51, 57, .51);
-  border: .5px solid #fff;
+  background: rgb(146, 26, 28);
+  border: 2px solid rgb(189, 62, 39);
 }
 
 .lg-outposts {
-  background: #a4343a;
-  border: .5px solid #fff;
+  background: rgb(22, 63, 73);
+  border: 2px solid #fff;
 }
 
 /* Lines */
