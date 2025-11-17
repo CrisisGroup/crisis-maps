@@ -48,7 +48,7 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css" />
+  <link rel="stylesheet" href="https://use.typekit.net/tiz6shb.css">
 
   <!-- Google Tag Manager -->
   <script>
@@ -427,25 +427,10 @@
         id: 'jppts-dots',
         type: 'circle',
         source: 'jppts',
-        'source-layer': 'japan_maritime_locations_-_ja-1f2nux',
-        // Only include island, city, and base points
-        filter: [
-          "match",
-          ["get", "type"],
-          ["base"],
-          true,
-          false
-        ],
+        'source-layer': layerName,
+        filter: ['match', ['get', 'type'], ['base'], true, false],
         paint: {
-          'circle-radius': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            4,
-            22,
-            14
-          ],
+          'circle-radius': ['interpolate', ['linear'], ['zoom'], 0, 4, 22, 14],
           'circle-color': 'rgb(146, 26, 28)',
           'circle-stroke-color': 'rgb(189, 62, 39)',
           'circle-stroke-width': 2,
@@ -453,69 +438,64 @@
         }
       });
 
-      // Interactive layers list
-            const interactiveLayers = ['jppts-dots'];
+      // Reuse one popup with your custom class
+      const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: true,
+        className: 'hover-popup'
+      });
 
-            // Pointer cursor on hover
-            interactiveLayers.forEach(layerId => {
-                map.on('mouseenter', layerId, () => {
-                    map.getCanvas().style.cursor = 'pointer';
-                });
+      const layerId = 'jppts-dots';
 
-                map.on('mouseleave', layerId, () => {
-                    map.getCanvas().style.cursor = '';
-                });
+      map.on('mouseenter', layerId, () => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+      map.on('mouseleave', layerId, () => {
+        map.getCanvas().style.cursor = '';
+      });
 
-                map.on('click', layerId, (e) => {
-                    const coordinates = e.features[0].geometry.coordinates.slice();
-                    const props = e.features[0].properties;
+      map.on('click', layerId, (e) => {
+        const f = e.features && e.features[0];
+        if (!f) return;
 
-                    let contentHTML = '';
-                    let type = props.type || 'default';
+        const coordinates = f.geometry.coordinates.slice();
+        const props = f.properties || {};
 
-                    // Special logic for points-layer1 (cmd-points)
-                    if (layerId === 'jppts-dots') {
-                        const command = props.command || 'Unknown Command';
-                        const city = props.city || 'Unknown City';
-                        contentHTML = `
-            <div class="hover-popup-content">
-                <strong>${name}</strong><br>
-            </div>`;
-                        type = 'perm'; // Optional: you can force type-based styling
-                    } else {
-                        const name = props.Name || 'Unnamed';
-                        contentHTML = `<div class="hover-popup-content">${name}</div>`;
-                    }
+        // Be defensive about property naming
+        const name =
+          props.name ||
+          props.Name ||
+          props.NAME ||
+          props.label ||
+          'Unnamed location';
 
-                    const typeClass = type === 'perm' ? 'popup-perm' :
-                        type === 'temp' ? 'popup-temp' : 'popup-default';
+        // (Optional) log once to see what’s actually there
+        // console.log('jppts feature props:', props, 'name resolved as:', name);
 
-                    const popup = new mapboxgl.Popup({
-                        closeButton: true,
-                        closeOnClick: true,
-                        className: `hover-popup ${typeClass}`
-                    });
+        // Antimeridian fix
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
 
-                    // Antimeridian fix
-                    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                    }
+        map.easeTo({
+          center: coordinates,
+          zoom: map.getZoom(),
+          duration: 250,
+          easing: t => t
+        });
 
-                    // Smooth pan
-                    map.easeTo({
-                        center: coordinates,
-                        zoom: map.getZoom(),
-                        duration: 250,
-                        easing: t => t
-                    });
-
-                    popup.setLngLat(coordinates).setHTML(contentHTML).addTo(map);
-                    });
-                    });
+        popup
+          .setLngLat(coordinates)
+          .setHTML(
+            `<div class="hover-popup-content"><strong>${name}</strong></div>`
+          )
+          .addTo(map);
+      });
 
 
 
     });
+
   </script>
 </body>
 

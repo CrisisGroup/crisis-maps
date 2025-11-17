@@ -4,7 +4,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'franklin-gothic-urw', sans-serif;
+  font-family: gill-sans-nova, sans-serif;
   overflow: hidden;
 }
 
@@ -15,7 +15,11 @@ body {
   overflow: hidden;
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 /* =========================================================
    2) SLIDER & HEADER
@@ -32,7 +36,8 @@ body {
 
 .slider-container .mapbox-zoom-to-focus {
   display: inline-block;
-  margin-top: 25px;       /* space below the slider */
+  margin-top: 25px;
+  /* space below the slider */
   background-color: #000;
   color: #fff;
   border: 1.5px solid #fff;
@@ -186,6 +191,36 @@ input[type="range"]::-moz-range-thumb:hover {
   }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.mapboxgl-popup.hover-popup {
+  background: none;
+  box-shadow: none;
+}
+
+.mapboxgl-popup.hover-popup .mapboxgl-popup-content {
+  background-color: #173f49;
+  color: #ffffff;
+  font-family: gill-sans-nova, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 16px;
+  padding: 6px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.mapboxgl-popup.hover-popup .mapboxgl-popup-tip {
+    display: none; /* Hide it, optional */
+}
+
+
 /* =========================================================
    3) LEGEND
    ========================================================= */
@@ -197,7 +232,7 @@ input[type="range"]::-moz-range-thumb:hover {
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   padding: 10px 15px;
-  font-family: 'franklin-gothic-urw', sans-serif;
+  font-family: gill-sans-nova, sans-serif;
 }
 
 .legend-header h2 {
@@ -215,7 +250,7 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 .legend-list {
-  columns: 2; 
+  columns: 2;
   column-gap: 0;
 }
 
@@ -373,29 +408,32 @@ a.reportlink {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(255,255,255,0.95);
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
     border-top: 1px solid #ccc;
     padding: 10px 15px;
     max-height: 55vh;
     overflow-y: auto;
     transition: transform 0.3s ease, max-height 0.3s ease;
-    transform: translateY(calc(100% - 42px)); /* collapsed except for header */
+    transform: translateY(calc(100% - 42px));
+    /* collapsed except for header */
     z-index: 100;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: env(safe-area-inset-bottom, 0); /* safe for iOS */
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    /* safe for iOS */
   }
 
   @media (max-width: 768px) {
-  .legend p {
-    font-size: 16px;
+    .legend p {
+      font-size: 16px;
+    }
   }
-}
-  
+
 
   .legend.open {
-    transform: translateY(0); /* fully visible */
+    transform: translateY(0);
+    /* fully visible */
   }
 
   .legend-header {
@@ -411,6 +449,7 @@ a.reportlink {
     font-size: 12px;
     transition: transform 0.3s ease;
   }
+
   .legend:not(.open) .legend-header::after {
     content: '▼';
   }
@@ -422,14 +461,17 @@ a.reportlink {
    ========================================================= */
 /* Overlay */
 .modal {
-  position: fixed;            /* key: fixed to the viewport */
+  position: fixed;
+  /* key: fixed to the viewport */
   inset: 0;
-  z-index: 10000;             /* higher than legend, controls, etc. */
-  background: rgba(0,0,0,0.5);
+  z-index: 10000;
+  /* higher than legend, controls, etc. */
+  background: rgba(0, 0, 0, 0.5);
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s linear .2s, opacity .2s ease;
 }
+
 .modal.show {
   visibility: visible;
   opacity: 1;
@@ -445,7 +487,7 @@ a.reportlink {
   background: #fff;
   border-radius: 8px;
   border: 1px solid #e5e5e5;
-  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .25);
   display: flex;
   flex-direction: column;
   outline: none;
@@ -473,6 +515,7 @@ a.reportlink {
   background: #fff;
   border-bottom: 1px solid #eee;
 }
+
 .modal-header h3 {
   margin: 0;
   font-size: 18px;
@@ -482,12 +525,17 @@ a.reportlink {
 /* Scroll area */
 .modal-scroll {
   padding: 16px 18px 20px;
-  overflow: auto;                 /* KEY: scrolls when content overflows */
+  overflow: auto;
+  /* KEY: scrolls when content overflows */
   overscroll-behavior: contain;
-  max-height: calc(min(90dvh,90vh) - 48px);   /* prevent scroll chaining */
+  max-height: calc(min(90dvh, 90vh) - 48px);
+  /* prevent scroll chaining */
 }
 
-.modal-scroll p { margin: 0 0 10px; line-height: 1.5; }
+.modal-scroll p {
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
 
 /* Close button */
 .close {
@@ -502,17 +550,42 @@ a.reportlink {
   text-align: center;
   cursor: pointer;
 }
-.close:hover { background: #fff; color: #000; border-color: #000; }
-.close:focus-visible { outline: 2px solid #165C7D; outline-offset: 2px; }
 
-.label-e1 { color: #000; }
-.label-bypass { color: #86a8b9; }
-.label-pal-road { color: #007367; }
-.label-settlement { color: rgba(163, 51, 57, 0.51); }
-.label-outpost { color: #a4343a; }
+.close:hover {
+  background: #fff;
+  color: #000;
+  border-color: #000;
+}
+
+.close:focus-visible {
+  outline: 2px solid #165C7D;
+  outline-offset: 2px;
+}
+
+.label-e1 {
+  color: #000;
+}
+
+.label-bypass {
+  color: #86a8b9;
+}
+
+.label-pal-road {
+  color: #007367;
+}
+
+.label-settlement {
+  color: rgba(163, 51, 57, 0.51);
+}
+
+.label-outpost {
+  color: #a4343a;
+}
 
 /* Body scroll lock while modal open */
-.body-lock { overflow: hidden; }
+.body-lock {
+  overflow: hidden;
+}
 
 /* Mobile: full-height sheet */
 @media (max-width: 640px) {
@@ -522,8 +595,14 @@ a.reportlink {
     margin: 0;
     border-radius: 0;
   }
-  .modal-header { padding: 14px 16px; }
-  .modal-scroll { padding: 12px 16px 20px; }
+
+  .modal-header {
+    padding: 14px 16px;
+  }
+
+  .modal-scroll {
+    padding: 12px 16px 20px;
+  }
 }
 
 .mapboxgl-ctrl-home button {
@@ -533,6 +612,7 @@ a.reportlink {
   border: none;
   cursor: pointer;
 }
+
 .mapboxgl-ctrl-home button:hover {
   background: #f0f0f0;
 }
@@ -542,7 +622,8 @@ a.reportlink {
   font-weight: 600;
   line-height: 1;
   padding: 3px 5px;
-  min-width: 32px; /* makes it not tiny */
+  min-width: 32px;
+  /* makes it not tiny */
   font-family: 'franklin-gothic-urw', sans-serif;
   display: none;
 }
@@ -552,9 +633,9 @@ a.reportlink {
   bottom: 12px;
   left: 12px;
   padding: 6px 8px;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.85);
+  border: 1px solid rgba(255, 255, 255, 0.85);
   border-radius: 4px;
   font-size: 12px;
   line-height: 1.2;
@@ -562,8 +643,10 @@ a.reportlink {
   opacity: 0;
   transform: translateY(4px);
   transition: opacity .15s ease, transform .15s ease;
-  z-index: 5; /* above map controls */
+  z-index: 5;
+  /* above map controls */
 }
+
 .hold-ctrl-hint.show {
   opacity: 1;
   transform: translateY(0);
