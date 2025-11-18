@@ -631,29 +631,38 @@ a.reportlink {
   transform: translateY(0);
 }
 
+/* ---------------------------------------------------------
+   SHARE CONTROL — Pretty Version
+   --------------------------------------------------------- */
+
 .share-ctrl {
   position: relative;
 }
 
+/* Main button */
 .share-ctrl .share-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   padding: 0;
-  background: #fff;
+  background: #ffffff;
   border: none;
   cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .share-ctrl .share-button:hover {
-  background: #f0f0f0;
+  background: #f2f2f2;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 
+/* Share icon — cleaner "node" */
 .share-ctrl .share-icon {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   stroke: #333;
   stroke-width: 1.7;
   fill: none;
@@ -662,36 +671,63 @@ a.reportlink {
 /* Dropdown panel */
 .share-panel {
   position: absolute;
-  top: 32px;
+  top: 38px;
   right: 0;
-  min-width: 190px;
-  background: #ffffff;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
-  padding: 4px 0;
+  min-width: 210px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px 0;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
   display: none;
-  z-index: 10;
-  font-family: gill-sans-nova, sans-serif;
+  opacity: 0;
+  transform: scale(0.96);
+  transform-origin: top right;
+  transition: opacity 0.17s ease, transform 0.17s ease;
+  z-index: 20;
 }
 
 .share-panel.open {
   display: block;
+  opacity: 1;
+  transform: scale(1);
 }
 
+/* Share items */
 .share-item {
-  width: 100% !important;
-  text-align: left;
-  padding: 6px 10px !important;
-  border: none;
-  background: transparent;
-  font-size: 13px !important;
-  cursor: pointer;
-  white-space: nowrap;
+    width: 100% !important;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 14px !important;
+    font-family: gill-sans-nova, sans-serif;
+    background: transparent;
+    border: none !important;
+    cursor: pointer !important;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+    outline: none;
+    transition: background 0.15s ease;
 }
 
 .share-item:hover {
   background: #f3f3f3;
 }
+
+/* Optional: circle icon holders */
+.share-item .icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+}
+
+.share-item:hover .icon {
+  opacity: 1;
+}
+
 
 .mapboxgl-ctrl-group button:first-child {
     border-radius: 5px !important;

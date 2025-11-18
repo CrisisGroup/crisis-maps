@@ -430,15 +430,39 @@
         panel.setAttribute('role', 'menu');
 
         panel.innerHTML = `
-      <button type="button" class="share-item" data-share="copy-url">Copy link</button>
-      <button type="button" class="share-item" data-share="bluesky">Share to Bluesky</button>
-      <button type="button" class="share-item" data-share="email">Share via Email</button>
-      <button type="button" class="share-item" data-share="facebook">Share to Facebook</button>
-      <button type="button" class="share-item" data-share="linkedin">Share to LinkedIn</button>
-      <button type="button" class="share-item" data-share="x">Share to X</button>
-      <button type="button" class="share-item" data-share="whatsapp">Share to WhatsApp</button>
-      <button type="button" class="share-item" data-share="copy-embed">Copy embed iframe</button>
-    `;
+  <button class="share-item" data-share="copy-url">
+    <span class="icon">🔗</span> Copy Link
+  </button>
+
+  <button class="share-item" data-share="bluesky">
+    <span class="icon">🦋</span> Bluesky
+  </button>
+
+  <button class="share-item" data-share="email">
+    <span class="icon">✉️</span> Email
+  </button>
+
+  <button class="share-item" data-share="facebook">
+    <span class="icon">📘</span> Facebook
+  </button>
+
+  <button class="share-item" data-share="linkedin">
+    <span class="icon">💼</span> LinkedIn
+  </button>
+
+  <button class="share-item" data-share="x">
+    <span class="icon">✖️</span> X (Twitter)
+  </button>
+
+  <button class="share-item" data-share="whatsapp">
+    <span class="icon">💬</span> WhatsApp
+  </button>
+
+  <button class="share-item" data-share="copy-embed">
+    <span class="icon">📥</span> Copy Embed Code
+  </button>
+`;
+
 
         container.appendChild(btn);
         container.appendChild(panel);
