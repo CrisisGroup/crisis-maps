@@ -34,15 +34,29 @@ body {
   padding: 10px;
 }
 
-.slider-container .mapbox-zoom-to-focus {
-  display: inline-block;
+.slider-container h1 {
+  font-size: 34px;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.slider-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
   margin-top: 25px;
-  /* space below the slider */
+}
+
+.slider-controls .mapbox-zoom-to-focus,
+.slider-controls .mapbox-reset-view {
+  display: inline-block;
   background-color: #000;
   color: #fff;
   border: 1.5px solid #fff;
   border-radius: 4px;
   cursor: pointer;
+  font-family: gill-sans-nova, sans-serif;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -50,16 +64,10 @@ body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.slider-container .mapbox-zoom-to-focus:hover {
+.slider-controls .mapbox-zoom-to-focus:hover,
+.slider-controls .mapbox-reset-view:hover {
   background-color: #fff;
   color: #000;
-}
-
-
-.slider-container h1 {
-  font-size: 34px;
-  margin-bottom: 5px;
-  color: #fff;
 }
 
 h2 {
@@ -83,7 +91,6 @@ h2 {
   margin-bottom: 5px;
 }
 
-/* Slider input */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
@@ -95,7 +102,6 @@ input[type="range"] {
   transition: opacity .2s;
 }
 
-/* WebKit track & thumb */
 input[type="range"]::-webkit-slider-runnable-track {
   height: 12px;
   background: linear-gradient(to right,
@@ -121,7 +127,6 @@ input[type="range"]::-webkit-slider-thumb {
   transform: translateZ(0);
 }
 
-/* Firefox track & thumb */
 input[type="range"]::-moz-range-track {
   height: 12px;
   background: linear-gradient(to right,
@@ -144,7 +149,6 @@ input[type="range"]::-moz-range-thumb {
 }
 
 @keyframes flicker {
-
   0%,
   100% {
     background-color: #fff;
@@ -164,7 +168,6 @@ input[type="range"]::-moz-range-thumb:hover {
   box-shadow: 0 0 2px 2px rgba(255, 255, 255, 1);
 }
 
-/* Mobile slider/layout tweaks */
 @media (max-width: 1024px) {
   .slider-container {
     left: 2.5%;
@@ -183,6 +186,10 @@ input[type="range"]::-moz-range-thumb:hover {
   }
 }
 
+.mapboxgl-ctrl-attrib-inner {
+  font-family: gill-sans-nova, sans-serif !important;
+}
+
 @media (max-width: 768px) {
   .slider-container {
     left: 2.5%;
@@ -192,8 +199,13 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .mapboxgl-popup.hover-popup {
@@ -217,9 +229,8 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 .mapboxgl-popup.hover-popup .mapboxgl-popup-tip {
-    display: none; /* Hide it, optional */
+  display: none;
 }
-
 
 /* =========================================================
    3) LEGEND
@@ -265,7 +276,6 @@ input[type="range"]::-moz-range-thumb:hover {
 .lg {
   flex-shrink: 0;
   margin-right: 10px;
-  /* slightly tighter spacing */
 }
 
 .legend-list .break-after {
@@ -290,15 +300,12 @@ a.reportlink {
   color: #165C7D;
 }
 
-/* Legend icons */
-/* Base icon box: no vertical hacks */
 .lg {
   flex: 0 0 auto;
   width: 12px;
   height: 12px;
   border-radius: 50%;
   margin: 0;
-  /* remove margin-top tweaks */
 }
 
 .lg {
@@ -308,7 +315,6 @@ a.reportlink {
   margin-top: 7px;
 }
 
-/* Area fills (squares) */
 .lg-areas-ab {
   border-radius: 0;
   background: #b8b3ad;
@@ -327,7 +333,6 @@ a.reportlink {
   border: 1px solid #000;
 }
 
-/* Points */
 .lg-settlements {
   background: rgb(146, 26, 28);
   border: 2px solid rgb(189, 62, 39);
@@ -338,17 +343,13 @@ a.reportlink {
   border: 2px solid #fff;
 }
 
-/* Lines */
 .lg-line {
   align-self: center;
-  /* overrides baseline for line items only */
   width: 28px;
   height: 1px;
-  /* lets border-top sit exactly on the row’s vertical center */
   background: transparent;
   border: 0;
   border-radius: 0;
-  /* reset: each variant sets its own border-top */
 }
 
 .lg-road-israeli {
@@ -376,7 +377,6 @@ a.reportlink {
   margin-bottom: 4px;
 }
 
-/* Info icon */
 .info-icon {
   display: inline-block;
   vertical-align: middle;
@@ -401,7 +401,6 @@ a.reportlink {
   color: #fff;
 }
 
-/* Base mobile layout */
 @media (max-width: 768px) {
   .legend {
     position: fixed;
@@ -416,24 +415,18 @@ a.reportlink {
     overflow-y: auto;
     transition: transform 0.3s ease, max-height 0.3s ease;
     transform: translateY(calc(100% - 42px));
-    /* collapsed except for header */
     z-index: 100;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
     padding-bottom: env(safe-area-inset-bottom, 0);
-    /* safe for iOS */
   }
 
-  @media (max-width: 768px) {
-    .legend p {
-      font-size: 16px;
-    }
+  .legend p {
+    font-size: 16px;
   }
-
 
   .legend.open {
     transform: translateY(0);
-    /* fully visible */
   }
 
   .legend-header {
@@ -455,17 +448,13 @@ a.reportlink {
   }
 }
 
-
 /* =========================================================
    4) MODAL
    ========================================================= */
-/* Overlay */
 .modal {
   position: fixed;
-  /* key: fixed to the viewport */
   inset: 0;
   z-index: 10000;
-  /* higher than legend, controls, etc. */
   background: rgba(0, 0, 0, 0.5);
   visibility: hidden;
   opacity: 0;
@@ -478,7 +467,6 @@ a.reportlink {
   transition: visibility 0s linear 0s, opacity .2s ease;
 }
 
-/* Dialog */
 .modal-content {
   box-sizing: border-box;
   width: min(820px, 92vw);
@@ -502,7 +490,6 @@ a.reportlink {
   }
 }
 
-/* Sticky header */
 .modal-header {
   position: sticky;
   top: 0;
@@ -522,14 +509,11 @@ a.reportlink {
   letter-spacing: .02em;
 }
 
-/* Scroll area */
 .modal-scroll {
   padding: 16px 18px 20px;
   overflow: auto;
-  /* KEY: scrolls when content overflows */
   overscroll-behavior: contain;
   max-height: calc(min(90dvh, 90vh) - 48px);
-  /* prevent scroll chaining */
 }
 
 .modal-scroll p {
@@ -537,7 +521,6 @@ a.reportlink {
   line-height: 1.5;
 }
 
-/* Close button */
 .close {
   border: 1px solid #ccc;
   background: #000;
@@ -582,12 +565,10 @@ a.reportlink {
   color: #a4343a;
 }
 
-/* Body scroll lock while modal open */
 .body-lock {
   overflow: hidden;
 }
 
-/* Mobile: full-height sheet */
 @media (max-width: 640px) {
   .modal-content {
     width: 100vw;
@@ -623,7 +604,6 @@ a.reportlink {
   line-height: 1;
   padding: 3px 5px;
   min-width: 32px;
-  /* makes it not tiny */
   font-family: 'franklin-gothic-urw', sans-serif;
   display: none;
 }
@@ -644,10 +624,75 @@ a.reportlink {
   transform: translateY(4px);
   transition: opacity .15s ease, transform .15s ease;
   z-index: 5;
-  /* above map controls */
 }
 
 .hold-ctrl-hint.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+.share-ctrl {
+  position: relative;
+}
+
+.share-ctrl .share-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.share-ctrl .share-button:hover {
+  background: #f0f0f0;
+}
+
+.share-ctrl .share-icon {
+  width: 18px;
+  height: 18px;
+  stroke: #333;
+  stroke-width: 1.7;
+  fill: none;
+}
+
+/* Dropdown panel */
+.share-panel {
+  position: absolute;
+  top: 32px;
+  right: 0;
+  min-width: 190px;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  padding: 4px 0;
+  display: none;
+  z-index: 10;
+  font-family: gill-sans-nova, sans-serif;
+}
+
+.share-panel.open {
+  display: block;
+}
+
+.share-item {
+  width: 100% !important;
+  text-align: left;
+  padding: 6px 10px !important;
+  border: none;
+  background: transparent;
+  font-size: 13px !important;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.share-item:hover {
+  background: #f3f3f3;
+}
+
+.mapboxgl-ctrl-group button:first-child {
+    border-radius: 5px !important;
 }

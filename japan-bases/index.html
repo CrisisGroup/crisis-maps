@@ -63,12 +63,11 @@
 
 
 <body>
-  <!-- Title + Year Slider -->
   <div class="slider-container">
     <h1>Asia’s Military Modernisation: Japan’s Maritime Footprint</h1>
+    <div class="slider-controls"></div>
   </div>
 
-  <!-- Legend -->
   <div class="legend" id="legend">
     <div class="legend-header" id="legendToggle">
       <h2>Map Legend</h2>
@@ -77,14 +76,6 @@
     <div class="legend-list">
       <p><i class="lg lg-settlements"></i>Bases</p>
       <p><i class="lg lg-outposts"></i>Cities</p>
-
-      <!--  Force this to end column 1 
-      <p class="break-after"><i class="lg lg-plan-e1"></i>Plan E1</p>
-
-      <p><i class="lg lg-line lg-road-israeli"></i>Planned Israeli-only roads</p>
-      <p><i class="lg lg-line lg-bypass-pal"></i>Planned bypass road for Palestinians</p>
-      <p><i class="lg lg-line lg-fence"></i>Planned fence</p>
-      <p><i class="lg lg-line lg-barriers"></i>Current barrier fence</p> -->
 
       <div id="morebox">
         <a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a>
@@ -95,9 +86,10 @@
     <hr />
     <p>
       <strong>Read our full report on Japan’s militarisation
-      <a class="reportlink"
-        href="https://www.crisisgroup.org/asia-pacific/china-united-states/asias-military-modernisation-special-series"
-        target="_blank">here</a>.</strong>
+        <a class="reportlink"
+          href="https://www.crisisgroup.org/asia-pacific/china-united-states/asias-military-modernisation-special-series"
+          target="_blank">here</a>.
+      </strong>
     </p>
 
     <!-- Modal -->
@@ -109,6 +101,7 @@
         </div>
 
         <div class="modal-scroll">
+          <!-- (Keep or update this copy as needed for this project) -->
           <p>
             <strong class="label-e1">Plan E1</strong> is a settlement project in an area east of Jerusalem inside the
             West Bank. Construction was approved in August, after being frozen for decades due to U.S. objections.
@@ -158,18 +151,13 @@
             <a class="reportlink" href="2024.html" target="_blank">You can look at the archive here.</a>
           </p>
         </div>
-
       </div>
     </div>
-
   </div>
 
-  <!-- Map -->
   <div id="map"></div>
 
-  <!-- App JS -->
   <script>
-
     // Modal handlers
     (function () {
       const infoLink = document.getElementById('infoLink');
@@ -185,6 +173,7 @@
         modal.classList.add('show');
         requestAnimationFrame(() => dialog.focus());
       }
+
       function closeModal() {
         modal.classList.remove('show');
         document.body.classList.remove('body-lock');
@@ -193,26 +182,27 @@
 
       infoLink.addEventListener('click', openModal);
       closeBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-      window.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
+      modal.addEventListener('click', e => {
+        if (e.target === modal) closeModal();
+      });
+      window.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+      });
     })();
 
+    // Legend toggle + move modal to body
     document.addEventListener('DOMContentLoaded', () => {
       const legend = document.querySelector('.legend');
       const header = legend.querySelector('.legend-header');
-
       header.addEventListener('click', () => {
         legend.classList.toggle('open');
       });
-    });
 
-    document.addEventListener('DOMContentLoaded', () => {
       const modal = document.getElementById('myModal');
       if (modal && modal.parentElement !== document.body) {
-        document.body.appendChild(modal); // portal to body
+        document.body.appendChild(modal);
       }
     });
-
 
     // Map
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
@@ -230,175 +220,53 @@
     // Disable scroll-zoom by default to avoid scroll jacking
     map.scrollZoom.disable();
 
-    // Optional: a small hint overlay
+    // Ctrl/⌘-to-zoom hint
     const hint = document.createElement('div');
     hint.className = 'hold-ctrl-hint';
     hint.textContent = 'Hold Ctrl (⌘ on Mac) to zoom';
     document.getElementById('map').appendChild(hint);
 
     let enableTimeout;
-
-    // Listen to wheel with passive:false so we can preventDefault when zooming
     document.getElementById('map').addEventListener('wheel', (evt) => {
-      const ctrl = evt.ctrlKey || evt.metaKey; // Ctrl on Windows/Linux, ⌘ on macOS
+      const ctrl = evt.ctrlKey || evt.metaKey;
 
       if (ctrl) {
-        // Use the wheel to zoom the map; prevent page scroll while zooming
         evt.preventDefault();
         if (!map.scrollZoom.isEnabled()) map.scrollZoom.enable();
-
-        // Hide the hint while user is actively using the modifier
         hint.classList.remove('show');
-
-        // Re-disable shortly after the gesture stops
         clearTimeout(enableTimeout);
         enableTimeout = setTimeout(() => {
           map.scrollZoom.disable();
-        }, 300); // tweak feel (200–500ms works well)
+        }, 300);
       } else {
-        // Not holding Ctrl/⌘ → let the page scroll; show hint briefly
-        map.scrollZoom.disable(); // make sure it stays off
-        // Show the hint if the cursor is over the map
+        map.scrollZoom.disable();
         hint.classList.add('show');
-        // Auto-hide after a moment so it doesn't linger
         clearTimeout(enableTimeout);
         enableTimeout = setTimeout(() => hint.classList.remove('show'), 1200);
       }
     }, { passive: false });
 
-
     const initialView = {};
 
-    map.once('load', () => {
-      initialView.center = map.getCenter().toArray();    // [lng, lat]
+    map.on('load', () => {
+      // Capture initial view
+      initialView.center = map.getCenter().toArray();
       initialView.zoom = map.getZoom();
       initialView.bearing = map.getBearing();
       initialView.pitch = map.getPitch();
-
-      // If you ever call map.setPadding(...) elsewhere, also capture:
       if (typeof map.getPadding === 'function') {
-        initialView.padding = map.getPadding(); // {top,right,bottom,left}
-      }
-    });
-
-    class HomeControl {
-      onAdd(map) {
-        this._map = map;
-        const container = document.createElement('div');
-        container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
-
-        const btn = document.createElement('button');
-        btn.className = 'mapboxgl-ctrl-icon';
-        btn.type = 'button';
-        btn.title = 'Reset view';
-        btn.innerHTML = '↩️';
-        container.appendChild(btn);
-
-        btn.addEventListener('click', () => {
-          // Fallback to your desired defaults if initialView isn't populated yet
-          const target = Object.keys(initialView).length
-            ? initialView
-            : { center: [130.63703, 30.27664], zoom: 4, bearing: 0, pitch: 0 };
-
-          map.easeTo({
-            ...target,
-            // Ensure padding resets if you were using fitBounds/camera padding earlier
-            padding: target.padding || { top: 0, right: 0, bottom: 0, left: 0 },
-            duration: 800,
-            essential: true
-          });
-        });
-
-        return container;
-      }
-      onRemove() { this._map = undefined; }
-    }
-
-    /* ---------- TRANSLATION BUTTON ---------- */
-
-    class ArabicLinkControl {
-      onAdd(map) {
-        this._map = map;
-
-        // Create a wrapper div that mimics Mapbox control styling
-        const container = document.createElement('div');
-        container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group arabic-link-ctrl';
-
-        // Create the actual button
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'mapboxgl-ctrl-icon';
-        btn.title = 'View Arabic version';
-        btn.setAttribute('aria-label', 'View Arabic version');
-
-        // Text label for the button
-        btn.textContent = 'AR';
-
-        // Clicking goes to English version (new tab or same tab — pick one)
-        btn.addEventListener('click', () => {
-          window.location.href = '/ar/visual-explainers/israeli-settlements/'; // <-- change to your English URL
-          // or:
-          // window.open('index.html', '_blank');
-        });
-
-        container.appendChild(btn);
-        return container;
+        initialView.padding = map.getPadding();
       }
 
-      onRemove() {
-        this._map = undefined;
-      }
-    }
+      // Controls container
+      const controls = document.querySelector('.slider-controls');
 
-    /* ---------- TRANSLATION END ---------- */
-
-    // Add to the map alongside your nav control
-    map.addControl(new HomeControl(), 'top-right');
-    map.addControl(new mapboxgl.NavigationControl());
-    map.addControl(new mapboxgl.FullscreenControl());
-    map.addControl(new ArabicLinkControl(), 'top-right');
-    // === Responsive Mapbox Attribution (safe, no duplicates) ===
-    let attributionCtrl = null;
-    let currentCompact = null;
-
-    function installAttribution(compact) {
-      // Remove the existing control before adding a new one
-      if (attributionCtrl) map.removeControl(attributionCtrl);
-
-      attributionCtrl = new mapboxgl.AttributionControl({
-        compact,
-        customAttribution:
-          'International Crisis Group | Map: <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> & Claire Boccon-Gibod | Data: <a href="https://peacenow.org.il/en/settlements-watch/settlements-data/population" target="_blank">PeaceNow</a>, <a href="https://data.humdata.org/dataset/geoboundaries-admin-boundaries-for-state-of-palestine" target="_blank">HDX</a>'
-      });
-
-      map.addControl(attributionCtrl);
-      currentCompact = compact;
-    }
-
-    // Initial install — check current map container width
-    const container = map.getContainer();
-    const compact = container.clientWidth <= 768;
-    installAttribution(compact);
-
-    // Watch for container resizes (no duplication)
-    const ro = new ResizeObserver(entries => {
-      const w = entries[0].contentRect.width;
-      const shouldCompact = w <= 768;
-      if (shouldCompact !== currentCompact) {
-        installAttribution(shouldCompact);
-      }
-    });
-    ro.observe(container);
-
-
-    map.on('load', () => {
       // Zoom-to-focus button
       const zoomBtn = document.createElement('button');
       zoomBtn.textContent = 'Zoom to East China Sea';
       zoomBtn.className = 'mapbox-zoom-to-focus';
-      document.querySelector('.slider-container').appendChild(zoomBtn);
+      controls.appendChild(zoomBtn);
 
-      // Updated bounding box
       const focusBbox = [
         [121.13275, 23.91237],
         [132.21579, 30.87390]
@@ -418,6 +286,24 @@
         });
       });
 
+      // Reset View button
+      const resetBtn = document.createElement('button');
+      resetBtn.textContent = 'Reset View';
+      resetBtn.className = 'mapbox-reset-view';
+      controls.appendChild(resetBtn);
+
+      resetBtn.addEventListener('click', () => {
+        const target = Object.keys(initialView).length
+          ? initialView
+          : { center: [130.63703, 30.27664], zoom: 4, bearing: 0, pitch: 0 };
+
+        map.easeTo({
+          ...target,
+          padding: target.padding || { top: 0, right: 0, bottom: 0, left: 0 },
+          duration: 800,
+          essential: true
+        });
+      });
 
       // Data source + layers
       map.addSource('jppts', { type: 'vector', url: 'mapbox://daltonwb.2wynqzdi' });
@@ -438,7 +324,7 @@
         }
       });
 
-      // Reuse one popup with your custom class
+      // Popup for base points
       const popup = new mapboxgl.Popup({
         closeButton: false,
         closeOnClick: true,
@@ -461,7 +347,6 @@
         const coordinates = f.geometry.coordinates.slice();
         const props = f.properties || {};
 
-        // Be defensive about property naming
         const name =
           props.name ||
           props.Name ||
@@ -469,10 +354,6 @@
           props.label ||
           'Unnamed location';
 
-        // (Optional) log once to see what’s actually there
-        // console.log('jppts feature props:', props, 'name resolved as:', name);
-
-        // Antimeridian fix
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
@@ -486,17 +367,228 @@
 
         popup
           .setLngLat(coordinates)
-          .setHTML(
-            `<div class="hover-popup-content"><strong>${name}</strong></div>`
-          )
+          .setHTML(`<div class="hover-popup-content"><strong>${name}</strong></div>`)
           .addTo(map);
       });
-
-
-
     });
 
+    // Arabic version control
+    class ArabicLinkControl {
+      onAdd(map) {
+        this._map = map;
+        const container = document.createElement('div');
+        container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group arabic-link-ctrl';
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'mapboxgl-ctrl-icon';
+        btn.title = 'View Arabic version';
+        btn.setAttribute('aria-label', 'View Arabic version');
+        btn.textContent = 'AR';
+
+        btn.addEventListener('click', () => {
+          window.location.href = '/ar/visual-explainers/israeli-settlements/';
+        });
+
+        container.appendChild(btn);
+        return container;
+      }
+
+      onRemove() {
+        this._map = undefined;
+      }
+    }
+
+    class ShareControl {
+      onAdd(map) {
+        this._map = map;
+
+        const container = document.createElement('div');
+        container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group share-ctrl';
+
+        // Main share button
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'share-button';
+        btn.title = 'Share this map';
+        btn.setAttribute('aria-label', 'Share this map');
+
+        // Simple "node" share icon as inline SVG
+        btn.innerHTML = `
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="share-icon">
+        <circle cx="6" cy="12" r="2"></circle>
+        <circle cx="18" cy="6" r="2"></circle>
+        <circle cx="18" cy="18" r="2"></circle>
+        <line x1="7.7" y1="11.2" x2="16.3" y2="6.8"></line>
+        <line x1="7.7" y1="12.8" x2="16.3" y2="17.2"></line>
+      </svg>
+    `;
+
+        // Dropdown menu
+        const panel = document.createElement('div');
+        panel.className = 'share-panel';
+        panel.setAttribute('role', 'menu');
+
+        panel.innerHTML = `
+      <button type="button" class="share-item" data-share="copy-url">Copy link</button>
+      <button type="button" class="share-item" data-share="bluesky">Share to Bluesky</button>
+      <button type="button" class="share-item" data-share="email">Share via Email</button>
+      <button type="button" class="share-item" data-share="facebook">Share to Facebook</button>
+      <button type="button" class="share-item" data-share="linkedin">Share to LinkedIn</button>
+      <button type="button" class="share-item" data-share="x">Share to X</button>
+      <button type="button" class="share-item" data-share="whatsapp">Share to WhatsApp</button>
+      <button type="button" class="share-item" data-share="copy-embed">Copy embed iframe</button>
+    `;
+
+        container.appendChild(btn);
+        container.appendChild(panel);
+
+        // Helpers
+        const getShareUrl = () => window.location.href;
+        const getShareText = () =>
+          document.title || 'Shared map';
+
+        const copyText = async (text, successMessage = 'Copied to clipboard') => {
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(text);
+            } else {
+              const ta = document.createElement('textarea');
+              ta.value = text;
+              ta.style.position = 'fixed';
+              ta.style.top = '-9999px';
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+            }
+            // Super lightweight feedback; swap for a snackbar if you want
+            console.log(successMessage);
+          } catch (err) {
+            console.error('Copy failed:', err);
+          }
+        };
+
+        const handleShareClick = (type) => {
+          const url = encodeURIComponent(getShareUrl());
+          const text = encodeURIComponent(getShareText());
+          const rawUrl = getShareUrl();
+
+          switch (type) {
+            case 'copy-url':
+              copyText(rawUrl, 'Link copied to clipboard');
+              break;
+            case 'copy-embed': {
+              const iframeCode =
+                `<iframe src="${rawUrl}" width="100%" height="600" style="border:0;" loading="lazy"></iframe>`;
+              copyText(iframeCode, 'Embed code copied to clipboard');
+              break;
+            }
+            case 'bluesky':
+              window.open(`https://bsky.app/intent/compose?text=${text}%20${url}`, '_blank');
+              break;
+            case 'email':
+              window.location.href =
+                `mailto:?subject=${text}&body=${text}%0A${url}`;
+              break;
+            case 'facebook':
+              window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+              break;
+            case 'linkedin':
+              window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+              break;
+            case 'x':
+              window.open(`https://x.com/intent/post?text=${text}%20${url}`, '_blank');
+              break;
+            case 'whatsapp':
+              window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+              break;
+          }
+        };
+
+        // Toggle panel
+        const togglePanel = () => {
+          panel.classList.toggle('open');
+        };
+
+        const closePanel = () => {
+          panel.classList.remove('open');
+        };
+
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          togglePanel();
+        });
+
+        panel.addEventListener('click', (e) => {
+          const target = e.target.closest('.share-item');
+          if (!target) return;
+          const type = target.getAttribute('data-share');
+          handleShareClick(type);
+          closePanel();
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!container.contains(e.target)) {
+            closePanel();
+          }
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closePanel();
+        });
+
+        this._container = container;
+        return container;
+      }
+
+      onRemove() {
+        if (this._container && this._container.parentNode) {
+          this._container.parentNode.removeChild(this._container);
+        }
+        this._map = undefined;
+      }
+    }
+
+
+    map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.FullscreenControl());
+    map.addControl(new ShareControl(), 'top-right');
+    map.addControl(new ArabicLinkControl(), 'top-right');
+
+    // Responsive attribution
+    let attributionCtrl = null;
+    let currentCompact = null;
+
+    function installAttribution(compact) {
+      if (attributionCtrl) map.removeControl(attributionCtrl);
+
+      attributionCtrl = new mapboxgl.AttributionControl({
+        compact,
+        customAttribution:
+          'International Crisis Group | Map: <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> & Claire Boccon-Gibod | Data: <a href="https://peacenow.org.il/en/settlements-watch/settlements-data/population" target="_blank">PeaceNow</a>, <a href="https://data.humdata.org/dataset/geoboundaries-admin-boundaries-for-state-of-palestine" target="_blank">HDX</a>'
+      });
+
+      map.addControl(attributionCtrl);
+      currentCompact = compact;
+    }
+
+    const container = map.getContainer();
+    const compact = container.clientWidth <= 768;
+    installAttribution(compact);
+
+    const ro = new ResizeObserver(entries => {
+      const w = entries[0].contentRect.width;
+      const shouldCompact = w <= 768;
+      if (shouldCompact !== currentCompact) {
+        installAttribution(shouldCompact);
+      }
+    });
+    ro.observe(container);
   </script>
 </body>
+
 
 </html>
