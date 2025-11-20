@@ -209,11 +209,14 @@
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/daltonwb/cmhw8tqoc004r01s7d09p0bwb',
-      center: [133.22692, 36.84902],
+      center: [137.34158, 36.68919],
       zoom: 4,
+      minZoom: 3,
       maxZoom: 10,
-      minZoom: 4,
-      maxBounds: [[90.0, -45.0], [170.0, 75.0]],
+      maxBounds: [
+        [90.0, 5.0],  // SW: E China Sea / S China
+        [180.0, 55.0]   // NE: N of Hokkaido / S Sea of Okhotsk
+      ],
       attributionControl: false
     });
 
