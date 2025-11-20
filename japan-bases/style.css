@@ -282,6 +282,7 @@ input[type="range"]::-moz-range-thumb:hover {
   align-items: baseline;
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
+  font-size: 20px;
 }
 
 .legend i,
