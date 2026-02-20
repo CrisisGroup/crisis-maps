@@ -266,13 +266,29 @@
       map.addLayer({
         id: 'rok-sites',
         type: 'circle',
-        source: 'rok',                         // <-- NOT "composite"
+        source: 'rok', // <-- changed from "composite"
         'source-layer': 'd2573fbbfe98c05da8e2',
+
+        // optional: keep if you still want only bases
+        // filter: ['==', ['get', 'type'], 'base'],
+
         paint: {
-          'circle-color': ['match', ['get', 'country'], 'ROK', 'rgb(174, 211, 244)', '#e97722'],
-          'circle-stroke-color': ['match', ['get', 'country'], 'ROK', '#008bcc', '#9cd9de'],
+          'circle-color': [
+            'match',
+            ['get', 'country'],
+            'ROK', '#008bcc',
+            'US', '#a4343a',
+            'rgb(176, 176, 176)' // default
+          ],
+          'circle-stroke-color': [
+            'match',
+            ['get', 'country'],
+            'ROK', '#93d3f1',
+            'US', '#de9c9c',
+            'rgb(189, 189, 189)' // default
+          ],
           'circle-stroke-width': 1,
-          'circle-stroke-opacity': 1,          // debug visible
+          'circle-stroke-opacity': 1,
           'circle-opacity': 1
         }
       });

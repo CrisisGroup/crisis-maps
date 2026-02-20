@@ -347,13 +347,13 @@ a.reportlink {
 }
 
 .lg-settlements {
-  background: rgb(174, 211, 244);
-  border: 2px solid rgb(0, 139, 204);
+  background: #008bcc;
+  border: 2px solid #93d3f1;
 }
 
 .lg-outposts {
-  background: rgb(233, 119, 34);
-  border: 2px solid rgb(156, 217, 222);
+  background: #a4343a;
+  border: 2px solid #de9c9c;
 }
 
 .lg-line {
