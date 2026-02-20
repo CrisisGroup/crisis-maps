@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Robots: index this as the canonical page -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+  <!-- Canonical & icons -->
+  <link rel="canonical" href="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
+  <link rel="icon" type="image/x-icon"
+    href="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/favicon.ico" />
+
+  <!-- Primary SEO -->
+  <title>[Visual] Asia’s Military Modernisation: Japan’s Maritime Footprint | International Crisis Group</title>
+  <meta name="description"
+    content="The 2025 update of our visual explainer on Israeli settlement expansion in the West Bank and its geopolitical impact." />
+  <meta name="author" content="International Crisis Group" />
+  <meta property="article:published_time" content="2025-10-08T07:00:00+00:00" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="International Crisis Group" />
+  <meta property="og:title"
+    content="[Visual] Asia’s Military Modernisation: Japan’s Maritime Footprint | International Crisis Group" />
+  <meta property="og:description"
+    content="Explore the 2025 edition of our interactive map of Israeli settlement expansion in the occupied West Bank." />
+  <meta property="og:url" content="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
+  <meta property="og:image"
+    content="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/israel_social_2025.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@crisisgroup" />
+  <meta name="twitter:title"
+    content="[Visual] Asia’s Military Modernisation: Japan’s Maritime Footprint | International Crisis Group" />
+  <meta name="twitter:description"
+    content="The 2025 edition of our interactive explainer on Israeli settlement expansion in the West Bank." />
+  <meta name="twitter:image"
+    content="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/israel_social_2025.jpg" />
+
+  <!-- CSS / JS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://use.typekit.net/tiz6shb.css">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-TD5NKJJ');
+  </script>
+</head>
+
+
+<body>
+  <div class="slider-container">
+    <h1>Asia’s Military Modernisation: South Korea</h1>
+    <div class="slider-controls"></div>
+  </div>
+
+  <div class="legend" id="legend">
+    <div class="legend-header" id="legendToggle">
+      <h2>Map Legend</h2>
+    </div>
+
+    <div class="legend-list">
+      <p><i class="lg lg-settlements"></i>ROK installations</p>
+      <p><i class="lg lg-outposts"></i>U.S. installations</p>
+
+      <!--       <div id="morebox">
+        <a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a>
+        <span id="more-info-text">More Information</span>
+      </div> -->
+    </div>
+
+    <hr />
+    <p>
+      <strong style="font-size:18px;">Read our full report on South Korea’s military modernisation
+        <a class="reportlink"
+          href="https://www.crisisgroup.org/asia-pacific/china-united-states/asias-military-modernisation-special-series"
+          target="_blank">here</a>.
+      </strong>
+    </p>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-content" tabindex="-1">
+        <div class="modal-header">
+          <h3 id="modal-title">About This Map</h3>
+          <button type="button" class="close" aria-label="Close modal">&times;</button>
+        </div>
+
+        <div class="modal-scroll">
+          <!-- (Keep or update this copy as needed for this project) -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="map"></div>
+
+  <script>
+    /* // Modal handlers
+    (function () {
+      const infoLink = document.getElementById('infoLink');
+      const modal = document.getElementById('myModal');
+      const dialog = modal.querySelector('.modal-content');
+      const closeBtn = modal.querySelector('.close');
+      let lastFocused;
+
+      function openModal(e) {
+        if (e) e.preventDefault();
+        lastFocused = document.activeElement;
+        document.body.classList.add('body-lock');
+        modal.classList.add('show');
+        requestAnimationFrame(() => dialog.focus());
+      }
+
+      function closeModal() {
+        modal.classList.remove('show');
+        document.body.classList.remove('body-lock');
+        if (lastFocused && lastFocused.focus) lastFocused.focus();
+      }
+
+      infoLink.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', e => {
+        if (e.target === modal) closeModal();
+      });
+      window.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+      });
+    })();
+
+    // Legend toggle + move modal to body
+    document.addEventListener('DOMContentLoaded', () => {
+      const legend = document.querySelector('.legend');
+      const header = legend.querySelector('.legend-header');
+      header.addEventListener('click', () => {
+        legend.classList.toggle('open');
+      });
+
+      const modal = document.getElementById('myModal');
+      if (modal && modal.parentElement !== document.body) {
+        document.body.appendChild(modal);
+      }
+    }); */
+
+    // Map
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/daltonwb/cmluxnulx000101qog7x2hbdv',
+      center: [129.471491, 38.009375],
+      zoom: 5.5,
+      minZoom: 3,
+      maxZoom: 10,
+      maxBounds: [
+        [110.0, 20.0], // SW: southern China / East China Sea
+        [145.0, 55.0]  // NE: Sea of Okhotsk / Russian Far East
+      ],
+      attributionControl: false
+    });
+
+    // Disable scroll-zoom by default to avoid scroll jacking
+    map.scrollZoom.disable();
+
+    // Ctrl/⌘-to-zoom hint
+    const hint = document.createElement('div');
+    hint.className = 'hold-ctrl-hint';
+    hint.textContent = 'Hold Ctrl (⌘ on Mac) to zoom';
+    document.getElementById('map').appendChild(hint);
+
+    let enableTimeout;
+    document.getElementById('map').addEventListener('wheel', (evt) => {
+      const ctrl = evt.ctrlKey || evt.metaKey;
+
+      if (ctrl) {
+        evt.preventDefault();
+        if (!map.scrollZoom.isEnabled()) map.scrollZoom.enable();
+        hint.classList.remove('show');
+        clearTimeout(enableTimeout);
+        enableTimeout = setTimeout(() => {
+          map.scrollZoom.disable();
+        }, 300);
+      } else {
+        map.scrollZoom.disable();
+        hint.classList.add('show');
+        clearTimeout(enableTimeout);
+        enableTimeout = setTimeout(() => hint.classList.remove('show'), 1200);
+      }
+    }, { passive: false });
+
+    const initialView = {};
+
+    map.on('load', () => {
+      // Capture initial view
+      initialView.center = map.getCenter().toArray();
+      initialView.zoom = map.getZoom();
+      initialView.bearing = map.getBearing();
+      initialView.pitch = map.getPitch();
+      if (typeof map.getPadding === 'function') {
+        initialView.padding = map.getPadding();
+      }
+
+      // Controls container
+      const controls = document.querySelector('.slider-controls');
+
+      // Zoom-to-focus button
+      const zoomBtn = document.createElement('button');
+      zoomBtn.textContent = 'Zoom to East China Sea';
+      zoomBtn.className = 'mapbox-zoom-to-focus';
+      controls.appendChild(zoomBtn);
+
+      const focusBbox = [
+        [121.13275, 23.91237],
+        [132.21579, 30.87390]
+      ];
+
+      zoomBtn.addEventListener('click', () => {
+        const cam = map.cameraForBounds(focusBbox, {
+          padding: { top: 10, right: 10, bottom: 10, left: 10 },
+          maxZoom: 12.5
+        });
+        map.easeTo({
+          ...cam,
+          bearing: -24,
+          pitch: 37,
+          duration: 1200,
+          essential: true
+        });
+      });
+
+      // Reset View button
+      const resetBtn = document.createElement('button');
+      resetBtn.textContent = 'Reset View';
+      resetBtn.className = 'mapbox-reset-view';
+      controls.appendChild(resetBtn);
+
+      resetBtn.addEventListener('click', () => {
+        const target = Object.keys(initialView).length
+          ? initialView
+          : { center: [130.63703, 30.27664], zoom: 4, bearing: 0, pitch: 0 };
+
+        map.easeTo({
+          ...target,
+          padding: target.padding || { top: 0, right: 0, bottom: 0, left: 0 },
+          duration: 800,
+          essential: true
+        });
+      });
+
+      map.addSource('rok', { type: 'vector', url: 'mapbox://daltonwb.76xpwyu9b7gv' });
+
+      map.addLayer({
+        id: 'rok-sites',
+        type: 'circle',
+        source: 'rok',                         // <-- NOT "composite"
+        'source-layer': 'd2573fbbfe98c05da8e2',
+        paint: {
+          'circle-color': ['match', ['get', 'country'], 'ROK', 'rgb(174, 211, 244)', '#e97722'],
+          'circle-stroke-color': ['match', ['get', 'country'], 'ROK', '#008bcc', '#9cd9de'],
+          'circle-stroke-width': 1,
+          'circle-stroke-opacity': 1,          // debug visible
+          'circle-opacity': 1
+        }
+      });
+
+      // Popup for base points
+      const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: true,
+        className: 'hover-popup'
+      });
+
+      const layerId = 'rok-sites';
+
+      map.on('mouseenter', layerId, () => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+      map.on('mouseleave', layerId, () => {
+        map.getCanvas().style.cursor = '';
+      });
+
+      map.on('click', layerId, (e) => {
+        const f = e.features && e.features[0];
+        if (!f) return;
+
+        const coordinates = f.geometry.coordinates.slice();
+        const props = f.properties || {};
+
+        const name =
+          props.display_name ||
+          props.Name ||
+          props.NAME ||
+          props.label ||
+          'Unnamed location';
+
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        map.easeTo({
+          center: coordinates,
+          zoom: map.getZoom(),
+          duration: 250,
+          easing: t => t
+        });
+
+        popup
+          .setLngLat(coordinates)
+          .setHTML(`<div class="hover-popup-content"><strong>${name}</strong></div>`)
+          .addTo(map);
+      });
+    });
+
+    // Arabic version control
+    class ArabicLinkControl {
+      onAdd(map) {
+        this._map = map;
+        const container = document.createElement('div');
+        container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group arabic-link-ctrl';
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'mapboxgl-ctrl-icon';
+        btn.title = 'View Arabic version';
+        btn.setAttribute('aria-label', 'View Arabic version');
+        btn.textContent = 'AR';
+
+        btn.addEventListener('click', () => {
+          window.location.href = '/ar/visual-explainers/israeli-settlements/';
+        });
+
+        container.appendChild(btn);
+        return container;
+      }
+
+      onRemove() {
+        this._map = undefined;
+      }
+    }
+
+    class ShareControl {
+      onAdd(map) {
+        this._map = map;
+
+        const container = document.createElement('div');
+        container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group share-ctrl';
+
+        // Main share button
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'share-button';
+        btn.title = 'Share this map';
+        btn.setAttribute('aria-label', 'Share this map');
+
+        // Simple "node" share icon as inline SVG
+        btn.innerHTML = `
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="share-icon">
+        <circle cx="6" cy="12" r="2"></circle>
+        <circle cx="18" cy="6" r="2"></circle>
+        <circle cx="18" cy="18" r="2"></circle>
+        <line x1="7.7" y1="11.2" x2="16.3" y2="6.8"></line>
+        <line x1="7.7" y1="12.8" x2="16.3" y2="17.2"></line>
+      </svg>
+    `;
+
+        // Dropdown menu
+        const panel = document.createElement('div');
+        panel.className = 'share-panel';
+        panel.setAttribute('role', 'menu');
+
+        panel.innerHTML = `
+  <button class="share-item" data-share="copy-url">
+    <span class="icon">🔗</span> Copy Link
+  </button>
+
+  <button class="share-item" data-share="bluesky">
+    <span class="icon">🦋</span> Bluesky
+  </button>
+
+  <button class="share-item" data-share="email">
+    <span class="icon">✉️</span> Email
+  </button>
+
+  <button class="share-item" data-share="facebook">
+    <span class="icon">📘</span> Facebook
+  </button>
+
+  <button class="share-item" data-share="linkedin">
+    <span class="icon">💼</span> LinkedIn
+  </button>
+
+  <button class="share-item" data-share="x">
+    <span class="icon">✖️</span> X (Twitter)
+  </button>
+
+  <button class="share-item" data-share="whatsapp">
+    <span class="icon">💬</span> WhatsApp
+  </button>
+
+  <button class="share-item" data-share="copy-embed">
+    <span class="icon">📥</span> Copy Embed Code
+  </button>
+`;
+
+
+        container.appendChild(btn);
+        container.appendChild(panel);
+
+        // Helpers
+        const getShareUrl = () => window.location.href;
+        const getShareText = () =>
+          document.title || 'Shared map';
+
+        const copyText = async (text, successMessage = 'Copied to clipboard') => {
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(text);
+            } else {
+              const ta = document.createElement('textarea');
+              ta.value = text;
+              ta.style.position = 'fixed';
+              ta.style.top = '-9999px';
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+            }
+            // Super lightweight feedback; swap for a snackbar if you want
+            console.log(successMessage);
+          } catch (err) {
+            console.error('Copy failed:', err);
+          }
+        };
+
+        const handleShareClick = (type) => {
+          const url = encodeURIComponent(getShareUrl());
+          const text = encodeURIComponent(getShareText());
+          const rawUrl = getShareUrl();
+
+          switch (type) {
+            case 'copy-url':
+              copyText(rawUrl, 'Link copied to clipboard');
+              break;
+            case 'copy-embed': {
+              const iframeCode =
+                `<iframe src="${rawUrl}" width="100%" height="600" style="border:0;" loading="lazy"></iframe>`;
+              copyText(iframeCode, 'Embed code copied to clipboard');
+              break;
+            }
+            case 'bluesky':
+              window.open(`https://bsky.app/intent/compose?text=${text}%20${url}`, '_blank');
+              break;
+            case 'email':
+              window.location.href =
+                `mailto:?subject=${text}&body=${text}%0A${url}`;
+              break;
+            case 'facebook':
+              window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+              break;
+            case 'linkedin':
+              window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+              break;
+            case 'x':
+              window.open(`https://x.com/intent/post?text=${text}%20${url}`, '_blank');
+              break;
+            case 'whatsapp':
+              window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+              break;
+          }
+        };
+
+        // Toggle panel
+        const togglePanel = () => {
+          panel.classList.toggle('open');
+        };
+
+        const closePanel = () => {
+          panel.classList.remove('open');
+        };
+
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          togglePanel();
+        });
+
+        panel.addEventListener('click', (e) => {
+          const target = e.target.closest('.share-item');
+          if (!target) return;
+          const type = target.getAttribute('data-share');
+          handleShareClick(type);
+          closePanel();
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!container.contains(e.target)) {
+            closePanel();
+          }
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closePanel();
+        });
+
+        this._container = container;
+        return container;
+      }
+
+      onRemove() {
+        if (this._container && this._container.parentNode) {
+          this._container.parentNode.removeChild(this._container);
+        }
+        this._map = undefined;
+      }
+    }
+
+
+    map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.FullscreenControl());
+    map.addControl(new ShareControl(), 'top-right');
+    map.addControl(new ArabicLinkControl(), 'top-right');
+
+    // Responsive attribution
+    let attributionCtrl = null;
+    let currentCompact = null;
+
+    function installAttribution(compact) {
+      if (attributionCtrl) map.removeControl(attributionCtrl);
+
+      attributionCtrl = new mapboxgl.AttributionControl({
+        compact,
+        customAttribution:
+          'International Crisis Group | Map: <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> & Claire Boccon-Gibod'
+      });
+
+      map.addControl(attributionCtrl);
+      currentCompact = compact;
+    }
+
+    const container = map.getContainer();
+    const compact = container.clientWidth <= 768;
+    installAttribution(compact);
+
+    const ro = new ResizeObserver(entries => {
+      const w = entries[0].contentRect.width;
+      const shouldCompact = w <= 768;
+      if (shouldCompact !== currentCompact) {
+        installAttribution(shouldCompact);
+      }
+    });
+    ro.observe(container);
+  </script>
+</body>
+
+
+</html>
