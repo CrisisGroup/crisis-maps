@@ -80,6 +80,22 @@
                 timeline.style.background = `linear-gradient(to right, #ee7143 0%, #ee7143 ${progress}, #1993c3 ${progress}, #1993c3 100%)`;
             }
 
+            function parseDateValues(rawDates) {
+                if (Array.isArray(rawDates)) {
+                    return rawDates.map((date) => parseInt(date, 10)).filter(Number.isFinite);
+                }
+
+                if (typeof rawDates === 'string') {
+                    return rawDates
+                        .split(' ; ')
+                        .map((date) => parseInt(date.trim(), 10))
+                        .filter(Number.isFinite);
+                }
+
+                const parsedDate = parseInt(rawDates, 10);
+                return Number.isFinite(parsedDate) ? [parsedDate] : [];
+            }
+
             // Attach event listener
             timeline.addEventListener('input', updateSliderBackground);
 
@@ -152,15 +168,27 @@
                             },
                         });
 
-                        // Extract unique years and sort them
-                        const years = [...new Set(data.features.map((f) => f.properties.first_date))].sort();
+                        // Build a full year range so the slider reaches the latest article year (2026+).
+                        const firstYears = data.features
+                            .map((feature) => parseInt(feature.properties.first_date, 10))
+                            .filter(Number.isFinite);
+                        const articleYears = data.features.flatMap((feature) => parseDateValues(feature.properties.dates));
+                        const minYear = firstYears.length > 0
+                            ? Math.min(...firstYears)
+                            : (articleYears.length > 0 ? Math.min(...articleYears) : null);
+                        const maxYear = articleYears.length > 0
+                            ? Math.max(...articleYears)
+                            : (firstYears.length > 0 ? Math.max(...firstYears) : null);
+                        const years = minYear !== null && maxYear !== null && maxYear >= minYear
+                            ? Array.from({ length: maxYear - minYear + 1 }, (_, index) => minYear + index)
+                            : [];
 
                         if (years.length > 0) {
                             timeline.max = years.length - 1;
 
-                            // Find index of 2016 in sorted years
-                            const initialIndex = years.indexOf(2025);
-                            timeline.value = initialIndex !== -1 ? initialIndex : 0; // Set slider to 2016 or min year
+                            // Default to the latest year available in the data.
+                            const initialIndex = years.length - 1;
+                            timeline.value = initialIndex;
                             yearDisplay.textContent = years[timeline.value];
 
                             // Ensure the slider background is correct on load
@@ -181,7 +209,7 @@
                                 updateMap(year);
                             });
 
-                            updateMap(years[timeline.value]); // Initialize map at 2016 or min year
+                            updateMap(years[timeline.value]); // Initialize map at the latest year
                         } else {
                             yearDisplay.textContent = 'No Data';
                         }
@@ -203,11 +231,7 @@
                             // Extract articles, links, and dates
                             const titles = properties.title.split(' ; ');
                             const links = properties.links.split(' ; ');
-                            const dates = Array.isArray(properties.dates)
-  ? properties.dates.map(d => parseInt(d, 10))
-  : (typeof properties.dates === 'string'
-      ? properties.dates.split(' ; ').map(d => parseInt(d.trim(), 10))
-      : [parseInt(properties.dates, 10)]);
+                            const dates = parseDateValues(properties.dates);
 
                             // Combine into an array of objects and sort by date (ascending order)
                             const sortedArticles = titles.map((title, index) => ({
