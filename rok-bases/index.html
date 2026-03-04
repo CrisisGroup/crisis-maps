@@ -261,13 +261,13 @@
         });
       });
 
-      map.addSource('rok', { type: 'vector', url: 'mapbox://daltonwb.76xpwyu9b7gv' });
+      map.addSource('rok', { type: 'vector', url: 'mapbox://daltonwb.9obgc3oj' });
 
       map.addLayer({
         id: 'rok-sites',
         type: 'circle',
         source: 'rok', // <-- changed from "composite"
-        'source-layer': 'd2573fbbfe98c05da8e2',
+        'source-layer': 'us_rok_installations-a06rwe',
 
         // optional: keep if you still want only bases
         // filter: ['==', ['get', 'type'], 'base'],
