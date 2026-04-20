@@ -161,7 +161,7 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/daltonwb/cmluxnulx000101qog7x2hbdv',
+      style: 'mapbox://styles/daltonwb/cmo79hz4a000801s09z3wcz9r',
       center: [129.471491, 38.009375],
       zoom: 5.5,
       minZoom: 3,
@@ -218,14 +218,14 @@
       const controls = document.querySelector('.slider-controls');
 
       // Zoom-to-focus button
-      /* const zoomBtn = document.createElement('button');
+      const zoomBtn = document.createElement('button');
       zoomBtn.textContent = 'Zoom to East China Sea';
       zoomBtn.className = 'mapbox-zoom-to-focus';
       controls.appendChild(zoomBtn);
 
       const focusBbox = [
-        [121.13275, 23.91237],
-        [132.21579, 30.87390]
+        [119.96218663907598, 34.13097936501286],
+        [124.95943102007772, 36.20744820103087]
       ];
 
       zoomBtn.addEventListener('click', () => {
@@ -240,7 +240,7 @@
           duration: 1200,
           essential: true
         });
-      }); */
+      }); 
 
       // Reset View button
       const resetBtn = document.createElement('button');
@@ -291,6 +291,23 @@
           'circle-stroke-opacity': 1,
           'circle-opacity': 1
         }
+      });
+
+      map.addSource('pmz', { type: 'vector', url: 'mapbox://daltonwb.4h9nxqzq0y3n' });
+
+      map.addLayer({
+        id: 'pmz-sites',
+        type: 'circle',
+        source: 'pmz', // <-- changed from "composite"
+        'source-layer': '500c6f35dd5ea1cc1746',
+
+        // optional: keep if you still want only bases
+        // filter: ['==', ['get', 'type'], 'base'],
+
+        paint: {
+          "circle-stroke-color": "rgb(255, 255, 255)",
+          "circle-stroke-width": 2
+        },
       });
 
       // Popup for base points
