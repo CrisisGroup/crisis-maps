@@ -74,8 +74,8 @@
     </div>
 
     <div class="legend-list">
-      <p><i class="lg lg-settlements"></i>ROK installations</p>
-      <p><i class="lg lg-outposts"></i>U.S. installations</p>
+      <p><i class="lg lg-settlements"></i>U.S. installations</p>
+      <p><i class="lg lg-outposts"></i>ROK installations</p>
 
       <!--       <div id="morebox">
         <a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a>
@@ -219,13 +219,13 @@
 
       // Zoom-to-focus button
       const zoomBtn = document.createElement('button');
-      zoomBtn.textContent = 'Zoom to East China Sea';
+      zoomBtn.textContent = 'Zoom to Yellow Sea';
       zoomBtn.className = 'mapbox-zoom-to-focus';
       controls.appendChild(zoomBtn);
 
       const focusBbox = [
-        [119.96218663907598, 34.13097936501286],
-        [124.95943102007772, 36.20744820103087]
+        [121.05815882128405, 34.7213069453569],
+        [123.82811114259118, 35.87666257958202]
       ];
 
       zoomBtn.addEventListener('click', () => {
@@ -240,7 +240,7 @@
           duration: 1200,
           essential: true
         });
-      }); 
+      });
 
       // Reset View button
       const resetBtn = document.createElement('button');
@@ -261,13 +261,13 @@
         });
       });
 
-      map.addSource('rok', { type: 'vector', url: 'mapbox://daltonwb.9obgc3oj' });
+      map.addSource('rok', { type: 'vector', url: 'mapbox://daltonwb.2pbb4wav' });
 
       map.addLayer({
         id: 'rok-sites',
         type: 'circle',
         source: 'rok', // <-- changed from "composite"
-        'source-layer': 'us_rok_installations-a06rwe',
+        'source-layer': 'us_rok_basesmap_0421-9m029h',
 
         // optional: keep if you still want only bases
         // filter: ['==', ['get', 'type'], 'base'],
@@ -276,15 +276,15 @@
           'circle-color': [
             'match',
             ['get', 'country'],
-            'ROK', '#008bcc',
-            'US', '#a4343a',
+            'ROK', '#d15b28',
+            'US', '#008bcc',
             'rgb(176, 176, 176)' // default
           ],
           'circle-stroke-color': [
             'match',
             ['get', 'country'],
-            'ROK', '#93d3f1',
-            'US', '#de9c9c',
+            'ROK', '#f89642',
+            'US', '#93d3f1',
             'rgb(189, 189, 189)' // default
           ],
           'circle-stroke-width': 1,
@@ -305,57 +305,66 @@
         // filter: ['==', ['get', 'type'], 'base'],
 
         paint: {
-          "circle-stroke-color": "rgb(255, 255, 255)",
-          "circle-stroke-width": 2
+          "circle-stroke-color": "#d48283",
+          "circle-stroke-width": 2,
+          "circle-color": "#921a1c"
         },
       });
 
       // Popup for base points
-      const popup = new mapboxgl.Popup({
-        closeButton: false,
-        closeOnClick: true,
-        className: 'hover-popup'
-      });
+      // Popup
+const popup = new mapboxgl.Popup({
+  closeButton: false,
+  closeOnClick: true,
+  className: 'hover-popup'
+});
 
-      const layerId = 'rok-sites';
+// Include BOTH layers
+const layerIds = ['rok-sites', 'pmz-sites'];
 
-      map.on('mouseenter', layerId, () => {
-        map.getCanvas().style.cursor = 'pointer';
-      });
-      map.on('mouseleave', layerId, () => {
-        map.getCanvas().style.cursor = '';
-      });
+// Cursor behavior
+layerIds.forEach((layerId) => {
+  map.on('mouseenter', layerId, () => {
+    map.getCanvas().style.cursor = 'pointer';
+  });
 
-      map.on('click', layerId, (e) => {
-        const f = e.features && e.features[0];
-        if (!f) return;
+  map.on('mouseleave', layerId, () => {
+    map.getCanvas().style.cursor = '';
+  });
 
-        const coordinates = f.geometry.coordinates.slice();
-        const props = f.properties || {};
+  map.on('click', layerId, (e) => {
+    const f = e.features && e.features[0];
+    if (!f) return;
 
-        const name =
-          props.display_name ||
-          props.Name ||
-          props.NAME ||
-          props.label ||
-          'Unnamed location';
+    const coordinates = f.geometry.coordinates.slice();
+    const props = f.properties || {};
 
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
+    const name =
+      props.display_name ||
+      props.Name ||
+      props.name ||
+      props.NAME ||
+      props.label ||
+      'Unnamed location';
 
-        map.easeTo({
-          center: coordinates,
-          zoom: map.getZoom(),
-          duration: 250,
-          easing: t => t
-        });
+    // handle antimeridian wrapping
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
 
-        popup
-          .setLngLat(coordinates)
-          .setHTML(`<div class="hover-popup-content"><strong>${name}</strong></div>`)
-          .addTo(map);
-      });
+    map.easeTo({
+      center: coordinates,
+      zoom: map.getZoom(),
+      duration: 250,
+      easing: t => t
+    });
+
+    popup
+      .setLngLat(coordinates)
+      .setHTML(`<div class="hover-popup-content"><strong>${name}</strong></div>`)
+      .addTo(map);
+  });
+});
     });
 
     // Arabic version control
