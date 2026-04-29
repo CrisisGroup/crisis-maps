@@ -366,8 +366,9 @@ a.reportlink {
   border-radius: 0;
   background: #2f2f30;
   border: 2px dotted #fff;
-  height: 15px;
-  width: 15px;
+  height: 16px;
+  width: 16px;
+  margin-right: 7px !important;
 }
 
 .lg-line {
