@@ -315,6 +315,38 @@ input[type="range"]::-moz-range-thumb:hover {
   line-height: 1.2;
 }
 
+.legend-toggle {
+  display: flex;
+  align-items: center;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  color: #333;
+  cursor: pointer;
+  font-size: 20px;
+  gap: 8px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.legend-toggle input[type="checkbox"] {
+  accent-color: #165C7D;
+  cursor: pointer;
+  flex: 0 0 auto;
+  height: 16px;
+  margin: 0;
+  width: 16px;
+}
+
+.legend-toggle input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.legend-toggle input[type="checkbox"]:disabled + span {
+  color: #717c7d;
+  cursor: not-allowed;
+}
+
 a.reportlink {
   color: #165C7D;
 }
@@ -459,6 +491,10 @@ a.reportlink {
   }
 
   #morebox {
+    font-size: 16px;
+  }
+
+  .legend-toggle {
     font-size: 16px;
   }
 

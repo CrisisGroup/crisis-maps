@@ -82,6 +82,16 @@
         <a href="#infobox" id="infoLink" class="info-icon"><em>i</em></a>
         <span id="more-info-text">More Information</span>
       </div>
+
+      <label class="legend-toggle" for="toggle-tileset-1">
+        <input type="checkbox" id="toggle-tileset-1" checked>
+        <span>ROK ADIZ</span>
+      </label>
+
+      <label class="legend-toggle" for="toggle-tileset-2">
+        <input type="checkbox" id="toggle-tileset-2" checked>
+        <span>124&deg; longitudinal line</span>
+      </label>
     </div>
 
     <hr />
@@ -161,9 +171,11 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw';
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/daltonwb/cmo79hz4a000801s09z3wcz9r',
-      center: [129.471491, 38.009375],
-      zoom: 5.5,
+      style: 'mapbox://styles/daltonwb/cmou3i112003v01s40eobda38',
+      center: [127.682740, 34.267505],
+      bearing: -28.80,
+      pitch: 45,
+      zoom: 6,
       minZoom: 3,
       maxZoom: 10,
       maxBounds: [
@@ -203,6 +215,85 @@
     }, { passive: false });
 
     const initialView = {};
+
+    const toggleableTilesets = [
+      {
+        checkboxId: 'toggle-tileset-1',
+        sourceId: 'toggle-tileset-1-source',
+        layerId: 'toggle-tileset-1-layer',
+        tilesetUrl: 'mapbox://daltonwb.5ixc23n3',
+        sourceLayer: 'korean_adiz-4tcn04',
+        type: 'fill',
+        paint: {
+          'fill-color': '#3063c7',
+          'fill-opacity': 0.35,
+          'fill-outline-color': '#ffffff'
+        }
+      },
+      {
+        checkboxId: 'toggle-tileset-2',
+        sourceId: 'toggle-tileset-2-source',
+        layerId: 'toggle-tileset-2-layer',
+        tilesetUrl: 'mapbox://daltonwb.6uydpjrz',
+        sourceLayer: '124_lon-7d6iyo',
+        type: 'line',
+        paint: {
+          'line-color': '#d15b28',
+          'line-width': 2,
+          'line-opacity': 0.9
+        }
+      }
+    ];
+
+    function isConfiguredTileset(config) {
+      return config.tilesetUrl &&
+        config.sourceLayer &&
+        !config.tilesetUrl.includes('YOUR_') &&
+        !config.sourceLayer.includes('YOUR_');
+    }
+
+    function addToggleableTileset(config) {
+      const checkbox = document.getElementById(config.checkboxId);
+      if (!checkbox) return;
+
+      if (!isConfiguredTileset(config)) {
+        checkbox.checked = false;
+        checkbox.disabled = true;
+        checkbox.title = 'Mapbox tileset details pending';
+        return;
+      }
+
+      map.addSource(config.sourceId, {
+        type: 'vector',
+        url: config.tilesetUrl
+      });
+
+      const layer = {
+        id: config.layerId,
+        type: config.type,
+        source: config.sourceId,
+        'source-layer': config.sourceLayer,
+        layout: {
+          ...(config.layout || {}),
+          visibility: checkbox.checked ? 'visible' : 'none'
+        },
+        paint: config.paint || {}
+      };
+
+      if (config.beforeId && map.getLayer(config.beforeId)) {
+        map.addLayer(layer, config.beforeId);
+      } else {
+        map.addLayer(layer);
+      }
+
+      checkbox.addEventListener('change', () => {
+        map.setLayoutProperty(
+          config.layerId,
+          'visibility',
+          checkbox.checked ? 'visible' : 'none'
+        );
+      });
+    }
 
     map.on('load', () => {
       // Capture initial view
@@ -310,6 +401,8 @@
           "circle-color": "#921a1c"
         },
       });
+
+      toggleableTilesets.forEach(addToggleableTileset);
 
       // Popup for base points
       // Popup
