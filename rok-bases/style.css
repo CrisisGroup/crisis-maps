@@ -281,17 +281,21 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 .legend-list p {
-  display: flex;
-  align-items: baseline;
+  display: grid;
+  grid-template-columns: 28px max-content;
+  column-gap: 10px;
+  align-items: center;
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
   font-size: 20px;
+  line-height: 1.2;
+  margin: 0;
 }
 
 .legend i,
 .lg {
   flex-shrink: 0;
-  margin-right: 10px;
+  margin-right: 0;
 }
 
 .legend-list .break-after {
@@ -300,13 +304,15 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 #morebox {
-  display: flex;
+  display: grid;
+  grid-template-columns: 28px max-content;
+  column-gap: 10px;
   align-items: center;
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
   font-size: 20px;
-  gap: 7px;
-  margin: 0 0 0 -3px;
+  line-height: 1.2;
+  margin: 0;
 }
 
 #more-info-text {
@@ -316,14 +322,15 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 .legend-toggle {
-  display: flex;
+  display: grid;
+  grid-template-columns: 28px max-content;
+  column-gap: 10px;
   align-items: center;
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
-  color: #333;
+  color: #000;
   cursor: pointer;
   font-size: 20px;
-  gap: 8px;
   line-height: 1.2;
   margin: 0;
 }
@@ -335,6 +342,12 @@ input[type="range"]::-moz-range-thumb:hover {
   height: 16px;
   margin: 0;
   width: 16px;
+}
+
+.legend-list .lg,
+.legend-toggle input[type="checkbox"],
+.info-icon {
+  justify-self: center;
 }
 
 .legend-toggle input[type="checkbox"]:disabled {
@@ -363,7 +376,7 @@ a.reportlink {
   height: 12px;
   width: 12px;
   border-radius: 50%;
-  margin-top: 7px;
+  margin-top: 0;
 }
 
 .lg-areas-ab {
@@ -394,22 +407,49 @@ a.reportlink {
   border: 1px solid #f89642;
 }
 
+.lg-pmz-structures-prc {
+  background: #921a1c;
+  border: 1px solid #d48283;
+}
+
 .lg-pmz {
   border-radius: 0;
   background: #2f2f30;
   border: 2px dotted #fff;
   height: 16px;
   width: 16px;
-  margin-right: 7px !important;
+  margin-right: 0 !important;
 }
 
 .lg-line {
   align-self: center;
   width: 28px;
-  height: 1px;
+  height: 4px;
   background: transparent;
   border: 0;
   border-radius: 0;
+}
+
+.lg-rok-unc-line,
+.lg-dprk-claim {
+  background-repeat: repeat-x;
+  background-size: 10.4px 4px;
+}
+
+.lg-rok-unc-line {
+  background-image: linear-gradient(to right,
+      rgb(209, 91, 40) 0,
+      rgb(209, 91, 40) 8px,
+      transparent 8px,
+      transparent 10.4px);
+}
+
+.lg-dprk-claim {
+  background-image: linear-gradient(to right,
+      #474747 0,
+      #474747 8px,
+      transparent 8px,
+      transparent 10.4px);
 }
 
 .lg-road-israeli {
@@ -488,6 +528,12 @@ a.reportlink {
   .legend-list {
     grid-template-columns: minmax(0, 1fr) max-content;
     column-gap: 12px;
+  }
+
+  .legend-list p,
+  #morebox,
+  .legend-toggle {
+    grid-template-columns: 28px minmax(0, 1fr);
   }
 
   #morebox {
