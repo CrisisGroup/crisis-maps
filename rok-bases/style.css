@@ -199,6 +199,7 @@ input[type="range"]::-moz-range-thumb:hover {
 
 .mapboxgl-ctrl-attrib-inner {
   font-family: gill-sans-nova, sans-serif !important;
+  font-size: 14px;
 }
 
 @media (max-width: 768px) {
@@ -642,6 +643,7 @@ a.reportlink {
 .modal-scroll p {
   margin: 0 0 10px;
   line-height: 1.5;
+  font-size: 1.4rem;
 }
 
 .close {
