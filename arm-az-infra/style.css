@@ -28,6 +28,8 @@ a:visited {
     position: absolute;
     bottom: 16px;
     left: 16px;
+    max-width: 340px;
+    box-sizing: border-box;
     background: rgba(255, 255, 255, 0.92);
     border-radius: 10px;
     padding: 12px 14px;
@@ -36,9 +38,16 @@ a:visited {
 }
 
 .legend-header {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
     font-weight: 600;
     margin-bottom: 6px;
     letter-spacing: .02em;
+    cursor: default;
 }
 
 .legend-item {
@@ -103,6 +112,10 @@ a:visited {
     color: #333;
     text-align: left;
     font-weight: bold;
+}
+
+.legend-content {
+    display: block;
 }
 
 .legend i {
@@ -395,4 +408,68 @@ a:visited {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1024px), screen and (max-height: 600px) {
+    .legend {
+        position: fixed;
+        right: 8px;
+        bottom: 8px;
+        left: 8px;
+        max-width: none;
+        z-index: 100;
+        max-height: min(70vh, 420px);
+        padding: 0;
+        overflow: hidden;
+        border-radius: 8px;
+        transition: max-height 0.25s ease;
+    }
+
+    .legend-header {
+        min-height: 44px;
+        margin: 0;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        touch-action: manipulation;
+    }
+
+    .legend-header::after {
+        content: "\25B2";
+        margin-left: 12px;
+        font-size: 12px;
+    }
+
+    .legend:not(.open) {
+        max-height: 44px;
+    }
+
+    .legend:not(.open) .legend-header::after {
+        content: "\25BC";
+    }
+
+    .legend-content {
+        max-height: calc(min(70vh, 420px) - 44px);
+        padding: 0 14px calc(12px + env(safe-area-inset-bottom, 0px));
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .legend:not(.open) .legend-content {
+        visibility: hidden;
+    }
+
+    .mapboxgl-ctrl-bottom-left,
+    .mapboxgl-ctrl-bottom-right {
+        bottom: 52px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .legend {
+        transition: none;
+    }
 }

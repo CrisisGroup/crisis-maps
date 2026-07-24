@@ -31,10 +31,12 @@
         <button id="close-panel">&times;</button>
         <div id="panel-content">Click on a point to see details</div>
     </div>
-    <div class="legend">
-        <div class="legend-header">LEGEND</div>
+    <div class="legend" id="legend">
+        <button class="legend-header" id="legend-toggle" type="button" aria-expanded="false"
+            aria-controls="legend-content">LEGEND</button>
+        <div class="legend-content" id="legend-content">
 
-        <strong>Planned Roads</strong>
+            <strong>Planned Roads</strong>
 
         <div class="legend-item">
             <span class="legend-circle" style="background:#a71e0f;"></span>
@@ -85,7 +87,8 @@
         <p>Read our full report <a id="reportlink"
                 href="https://www.crisisgroup.org/europe-central-asia/caucasus/armenian-azerbaijani-conflict/98-armenia-and-azerbaijan-hard-road-lasting-peace"
                 target="_blank">here</a>.</p>
-        <p>Source: Azerbaijani and Armenian governments, OpenStreetMap, Mapbox, August 2025 / CRISIS GROUP</p>
+            <p>Source: Azerbaijani and Armenian governments, OpenStreetMap, Mapbox, August 2025 / CRISIS GROUP</p>
+        </div>
         <!--         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -103,6 +106,34 @@
         </div> -->
     </div>
     <script>
+        const legend = document.getElementById('legend');
+        const legendToggle = document.getElementById('legend-toggle');
+        const compactLegend = window.matchMedia('(max-width: 1024px), (max-height: 600px)');
+
+        function syncLegendState() {
+            if (!compactLegend.matches) legend.classList.remove('open');
+            legendToggle.setAttribute(
+                'aria-expanded',
+                !compactLegend.matches || legend.classList.contains('open') ? 'true' : 'false'
+            );
+        }
+
+        legendToggle.addEventListener('click', () => {
+            if (!compactLegend.matches) return;
+            legend.classList.toggle('open');
+            syncLegendState();
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && legend.classList.contains('open')) {
+                legend.classList.remove('open');
+                syncLegendState();
+                legendToggle.focus();
+            }
+        });
+
+        compactLegend.addEventListener('change', syncLegendState);
+        syncLegendState();
 
         /*         document.getElementById("infoLink").addEventListener('click', function (event) {
                     event.preventDefault();
