@@ -472,6 +472,49 @@
 
 
       // Data source + layers
+      map.addSource('khan-al-ahmar-al-kurshan', {
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          properties: { name: 'خان الأحمر - الكرشان' },
+          geometry: {
+            type: 'Point',
+            coordinates: [35.335858, 31.803456]
+          }
+        }
+      });
+
+      map.addLayer({
+        id: 'khan-al-ahmar-al-kurshan-circle',
+        type: 'circle',
+        source: 'khan-al-ahmar-al-kurshan',
+        minzoom: 10,
+        paint: {
+          'circle-radius': 4,
+          'circle-color': '#ffffff',
+          'circle-stroke-color': '#333333',
+          'circle-stroke-width': 1.5
+        }
+      });
+
+      map.addLayer({
+        id: 'khan-al-ahmar-al-kurshan-label',
+        type: 'symbol',
+        source: 'khan-al-ahmar-al-kurshan',
+        minzoom: 10,
+        layout: {
+          'text-field': ['get', 'name'],
+          'text-size': 12,
+          'text-offset': [0, 1],
+          'text-anchor': 'top'
+        },
+        paint: {
+          'text-color': '#333333',
+          'text-halo-color': '#ffffff',
+          'text-halo-width': 1.5
+        }
+      });
+
       map.addSource('settlements', { type: 'vector', url: 'mapbox://daltonwb.afyqoeoq' });
       const layerName = 'IL_PA_Settlements_-_10_2025_P-cmydfu';
       const initialYear = 1967;
