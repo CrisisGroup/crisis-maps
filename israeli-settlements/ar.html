@@ -176,6 +176,9 @@
 
   <!-- App JS -->
   <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestedView = urlParams.get('view');
+
     // --- Slider UI logic (single DOMContentLoaded) ---
     document.addEventListener('DOMContentLoaded', function () {
   const range = document.getElementById('year-slider');
@@ -441,11 +444,23 @@
         [35.37757, 31.84145]  // NE corner
       ];
 
-      zoomBtn.addEventListener('click', () => {
-        const cam = map.cameraForBounds(focusBbox, {
+      const getFocusCamera = () =>
+        map.cameraForBounds(focusBbox, {
           padding: { top: 10, right: 10, bottom: 10, left: 10 },
           maxZoom: 12.5
         });
+
+      if (requestedView === 'e1') {
+        const cam = getFocusCamera();
+        map.jumpTo({
+          ...cam,
+          bearing: -24,
+          pitch: 37
+        });
+      }
+
+      zoomBtn.addEventListener('click', () => {
+        const cam = getFocusCamera();
         map.easeTo({
           ...cam,
           bearing: -24,
