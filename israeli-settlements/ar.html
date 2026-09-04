@@ -472,6 +472,17 @@
 
 
       // Data source + layers
+      if (map.getLayer('E1-label')) {
+        map.setLayoutProperty('E1-label', 'visibility', 'visible');
+        map.setLayerZoomRange('E1-label', 9, 24);
+      }
+
+      if (map.getLayer('maale_adumim')) {
+        map.setLayoutProperty('maale_adumim', 'visibility', 'visible');
+        map.setLayerZoomRange('maale_adumim', 9, 24);
+        map.setPaintProperty('maale_adumim', 'text-opacity', 1);
+      }
+
       map.addSource('khan-al-ahmar-al-kurshan', {
         type: 'geojson',
         data: {
