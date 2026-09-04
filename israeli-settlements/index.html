@@ -421,8 +421,8 @@
 
       // Updated bounding box
       const focusBbox = [
-        [35.19381, 31.73313], // SW corner
-        [35.37757, 31.84145]  // NE corner
+        [35.105605, 31.681136], // SW corner
+        [35.465775, 31.893444]  // NE corner
       ];
 
       const getFocusCamera = () =>
@@ -435,7 +435,6 @@
         const cam = getFocusCamera();
         map.jumpTo({
           ...cam,
-          zoom: 11,
           bearing: 0,
           pitch: 0
         });
