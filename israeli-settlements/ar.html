@@ -474,7 +474,10 @@
       // Data source + layers
       if (map.getLayer('E1-label')) {
         map.setLayoutProperty('E1-label', 'visibility', 'visible');
+        map.setLayoutProperty('E1-label', 'text-allow-overlap', true);
+        map.setLayoutProperty('E1-label', 'text-ignore-placement', true);
         map.setLayerZoomRange('E1-label', 9, 24);
+        map.setPaintProperty('E1-label', 'text-opacity', 1);
       }
 
       if (map.getLayer('maale_adumim')) {
