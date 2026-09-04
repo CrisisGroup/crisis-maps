@@ -472,13 +472,37 @@
 
 
       // Data source + layers
-      if (map.getLayer('E1-label')) {
-        map.setLayoutProperty('E1-label', 'visibility', 'visible');
-        map.setLayoutProperty('E1-label', 'text-allow-overlap', true);
-        map.setLayoutProperty('E1-label', 'text-ignore-placement', true);
-        map.setLayerZoomRange('E1-label', 9, 24);
-        map.setPaintProperty('E1-label', 'text-opacity', 1);
-      }
+      map.addSource('e1-label-point', {
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'Point',
+            coordinates: [35.28069, 31.79129]
+          }
+        }
+      });
+
+      map.addLayer({
+        id: 'e1-label-local',
+        type: 'symbol',
+        source: 'e1-label-point',
+        minzoom: 8,
+        layout: {
+          'text-field': 'E1',
+          'text-offset': [0, 0],
+          'text-font': [
+            'Franklin Gothic Medium Cond Regular',
+            'Arial Unicode MS Regular'
+          ],
+          'text-size': 24,
+          'text-size-scale-range': [0.8, 2],
+          'text-allow-overlap': true,
+          'text-ignore-placement': true
+        },
+        paint: { 'text-opacity': 1 }
+      });
 
       if (map.getLayer('maale_adumim')) {
         map.setLayoutProperty('maale_adumim', 'visibility', 'visible');
