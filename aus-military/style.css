@@ -1,0 +1,33 @@
+:root { color-scheme: dark; font-family: Arial, Helvetica, sans-serif; color: #f2f3ed; background: #07141e; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main, #map { position: absolute; inset: 0; }
+main { overflow: hidden; height: 100svh; }
+#map { background: #07141e; }
+.intro { position: absolute; left: 42px; top: 40px; max-width: 360px; pointer-events: none; text-shadow: 0 2px 18px #07141e; }
+.eyebrow { font-size: 10px; line-height: 1.5; letter-spacing: .19em; text-transform: uppercase; color: #bbd1d7; margin: 0 0 21px; }
+h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px, 3.6vw, 52px); font-weight: 400; line-height: 1.08; letter-spacing: -.035em; margin: 0; }
+.description { color: #c2cdd0; font-size: 15px; line-height: 1.65; margin: 21px 0; }
+.rule { display: block; width: 35px; height: 2px; background: #dfae74; margin: 25px 0 18px; }
+.hint { font-size: 11px; line-height: 1.8; color: #9eb4bc; }
+.views { position: absolute; bottom: 68px; left: 42px; display: flex; flex-wrap: wrap; gap: 8px; }
+button { font: inherit; font-size: 12px; cursor: pointer; color: #e2e9e9; background: #0c2230e8; border: 1px solid #46606a; border-radius: 3px; padding: 12px 16px; min-height: 44px; }
+button:hover { background: #234251; border-color: #aec7cf; }
+button:focus-visible { outline: 2px solid #edc08b; outline-offset: 4px; }
+button:disabled { cursor: wait; opacity: .6; }
+.caption { position: absolute; bottom: 22px; left: 42px; font-size: 9px; letter-spacing: .16em; color: #9db4bd; pointer-events: none; }
+.caption span { margin: 0 10px; color: #dfae74; }
+.status { position: absolute; right: 58px; top: 12px; max-width: 320px; margin: 0; font-size: 12px; line-height: 1.5; padding: 12px 16px; border: 1px solid #46606a; border-radius: 3px; background: #0c2230ef; }
+.status[hidden] { display: none; }
+.mapboxgl-ctrl-top-right { top: 10px; right: 8px; }
+@media (max-width: 600px) {
+  .intro { top: 24px; left: 22px; max-width: 260px; }
+  .eyebrow { font-size: 8px; margin-bottom: 14px; }
+  h1 { font-size: 33px; }
+  .description { font-size: 12px; margin-top: 13px; }
+  .hint, .rule { display: none; }
+  .views { left: 20px; right: 20px; bottom: 72px; gap: 6px; }
+  button { padding: 10px; font-size: 11px; }
+  .caption { left: 22px; bottom: 40px; font-size: 8px; }
+  .status { top: auto; bottom: 130px; right: 20px; left: 20px; max-width: none; }
+}

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Australia's maritime geography across the Indo-Pacific on an interactive globe.">
+  <title>Australia’s maritime linkages</title>
+  <link rel="icon" href="data:,">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <script defer src="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.js"></script>
+  <script defer src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main>
+    <div id="map" role="region" aria-label="Interactive globe showing Australia and the Indo-Pacific"></div>
+    <header class="intro">
+      <p class="eyebrow">Asia’s military modernisation</p>
+      <h1>Australia’s<br>maritime linkages</h1>
+      <p class="description">An island continent.<br>A connected Indo-Pacific.</p>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="hint">Drag to explore · <span id="zoom-hint">Ctrl / Cmd + scroll to zoom</span><br>Right-drag to tilt and rotate</p>
+    </header>
+    <nav class="views" aria-label="Map views">
+      <button type="button" data-view="opening">Australia &amp; Asia</button>
+      <button type="button" data-view="pacific">Pacific overview</button>
+      <button type="button" data-view="australia">Australia close-up</button>
+    </nav>
+    <p id="status" class="status" role="status">Loading globe…</p>
+    <p class="caption">MARITIME GEOGRAPHY <span aria-hidden="true">/</span> AUSTRALIA</p>
+  </main>
+</body>
+</html>
