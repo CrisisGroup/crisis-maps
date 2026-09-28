@@ -57,7 +57,7 @@
     return;
   }
   map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), 'top-right');
-  map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-right');
+  map.addControl(new mapboxgl.AttributionControl({ compact: false }), 'bottom-right');
   map.on('error', (event) => {
     console.error(event.error);
     showStatus('Some map content could not load. Check your connection or Mapbox token, then reload.');

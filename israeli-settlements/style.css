@@ -545,25 +545,3 @@ a.reportlink {
   min-width: 32px; /* makes it not tiny */
   font-family: 'franklin-gothic-urw', sans-serif;
 }
-
-.hold-ctrl-hint {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  padding: 6px 8px;
-  background: rgba(0,0,0,0.8);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.85);
-  border-radius: 4px;
-  font-size: 12px;
-  line-height: 1.2;
-  pointer-events: none;
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity .15s ease, transform .15s ease;
-  z-index: 5; /* above map controls */
-}
-.hold-ctrl-hint.show {
-  opacity: 1;
-  transform: translateY(0);
-}

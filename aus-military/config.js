@@ -9,6 +9,6 @@ window.MAP_CONFIG = {
   views: {
     opening: { center: [135, -8], zoom: 2.8, bearing: -28, pitch: 30 },
     pacific: { center: [177, 30], zoom: 1.65, bearing: -12, pitch: 20 },
-    australia: { center: [134, -25], zoom: 3.25, bearing: -28, pitch: 42 }
+    australia: { center: [134, -25], zoom: 4.5, bearing: -28, pitch: 42 }
   }
 };

@@ -11,7 +11,7 @@
   <!-- Canonical & icons -->
   <link rel="canonical" href="https://www.crisisgroup.org/visual-explainers/israeli-settlements" />
   <link rel="icon" type="image/x-icon"
-    href="https://www.crisisgroup.org/visual-explainers/israeli-settlements/images/favicon.ico" />
+    href="images/favicon.ico" />
 
   <!-- Primary SEO -->
   <title>[مرئي] خريطة توسّع المستوطنات في الضفة الغربية المحتلة (تحديث 2025) | مجموعة الأزمات الدولية</title>
@@ -67,9 +67,9 @@
   <div class="slider-container">
     <h1>خريطة توسّع المستوطنات في الضفة الغربية المحتلة</h1>
     <label for="year-slider">
-      <h2>حسب السنة &nbsp;&nbsp;<span id="selected-year">1967</span></h2>
+      <h2>حسب السنة &nbsp;&nbsp;<span id="selected-year">1994</span></h2>
     </label>
-    <input id="year-slider" type="range" min="1967" max="2026" step="1" value="1967" />
+    <input id="year-slider" type="range" min="1967" max="2026" step="1" value="1994" />
   </div>
 
   <!-- Legend -->
@@ -267,48 +267,9 @@
       maxZoom: 14,
       minZoom: 7.5,
       maxBounds: [[33.40434, 30.92008], [37.29292, 32.89675]],
+      cooperativeGestures: true,
       attributionControl: false
     });
-
-    // Disable scroll-zoom by default to avoid scroll jacking
-    map.scrollZoom.disable();
-
-    // Optional: a small hint overlay
-    const hint = document.createElement('div');
-    hint.className = 'hold-ctrl-hint';
-    hint.textContent = 'اضغط مع الاستمرار على Ctrl (أو ⌘ على ماك) للتكبير';
-    document.getElementById('map').appendChild(hint);
-
-    let enableTimeout;
-
-    // Listen to wheel with passive:false so we can preventDefault when zooming
-    document.getElementById('map').addEventListener('wheel', (evt) => {
-      const ctrl = evt.ctrlKey || evt.metaKey; // Ctrl on Windows/Linux, ⌘ on macOS
-
-      if (ctrl) {
-        // Use the wheel to zoom the map; prevent page scroll while zooming
-        evt.preventDefault();
-        if (!map.scrollZoom.isEnabled()) map.scrollZoom.enable();
-
-        // Hide the hint while user is actively using the modifier
-        hint.classList.remove('show');
-
-        // Re-disable shortly after the gesture stops
-        clearTimeout(enableTimeout);
-        enableTimeout = setTimeout(() => {
-          map.scrollZoom.disable();
-        }, 300); // tweak feel (200–500ms works well)
-      } else {
-        // Not holding Ctrl/⌘ → let the page scroll; show hint briefly
-        map.scrollZoom.disable(); // make sure it stays off
-        // Show the hint if the cursor is over the map
-        hint.classList.add('show');
-        // Auto-hide after a moment so it doesn't linger
-        clearTimeout(enableTimeout);
-        enableTimeout = setTimeout(() => hint.classList.remove('show'), 1200);
-      }
-    }, { passive: false });
-
 
     const initialView = {};
 
@@ -378,7 +339,7 @@
 
     // Clicking goes to English version (new tab or same tab — pick one)
     btn.addEventListener('click', () => {
-      window.location.href = '/visual-explainers/israeli-settlements/'; // <-- change to your English URL
+      window.location.href = 'index.html' + window.location.search;
       // or:
       // window.open('index.html', '_blank');
     });
@@ -555,7 +516,7 @@
 
       map.addSource('settlements', { type: 'vector', url: 'mapbox://daltonwb.afyqoeoq' });
       const layerName = 'IL_PA_Settlements_-_10_2025_P-cmydfu';
-      const initialYear = 1967;
+      const initialYear = parseInt(document.getElementById('year-slider').value, 10);
 
       map.addLayer({
         id: 'settlements-layer-settlement',
@@ -576,9 +537,61 @@
       });
 
       // Slider → filters
+      // Gate the hosted style layers by the selected year.
+      const yearGatedLayers = [
+        { firstYear: 1994, ids: [
+          'west-bank-hdx-di8ndr',
+          'special-areas-westbank-aqxbmh',
+          'special-areas-westbank-aqxbmh copy'
+        ] },
+        { firstYear: 2003, ids: [
+          'separation-wall-planned',
+          'separation-wall-actual-2',
+          'separation-wall-actual'
+        ] }
+      ];
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const opacityProperties = {
+        fill: ['fill-opacity'],
+        line: ['line-opacity'],
+        symbol: ['text-opacity', 'icon-opacity']
+      };
+      const fadingLayers = yearGatedLayers.flatMap(({ firstYear, ids }) =>
+        ids.flatMap(id => {
+          const layer = map.getLayer(id);
+          if (!layer) return [];
+          return [{
+            id,
+            firstYear,
+            shown: null,
+            properties: (opacityProperties[layer.type] || []).map(property => ({
+              property,
+              opacity: map.getPaintProperty(id, property) ?? 1
+            }))
+          }];
+        })
+      );
+
+      function updateYearVisibility(year, immediate = false) {
+        const duration = immediate || reducedMotion.matches ? 0 : 450;
+        for (const layer of fadingLayers) {
+          const shown = year >= layer.firstYear;
+          if (shown === layer.shown) continue;
+          // Keep layout visible so opacity can ease in both directions.
+          map.setLayoutProperty(layer.id, 'visibility', 'visible');
+          for (const { property, opacity } of layer.properties) {
+            map.setPaintProperty(layer.id, property + '-transition', { duration, delay: 0 });
+            map.setPaintProperty(layer.id, property, shown ? opacity : 0);
+          }
+          layer.shown = shown;
+        }
+      }
+      updateYearVisibility(initialYear, true);
+
       const slider = document.getElementById('year-slider');
       slider.addEventListener('input', (e) => {
         const year = parseInt(e.target.value, 10);
+        updateYearVisibility(year);
         const yearFilter = ['<=', ['to-number', ['get', 'year']], year];
         map.setFilter('settlements-layer-settlement', ['all', yearFilter, ['==', ['get', 'type'], 'Settlement']]);
         map.setFilter('settlements-layer-outpost', ['all', yearFilter, ['==', ['get', 'type'], 'Outpost']]);
