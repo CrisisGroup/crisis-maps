@@ -1,22 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <title>Gender Map</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
     <link rel="stylesheet" href="https://use.typekit.net/nqh8ygh.css">
     <link rel="stylesheet" href="style.css">
 
+</head>
 <body>
-    <a href="https://www.crisisgroup.org" target="_blank"><img id="yearlogo" src="images/icg.png" /></a>
-    <div id="map"></div>
+    <a href="https://www.crisisgroup.org" target="_blank" rel="noopener noreferrer"><img id="yearlogo" src="images/icg.png" alt="International Crisis Group" /></a>
+    <div id="map" aria-label="Gender and conflict research map"></div>
+    <div id="load-status" role="status">Loading map…</div>
+    <noscript>This map requires JavaScript.</noscript>
     <script>// Function to close sidebar
         function closeSidebar() {
-            document.getElementById('sidebar').classList.remove('open');
+            const sidebar = document.getElementById('sidebar');
+            const restoreFocus = sidebar.contains(document.activeElement);
+            sidebar.classList.remove('open');
+            sidebar.inert = true;
+            if (restoreFocus) document.getElementById('timeline').focus();
         }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') closeSidebar();
+        });
 
         // Click outside to close sidebar
         document.addEventListener('click', (event) => {
@@ -25,31 +36,47 @@
                 closeSidebar();
             }
         });</script>
-    <div id="sidebar">
-        <button class="close-btn" onclick="closeSidebar()">✖</button>
+    <div id="sidebar" role="region" aria-labelledby="sidebar-title" inert>
+        <button class="close-btn" aria-label="Close country details" onclick="closeSidebar()">×</button>
+        <p class="eyebrow">Gender &amp; conflict / Research</p>
         <h3 id="sidebar-title">Country Info</h3>
-        <p id="sidebar-content">Select a country to view details.</p>
+        <div id="sidebar-content">Select a country to view details.</div>
     </div>
 
-    <div id="controls">
-        <div id="year-display">Loading...</div>
-        <input type="range" id="timeline" min="0" max="0" value="0" />
-    </div>
-
-    <div class="legend">
-        <div class="legend-header">LEGEND</div>
-        <p><i style="background-color: #ee7143; border: solid 0.5px #fff;"></i><strong>Crisis Group research on Gender
-                and
-                Conflict</strong></p>
-        <br />
-        <hr />
-        <p><strong>Source</strong>: Crisis Group</p>
-        <a href="https://www.crisisgroup.org/gender-and-conflict" target="_blank">Read more on our Gender & Conflict
-            work</a>
-    </div>
+    <section class="map-panel" aria-label="Map legend and timeline">
+        <div class="legend">
+            <p class="eyebrow">International Crisis Group</p>
+            <h1>Gender &amp; conflict</h1>
+            <p class="legend-key"><i aria-hidden="true"></i>Countries covered by our research</p>
+            <a href="https://www.crisisgroup.org/gender-and-conflict" target="_blank" rel="noopener noreferrer">Explore our work <span aria-hidden="true">↗</span></a>
+        </div>
+        <div id="controls">
+            <div class="timeline-heading">
+                <label for="timeline" class="eyebrow">Research through</label>
+                <output id="year-display" for="timeline">Loading…</output>
+            </div>
+            <input type="range" id="timeline" aria-label="Research through year" disabled min="0" max="0" value="0" />
+            <div class="timeline-labels" aria-hidden="true"><span id="first-year"></span><span id="last-year"></span></div>
+            <p class="timeline-help">Choose a year, then select a highlighted country.</p>
+        </div>
+    </section>
     <script>
 
         document.addEventListener('DOMContentLoaded', () => {
+
+            const status = document.getElementById('load-status');
+            function showError(message) {
+                status.hidden = false;
+                status.textContent = message;
+            }
+            if (location.protocol === 'file:') {
+                showError('Start python3 serve.py and open the localhost URL to view this map.');
+                return;
+            }
+            if (!window.mapboxgl || !mapboxgl.supported()) {
+                showError('The map could not start. Check your internet connection and WebGL browser support, then reload.');
+                return;
+            }
 
             mapboxgl.accessToken = 'pk.eyJ1IjoiZGFsdG9ud2IiLCJhIjoiOWdSSXFQSSJ9.HZyjh4g3TAAOAncwelv9Vw'; // Replace with your actual Mapbox token
 
@@ -59,8 +86,8 @@
 
             const sliderHint = document.createElement("div");
             sliderHint.id = "slider-hint";
-            sliderHint.innerText = "Slide to explore ⬇";
-            document.body.appendChild(sliderHint);
+            sliderHint.innerText = "Drag the timeline to explore";
+            document.getElementById("controls").appendChild(sliderHint);
 
             setTimeout(() => {
                 sliderHint.classList.add("hidden"); // Auto-hide after a few seconds
@@ -76,8 +103,9 @@
             }
 
             function updateSliderBackground() {
-                const progress = ((timeline.value - timeline.min) / (timeline.max - timeline.min)) * 100 + '%';
-                timeline.style.background = `linear-gradient(to right, #ee7143 0%, #ee7143 ${progress}, #1993c3 ${progress}, #1993c3 100%)`;
+                const span = timeline.max - timeline.min;
+                const progress = (span > 0 ? ((timeline.value - timeline.min) / span) * 100 : 100) + '%';
+                timeline.style.background = `linear-gradient(to right, #ee7143 0%, #ee7143 ${progress}, #d9dedf ${progress}, #d9dedf 100%)`;
             }
 
             function parseDateValues(rawDates) {
@@ -87,7 +115,7 @@
 
                 if (typeof rawDates === 'string') {
                     return rawDates
-                        .split(' ; ')
+                        .split(/\s*;\s*/)
                         .map((date) => parseInt(date.trim(), 10))
                         .filter(Number.isFinite);
                 }
@@ -109,6 +137,7 @@
                 center: [0, 20],
                 zoom: 1.5,
                 attributionControl: false,
+                cooperativeGestures: true,
                 maxZoom: 4,
                 maxBounds: [[-180, -85], [180, 85]]
             });
@@ -116,13 +145,23 @@
             map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
 
             map.addControl(new mapboxgl.AttributionControl({
-                customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank">Paul Franz</a> and Claire Boccon-Gibod'
+                customAttribution: 'International Crisis Group | Map by <a href="https://www.linkedin.com/in/pkfranz" target="_blank" rel="noopener noreferrer">Paul Franz</a> and Claire Boccon-Gibod'
             }));
 
-            fetch('data/countries_2026_v2.geojson')
-                .then((response) => response.json())
-                .then((data) => {
-                    map.on('load', () => {
+            const mapReady = new Promise((resolve) => map.on('load', resolve));
+            map.on('error', () => showError('Some map resources could not load. Check your connection and Mapbox token permissions, then reload.'));
+
+            fetch('data/countries_2026_clean.geojson')
+                .then((response) => {
+                    if (!response.ok) throw new Error(`Data request failed: ${response.status}`);
+                    return response.json();
+                })
+                .then(async (data) => {
+                    if (!Array.isArray(data.features) || !data.features.length) throw new Error('No country data');
+                    // Source IDs contain duplicates; assign unique runtime IDs without changing the dataset.
+                    data.features.forEach((feature, index) => { feature.id = index; });
+                    await mapReady;
+                    {
                         map.addSource('countries', {
                             type: 'geojson',
                             data: data,
@@ -184,12 +223,17 @@
                             : [];
 
                         if (years.length > 0) {
+                            timeline.disabled = false;
+                            status.hidden = true;
                             timeline.max = years.length - 1;
+                            document.getElementById('first-year').textContent = years[0];
+                            document.getElementById('last-year').textContent = years[years.length - 1];
 
                             // Default to the latest year available in the data.
                             const initialIndex = years.length - 1;
                             timeline.value = initialIndex;
                             yearDisplay.textContent = years[timeline.value];
+                            timeline.setAttribute('aria-valuetext', String(years[timeline.value]));
 
                             // Ensure the slider background is correct on load
                             updateSliderBackground();
@@ -206,12 +250,15 @@
                             timeline.addEventListener('input', (event) => {
                                 const year = years[parseInt(event.target.value, 10)];
                                 yearDisplay.textContent = year;
+                                timeline.setAttribute('aria-valuetext', String(year));
+                                closeSidebar();
                                 updateMap(year);
                             });
 
                             updateMap(years[timeline.value]); // Initialize map at the latest year
                         } else {
                             yearDisplay.textContent = 'No Data';
+                            showError('No publication years are available.');
                         }
 
                         // Click event for country selection
@@ -229,8 +276,8 @@
                             }
 
                             // Extract articles, links, and dates
-                            const titles = properties.title.split(' ; ');
-                            const links = properties.links.split(' ; ');
+                            const titles = properties.title.split(/\s*;\s*/);
+                            const links = properties.links.split(/\s*;\s*/);
                             const dates = parseDateValues(properties.dates);
 
                             // Combine into an array of objects and sort by date (ascending order)
@@ -240,35 +287,59 @@
                                 date: dates[index]
                             })).sort((a, b) => a.date - b.date); // Sort by earliest date first
 
-                            const articlesList = sortedArticles.map(article => `
-        <li>
-            <a href="${article.link}" target="_blank">${article.title}</a> (${article.date})
-        </li>
-    `).join('');
-
-                            // Update sidebar content with sorted articles
+                            const content = document.getElementById('sidebar-content');
+                            content.replaceChildren();
+                            const firstDate = document.createElement('p');
+                            firstDate.className = 'first-pub';
+                            firstDate.textContent = `Research since ${properties.first_date}`;
+                            const heading = document.createElement('p');
+                            heading.className = 'article-heading';
+                            heading.textContent = 'Publications · All years';
+                            const list = document.createElement('ul');
+                            sortedArticles.forEach((article) => {
+                                if (!article.title.trim()) return;
+                                const item = document.createElement('li');
+                                const link = document.createElement('a');
+                                link.textContent = article.title;
+                                try {
+                                    const url = new URL(article.link);
+                                    if (['http:', 'https:'].includes(url.protocol)) {
+                                        link.href = url.href;
+                                        link.target = '_blank';
+                                        link.rel = 'noopener noreferrer';
+                                    }
+                                } catch { /* Keep the title readable if a source URL is missing. */ }
+                                const year = document.createElement('span');
+                                year.className = 'article-year';
+                                year.textContent = article.date ?? 'Year unavailable';
+                                item.append(year, link);
+                                list.append(item);
+                            });
+                            content.append(firstDate, heading, list);
                             document.getElementById('sidebar-title').textContent = properties.name;
-                            document.getElementById('sidebar-content').innerHTML = `
-        <p><strong>First Date:</strong> ${properties.first_date}</p>
-        <p><strong>Articles:</strong></p>
-        <ul>${articlesList}</ul>
-    `;
 
                             // Open sidebar
-                            document.getElementById('sidebar').classList.add('open');
+                            sidebar.inert = false;
+                            sidebar.classList.add('open');
+                            sidebar.querySelector('.close-btn').focus();
                         });
 
                         // Change cursor on hover
-                        map.on('mouseenter', 'countries-fill', () => {
-                            map.getCanvas().style.cursor = 'pointer';
+                        map.on('mousemove', 'countries-fill', (event) => {
+                            const feature = event.features?.[0];
+                            const active = feature && map.getFeatureState({ source: 'countries', id: feature.id }).highlight;
+                            map.getCanvas().style.cursor = active ? 'pointer' : '';
                         });
 
                         map.on('mouseleave', 'countries-fill', () => {
                             map.getCanvas().style.cursor = '';
                         });
-                    });
+                    }
                 })
-                .catch((error) => console.error('Error loading GeoJSON:', error));
+                .catch((error) => {
+                    console.error('Error loading map:', error);
+                    showError('Country data could not load. Check your connection and reload the page.');
+                });
 
         });
     </script>
