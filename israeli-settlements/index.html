@@ -414,6 +414,12 @@
 
 
       // Data source + layers
+      // Apply the same zoom threshold to the label in the hosted style.
+      const hostedE1Label = map.getLayer('E1-label');
+      if (hostedE1Label) {
+        map.setLayerZoomRange('E1-label', 9.5, hostedE1Label.maxzoom ?? 24);
+      }
+
       map.addSource('e1-label-point', {
         type: 'geojson',
         data: {
@@ -430,7 +436,7 @@
         id: 'e1-label-local',
         type: 'symbol',
         source: 'e1-label-point',
-        minzoom: 8,
+        minzoom: 9.5,
         layout: {
           'text-field': 'E1',
           'text-offset': [0, 0],
