@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Pacific perspectives, with selected EEZ boundaries colored by PRC or ROC recognition in Pacific overview.">
+  <title>Pacific perspectives</title>
+  <link rel="icon" href="data:,">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.typekit.net/tiz6shb.css">
+  <link href="style.css" rel="stylesheet">
+  <script defer src="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.js"></script>
+  <script defer src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main>
+    <div id="map" role="region" aria-label="Interactive Pacific globe highlighting EEZ boundaries for 17 selected countries and territories"></div>
+    <header class="intro">
+      <p class="eyebrow">Regional perspectives</p>
+      <h1>Pacific<br>perspectives</h1>
+      <p class="description">One region.<br>Different points of view.</p>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="hint">Drag to explore &middot; <span id="zoom-hint">Ctrl / Cmd + scroll to zoom</span><br>Right-drag to tilt and rotate</p>
+      <nav id="views" class="views" aria-label="Map perspectives"></nav>
+      <p id="view-description" class="view-description" aria-live="polite"></p>
+      <div id="eez-legend" class="legend" hidden>
+        <p>EEZ boundaries by recognition</p>
+        <div class="legend-keys">
+          <span><span class="legend-line legend-prc" aria-hidden="true"></span>PRC</span>
+          <span><span class="legend-line legend-roc" aria-hidden="true"></span>ROC</span>
+        </div>
+        <p class="legend-detail">17 Pacific countries and territories<br>Select a boundary for details.</p>
+      </div>
+    </header>
+    <p id="status" class="status" role="status">Loading globe&hellip;</p>
+    <p class="caption">PACIFIC <span aria-hidden="true">/</span> REGIONAL GEOGRAPHY<span id="data-note" hidden></span></p>
+    <noscript><p class="status">Enable JavaScript to explore this map.</p></noscript>
+  </main>
+</body>
+</html>

@@ -1,0 +1,73 @@
+{
+  "version": 8,
+  "name": "Pacific perspectives",
+  "glyphs": "mapbox://fonts/daltonwb/{fontstack}/{range}.pbf",
+  "sources": {
+    "geography": {
+      "type": "vector",
+      "url": "mapbox://mapbox.mapbox-streets-v8,mapbox.mapbox-bathymetry-v2"
+    },
+    "satellite": {
+      "type": "raster",
+      "url": "mapbox://mapbox.satellite",
+      "tileSize": 256
+    }
+  },
+  "layers": [
+    {
+      "id": "land", "type": "background",
+      "paint": { "background-color": "#173f49" }
+    },
+    {
+      "id": "water", "type": "fill", "source": "geography", "source-layer": "water",
+      "paint": { "fill-color": "#24495b" }
+    },
+    {
+      "id": "water-depth", "type": "fill", "source": "geography", "source-layer": "depth",
+      "paint": {
+        "fill-antialias": false,
+        "fill-color": ["interpolate", ["linear"], ["get", "min_depth"],
+          0, "rgba(85, 175, 175, 0.35)", 200, "rgba(75, 159, 159, 0.35)", 7000, "rgba(67, 141, 141, 0.35)"]
+      }
+    },
+    {
+      "id": "satellite", "type": "raster", "source": "satellite",
+      "paint": { "raster-opacity": 0.24, "raster-saturation": -1 }
+    },
+    {
+      "id": "country-boundaries", "type": "line", "source": "geography", "source-layer": "admin",
+      "filter": ["all", ["==", ["get", "admin_level"], 0], ["==", ["get", "disputed"], "false"],
+        ["==", ["get", "maritime"], "false"], ["match", ["get", "worldview"], ["all", "US"], true, false]],
+      "paint": { "line-color": "#3a889c", "line-width": 0.65 }
+    },
+    {
+      "id": "disputed-boundaries", "type": "line", "source": "geography", "source-layer": "admin",
+      "filter": ["all", ["==", ["get", "admin_level"], 0], ["==", ["get", "disputed"], "true"],
+        ["==", ["get", "maritime"], "false"], ["match", ["get", "worldview"], ["all", "US"], true, false]],
+      "paint": { "line-color": "#3a889c", "line-width": 0.65, "line-dasharray": [3, 2] }
+    },
+    {
+      "id": "marine-labels", "type": "symbol", "source": "geography", "source-layer": "natural_label",
+      "filter": ["match", ["get", "class"], ["ocean", "sea"], true, false],
+      "layout": {
+        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+        "text-font": ["Gill Sans Medium Italic", "Arial Unicode MS Regular"],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 1, 12, 5, 16],
+        "text-letter-spacing": 0.15, "text-max-width": 8,
+        "symbol-placement": "line-center", "text-pitch-alignment": "viewport"
+      },
+      "paint": { "text-color": "#adc9d3", "text-halo-color": "#24495b", "text-halo-width": 1 }
+    },
+    {
+      "id": "country-labels", "type": "symbol", "source": "geography", "source-layer": "place_label",
+      "filter": ["==", ["get", "class"], "country"],
+      "layout": {
+        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+        "text-font": ["Gill Sans Bold", "Arial Unicode MS Regular"],
+        "text-transform": "uppercase", "text-letter-spacing": 0.12, "text-max-width": 8,
+        "text-size": ["interpolate", ["linear"], ["zoom"], 1, 12, 4, 18]
+      },
+      "paint": { "text-color": "#dae7e7", "text-halo-color": "#173f49", "text-halo-width": 1 }
+    }
+  ]
+}

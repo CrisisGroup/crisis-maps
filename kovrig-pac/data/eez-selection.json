@@ -1,0 +1,22 @@
+[
+  { "territory": "Cook Islands", "claimant": "Cook Islands", "recognition": "PRC" },
+  { "territory": "Federated States of Micronesia", "claimant": "Federated States of Micronesia", "recognition": "PRC" },
+  { "territory": "Fiji", "claimant": "Fiji", "recognition": "PRC" },
+  { "territory": "French Polynesia", "claimant": "France", "name_contains": "French Polynesia", "recognition": "PRC" },
+  { "territory": "Kiribati", "claimant": "Kiribati", "recognition": "PRC" },
+  { "territory": "Marshall Islands", "claimant": "Marshall Islands", "recognition": "ROC" },
+  { "territory": "Nauru", "claimant": "Nauru", "recognition": "PRC" },
+  { "territory": "New Caledonia", "claimant": "France", "name_contains": "New Caledonia", "recognition": "PRC" },
+  { "territory": "Niue", "claimant": "Niue", "recognition": "PRC" },
+  { "territory": "Palau", "claimant": "Palau", "recognition": "ROC" },
+  { "territory": "Papua New Guinea", "claimant": "Papua New Guinea", "recognition": "PRC" },
+  { "territory": "Samoa", "claimant": "Samoa", "recognition": "PRC" },
+  { "territory": "Solomon Islands", "claimant": "Solomon Islands", "recognition": "PRC" },
+  {
+    "territory": "Tokelau", "claimant": "New Zealand", "name_contains": "Tokelau", "recognition": "PRC",
+    "additional_names": ["United States-New Zealand EEZ and Continental Shelf Boundary (1980)"]
+  },
+  { "territory": "Tonga", "claimant": "Tonga", "recognition": "PRC" },
+  { "territory": "Tuvalu", "claimant": "Tuvalu", "recognition": "ROC" },
+  { "territory": "Vanuatu", "claimant": "Vanuatu", "recognition": "PRC" }
+]

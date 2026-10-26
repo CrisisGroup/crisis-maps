@@ -1,0 +1,68 @@
+/* Typography and map treatments shared with ../aus-military/style.css. */
+:root { font-family: gill-sans-nova, sans-serif; color: #fff; background: #07141e; --recognition-prc: #ee8075; --recognition-roc: #79c6f2; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; padding: 0; overflow: hidden; }
+main, #map { position: absolute; inset: 0; }
+main { overflow: hidden; height: 100svh; }
+#map { background: #07141e; }
+.intro { position: absolute; left: 5%; top: 3%; width: 30%; min-width: 330px; padding: 10px; pointer-events: none; text-shadow: 0 2px 12px #07141e; }
+.eyebrow { font-size: 14px; line-height: 1.5; letter-spacing: .09em; text-transform: uppercase; margin: 0 0 12px; }
+h1 { font-family: inherit; font-size: 48px; font-weight: 700; line-height: 1.08; margin: 0 0 5px; color: #fff; }
+.description { font-size: 18px; line-height: 1.5; margin: 18px 0; }
+.rule { display: block; width: 35px; height: 1px; background: #fff; margin: 20px 0 16px; }
+.hint { font-size: 14px; line-height: 1.5; }
+.views { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 25px; pointer-events: auto; }
+.views button { font-family: inherit; font-size: 16px; font-weight: 600; letter-spacing: .5px; cursor: pointer; color: #fff; background: #000; border: 1.5px solid #fff; border-radius: 4px; padding: 6px 12px; min-height: 44px; transition: background-color .2s ease, color .2s ease; }
+.views button:hover, .views button[aria-pressed="true"] { background: #fff; color: #000; text-shadow: none; }
+.views button:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.views button:disabled { cursor: wait; opacity: .6; }
+.view-description { font-size: 15px; line-height: 1.5; margin: 12px 0 0; }
+.legend { margin-top: 22px; font-size: 15px; line-height: 1.5; }
+.legend p { margin: 0; }
+.legend-keys { display: flex; gap: 24px; margin-top: 5px; }
+.legend-line { display: inline-block; width: 28px; border-top: 2px solid; margin-right: 8px; vertical-align: middle; }
+.legend-prc { border-color: var(--recognition-prc); }
+.legend-roc { border-color: var(--recognition-roc); border-top-style: dashed; }
+.legend .legend-detail { margin-top: 4px; font-size: 13px; color: #d5dfe1; }
+.caption { position: absolute; bottom: 22px; left: calc(5% + 10px); font-size: 12px; letter-spacing: .09em; pointer-events: none; text-shadow: 0 2px 8px #07141e; }
+.caption > span[aria-hidden] { margin: 0 10px; }
+.status { position: absolute; right: 58px; top: 12px; max-width: 320px; margin: 0; font-size: 16px; line-height: 1.5; padding: 10px 15px; color: #333; background: rgba(255, 255, 255, .9); box-shadow: 0 2px 4px rgba(0, 0, 0, .15); }
+[hidden] { display: none !important; }
+.mapboxgl-map, .mapboxgl-popup-content, .mapboxgl-scroll-zoom-blocker { font-family: gill-sans-nova, sans-serif; }
+.mapboxgl-popup-content { color: #30464c; padding: 16px 24px 16px 16px; }
+.mapboxgl-popup-content h2 { font-size: 19px; margin: 0 0 8px; }
+.mapboxgl-popup-content p { font-size: 16px; line-height: 1.5; margin: 0; white-space: pre-line; }
+.mapboxgl-popup-content .popup-category { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+.mapboxgl-popup-content .popup-boundary { margin-bottom: 8px; }
+.mapboxgl-popup-content .popup-recognition { margin-bottom: 8px; font-weight: 600; }
+.mapboxgl-popup-close-button { width: 30px; height: 30px; font-size: 22px; }
+.mapboxgl-ctrl-attrib-inner { font-family: gill-sans-nova, sans-serif; font-size: 14px; }
+.mapboxgl-ctrl-top-right { top: 10px; right: 8px; }
+@media (max-width: 1024px) {
+  .intro { left: 2.5%; top: 2%; width: 45%; min-width: 0; }
+  h1 { font-size: 36px; }
+}
+@media (max-width: 600px) {
+  .intro { left: 4.5%; top: 2%; width: calc(100% - 90px); padding: 6px; }
+  .eyebrow { font-size: 11px; margin-bottom: 8px; }
+  h1 { font-size: 30px; }
+  .description { font-size: 16px; margin: 10px 0; }
+  .hint, .rule { display: none; }
+  .views { gap: 7px; margin-top: 14px; }
+  .views button { font-size: 14px; padding: 6px 9px; }
+  .view-description { font-size: 14px; }
+  .legend { margin-top: 12px; font-size: 13px; }
+  .legend .legend-detail { font-size: 12px; }
+  .caption { left: 22px; bottom: 40px; font-size: 9px; }
+  .status { top: auto; bottom: 85px; right: 20px; left: 20px; max-width: none; }
+}
+@media (max-height: 600px) and (min-width: 601px) {
+  .intro { top: 1%; width: 35%; }
+  h1 { font-size: 32px; }
+  .description, .hint, .rule { display: none; }
+  .views { margin-top: 16px; }
+  .legend { margin-top: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .views button { transition: none; }
+}
